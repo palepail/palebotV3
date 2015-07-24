@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - palebot@localhost" uuid="50a90d64-4529-45a5-964c-3e9956ba08e9">
+      <secret-storage>master_key</secret-storage>
+      <user-name>palepail</user-name>
+      <schema-pattern>palebot.*</schema-pattern>
+      <default-schemas>palebot.*</default-schemas>
+    </data-source>
+  </component>
+</project>
