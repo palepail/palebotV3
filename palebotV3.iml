@@ -33,7 +33,7 @@
     <orderEntry type="library" name="JPA 2.0-2.0" level="project" />
     <orderEntry type="library" name="jax-rs-jersey-1.12" level="project" />
     <orderEntry type="library" name="org.hibernate:hibernate-entitymanager:4.3.10.Final" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-5.1.35-bin" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="mysql-connector-java-5.1.35-bin" level="project" />
     <orderEntry type="library" name="org.pircbotx:pircbotx:2.0.1" level="project" />
     <orderEntry type="library" name="jax-rs-jersey-1.12" level="project" />
   </component>
