@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import models.Quote;
 import org.hibernate.jpa.HibernatePersistenceProvider;

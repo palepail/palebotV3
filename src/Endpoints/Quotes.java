@@ -1,7 +1,7 @@
-package Endpoints;
+package endpoints;
 
 
-import DAO.QuoteDAO;
+import dao.QuoteDAO;
 import models.Quote;
 
 import javax.ws.rs.GET;
