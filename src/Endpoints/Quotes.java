@@ -4,9 +4,7 @@ package endpoints;
 import dao.QuoteDAO;
 import models.Quote;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import java.util.List;
 
 /**
@@ -19,8 +17,26 @@ public class Quotes {
     @GET
     @Produces("application/json")
     public List<Quote> getAll() {
-
         return dao.getAll();
+    }
 
+    @GET
+    @Path("/{id}")
+    @Produces("application/json")
+    public Quote getById(@PathParam("id") int id) {
+        return dao.getQuoteById(id);
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces("application/json")
+    public void deleteById(@PathParam("id") int id) {
+         dao.deleteQuote(id);
+    }
+
+    @POST
+    @Produces("application/json")
+    public void  addQuote(Quote quote) {
+        dao.updateQuote(quote);
     }
 }
