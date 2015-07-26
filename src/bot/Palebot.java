@@ -37,6 +37,7 @@ public class Palebot {
     private static void createPalebot(){
         Configuration configuration = new Configuration.Builder()
                 .setCapEnabled(true)
+                .addListener(new DefaultListener())
                 .setName(BOT_NAME)
                 .setServerHostname(BOT_SERVER)
                 .addAutoJoinChannel(BOT_DEFAULT_CHANNEL)
@@ -63,6 +64,8 @@ public class Palebot {
         serverManager.quitServer();
 
     }
-    
+
+
+
 
 }

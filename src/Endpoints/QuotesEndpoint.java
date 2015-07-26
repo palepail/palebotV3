@@ -11,7 +11,7 @@ import java.util.List;
  * Created by palepail on 7/23/2015.
  */
 @Path("/quotes")
-public class Quotes {
+public class QuotesEndpoint {
     QuoteDAO dao = new QuoteDAO();
 
     @GET

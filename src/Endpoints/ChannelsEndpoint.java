@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 @Path("/channels")
-public class Channels {
+public class ChannelsEndpoint {
     ChannelDAO dao = new ChannelDAO();
 
     @GET
