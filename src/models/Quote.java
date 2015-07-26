@@ -16,6 +16,7 @@ public class Quote {
     private Date date;
     private String quotee;
     private String author;
+    private Integer channelid;
 
     @Id
     @Column(name = "ID")
@@ -91,5 +92,15 @@ public class Quote {
         result = 31 * result + (quotee != null ? quotee.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "CHANNELID")
+    public Integer getChannelid() {
+        return channelid;
+    }
+
+    public void setChannelid(Integer channelid) {
+        this.channelid = channelid;
     }
 }
