@@ -30,14 +30,13 @@ public class ChannelsEndpoint {
 
     @DELETE
     @Path("/{id}")
-    @Produces("application/json")
     public void deleteById(@PathParam("id") int id) {
         dao.deleteChannel(id);
     }
 
     @POST
-    @Produces("application/json")
-    public void  addChannel(Channel channel) {
-        dao.updateChannel(channel);
+    @Path("/add/{channelName}")
+    public void  addChannel(@PathParam("channelName") String channelName) {
+        dao.updateChannel(channelName);
     }
 }

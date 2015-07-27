@@ -1,5 +1,6 @@
 package bot;
 
+import dao.ChannelDAO;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -22,6 +23,8 @@ public class Palebot {
     private static int BOT_PORT = 6667;
     private static String BOT_AUTH = "oauth:xfm9be1bwt7kvnr4nmbbtmq5imsohy";
     private static String BOT_DEFAULT_CHANNEL = "#palebot";
+
+    ChannelDAO channelDAO = new ChannelDAO();
 
     public static Palebot getInstance(){
         if (palebot==null)
@@ -67,6 +70,12 @@ public class Palebot {
     public void deactivateBot(){
         pircBot.stopBotReconnect();
         serverManager.quitServer();
+
+    }
+
+    public void joinServer(String channelName){
+        channelDAO.updateChannel(channelName);
+        serverManager.joinChannel(channelName);
 
     }
 

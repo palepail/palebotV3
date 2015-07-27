@@ -23,8 +23,8 @@ public class ChannelDAO {
         return em.find(Channel.class, id);
     }
 
-    public void updateChannel(Channel channel){
-        em.merge(channel);
+    public void updateChannel(String channelName){
+        em.merge(channelName);
     }
     public void deleteChannel(int id){
         em.remove(getChannelById(id));
