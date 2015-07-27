@@ -20,8 +20,8 @@ public class Palebot {
     private static String BOT_NAME = "palebot";
     private static String BOT_SERVER = "irc.twitch.tv";
     private static int BOT_PORT = 6667;
-    private static String BOT_AUTH = "oauth:pdoyak9fapd7t45fm47xas2ple7d4y7";
-    private static String BOT_DEFAULT_CHANNEL = "palebot";
+    private static String BOT_AUTH = "oauth:4ddb4uuqgehsatte852blk9s6jbm1n";
+    private static String BOT_DEFAULT_CHANNEL = "#palebot";
 
     public static Palebot getInstance(){
         if (palebot==null)
@@ -36,13 +36,13 @@ public class Palebot {
 
     private static void createPalebot(){
         Configuration configuration = new Configuration.Builder()
-                .setCapEnabled(true)
                 .addListener(new DefaultListener())
                 .setName(BOT_NAME)
                 .setServerHostname(BOT_SERVER)
                 .addAutoJoinChannel(BOT_DEFAULT_CHANNEL)
                 .buildForServer(BOT_SERVER, BOT_PORT, BOT_AUTH);
         pircBot = new PircBotX(configuration);
+
     }
 
     public void activateBot(){
@@ -50,7 +50,8 @@ public class Palebot {
             pircBot.startBot();
             serverManager= new OutputIRC(pircBot);
             //set Active Channel
-            outChan = new OutputChannel(pircBot, pircBot.getUserBot().getChannels().first());
+
+            outChan = new OutputChannel(pircBot, pircBot.getUserChannelDao().getChannel(BOT_DEFAULT_CHANNEL));
 
         } catch (IOException e) {
             e.printStackTrace();
