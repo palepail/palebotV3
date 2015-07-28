@@ -73,11 +73,6 @@ public class Palebot {
 
     }
 
-    public void joinServer(String channelName){
-        channelDAO.updateChannel(channelName);
-        serverManager.joinChannel(channelName);
-
-    }
 
 
 

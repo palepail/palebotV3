@@ -7,6 +7,7 @@ import bot.Palebot;
 import dao.ChannelDAO;
 import dao.QuoteDAO;
 import models.Channel;
+import models.Quote;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class PalebotEndpoint {
     public void palebotOff() {
         palebot.deactivateBot();
     }
-
+//============================ Channels ==============================
     @GET
     @Path("/channels")
     @Produces("application/json")
@@ -55,8 +56,37 @@ public class PalebotEndpoint {
 
     @POST
     @Path("/channels")
-    public void  addChannel(String channelName) {
-        ChannelDao.updateChannel(channelName);
+    public void  addChannel(Channel channel) {
+        ChannelDao.updateChannel(channel);
+    }
+
+    //====================== Quotes ===============================
+    @GET
+    @Path("/quotes")
+    @Produces("application/json")
+    public List<Quote> getAllQuotes() {
+        return QuoteDao.getAll();
+    }
+
+    @GET
+    @Path("/quotes/{id}")
+    @Produces("application/json")
+    public Quote getQuoteById(@PathParam("id") int id) {
+        return QuoteDao.getQuoteById(id);
+    }
+
+    @DELETE
+    @Path("/quotes/{id}")
+    @Produces("application/json")
+    public void deleteQuoteById(@PathParam("id") int id) {
+        QuoteDao.deleteQuote(id);
+    }
+
+    @POST
+    @Path("/quotes")
+    @Produces("application/json")
+    public void  addQuote(Quote quote) {
+        QuoteDao.updateQuote(quote);
     }
 
 }
