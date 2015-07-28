@@ -56,8 +56,8 @@ public class PalebotEndpoint {
 
     @POST
     @Path("/channels")
-    public void  addChannel(Channel channel) {
-        ChannelDao.updateChannel(channel);
+    public Channel  addChannel(Channel channel) {
+        return ChannelDao.insertChannel(channel);
     }
 
     //====================== Quotes ===============================

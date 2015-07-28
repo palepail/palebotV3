@@ -23,8 +23,21 @@ public class ChannelDAO {
         return em.find(Channel.class, id);
     }
 
-    public void updateChannel(Channel channel){
-        em.merge(channel);
+    public Channel insertChannel(Channel channel){
+
+        Query query = em.createQuery("SELECT e FROM models.Channel e WHERE e.name = :name");
+
+        if(query.setParameter("name", channel.getName() ).getResultList().size()==0) {
+
+            Channel newChannel = new Channel();
+            newChannel.setName(channel.getName());
+            em.getTransaction().begin();
+            newChannel = em.merge(newChannel);
+            em.getTransaction().commit();
+            return newChannel;
+        }
+        return null;
+
     }
     public void deleteChannel(int id){
         em.remove(getChannelById(id));
