@@ -22,17 +22,26 @@ public class PalebotEndpoint {
     QuoteDAO QuoteDao = new QuoteDAO();
 
     @GET
+    @Path("/isOn")
+    @Produces("application/json")
+    public boolean palebotIsOn() {
+       return palebot.isOn();
+    }
+
+    @POST
     @Path("/on")
     @Produces("application/json")
     public void palebotOn() {
         palebot.activateBot();
     }
-    @GET
+    @POST
     @Path("/off")
     @Produces("application/json")
-    public void palebotOff() {
-        palebot.deactivateBot();
+    public boolean palebotOff() {
+        return palebot.deactivateBot();
+
     }
+
 //============================ Channels ==============================
     @GET
     @Path("/channels")
