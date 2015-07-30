@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a777a4b3-5dc1-44aa-b3db-9d1a991029d8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/managers/ChannelManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/managers/PalebotManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bot/Palebot.java" afterPath="$PROJECT_DIR$/src/bot/Palebot.java" />
-      <change type="MODIFICATION" beforePath="G:\Development\Repositories\palebotV3\src\endpoints\PalebotEndpoint.java" afterPath="$PROJECT_DIR$/src/endpoints/PalebotEndpoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="a777a4b3-5dc1-44aa-b3db-9d1a991029d8" name="Default" comment="" />
     <ignored path="palebotV3.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -156,8 +150,8 @@
       <file leaf-file-name="Palebot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bot/Palebot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5904936">
-              <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.8080439">
+              <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1335,8 +1329,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bot/Palebot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5904936">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.8080439">
+          <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
