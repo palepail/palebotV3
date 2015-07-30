@@ -42,7 +42,12 @@ public class Palebot {
     public boolean isOn(String channel){
 
         PircBotX pircBot = botMap.get(channel);
-        return pircBot.getState() == State.CONNECTED;
+        if(pircBot != null) {
+            return pircBot.getState() == State.CONNECTED;
+        }
+        else{
+            return false;
+        }
     }
 
     private static void initializePalebot(){
@@ -99,7 +104,7 @@ public class Palebot {
                 .setLogin(BOT_NAME)
                 .setServerPassword(BOT_AUTH)
                 .setServerHostname(BOT_SERVER)
-                .addAutoJoinChannel(channel)
+                .addAutoJoinChannel('#'+channel)
                 .buildForServer(BOT_SERVER, BOT_PORT, BOT_AUTH);
 
         return new PircBotX(configuration);
