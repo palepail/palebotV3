@@ -1,6 +1,8 @@
 package bot;
 
 
+import managers.ChannelManager;
+import models.Channel;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -9,6 +11,7 @@ import org.pircbotx.output.OutputIRC;
 import org.pircbotx.PircBotX.State;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by palepail on 7/25/2015.
@@ -25,6 +28,7 @@ public class Palebot {
     private static String BOT_AUTH = "oauth:xfm9be1bwt7kvnr4nmbbtmq5imsohy";
     private static String BOT_DEFAULT_CHANNEL = "#palebot";
 
+    private static ChannelManager channelManager = new ChannelManager();
 
     public static Palebot getInstance(){
         if (palebot==null)
@@ -54,13 +58,24 @@ public class Palebot {
 
         pircBot = new PircBotX(configuration);
 
+
+
+
+
     }
 
     public void activateBot(){
         if(!pircBot.isConnected()) {
             try {
                 pircBot.startBot();
-                //set Active Channel
+                serverManager = new OutputIRC(pircBot);
+                List<Channel> channels = channelManager.getAll();
+                for(Channel channel : channels) {
+                    if(!channel.getName().equals(BOT_NAME)) {
+                       serverManager.joinChannel("#"+channel.getName());
+
+                    }
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
