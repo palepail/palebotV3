@@ -28,21 +28,21 @@ public class PalebotEndpoint {
     @GET
     @Path("/isOn")
     @Produces("application/json")
-    public boolean palebotIsOn() {
-       return palebotManager.isOn();
+    public boolean palebotIsOn(@QueryParam("channel") String channel) {
+       return palebotManager.isOn(channel);
     }
 
     @POST
     @Path("/on")
     @Produces("application/json")
-    public void palebotOn() {
-        palebotManager.activateBot();
+    public void palebotOn(@QueryParam("channel") String channel) {
+        palebotManager.activateBot(channel);
     }
     @POST
     @Path("/off")
     @Produces("application/json")
-    public boolean palebotOff() {
-        return palebotManager.deactivateBot();
+    public boolean palebotOff(@QueryParam("channel") String channel) {
+        return palebotManager.deactivateBot(channel);
 
     }
 

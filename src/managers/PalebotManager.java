@@ -9,15 +9,15 @@ import bot.Palebot;
 public class PalebotManager {
     Palebot palebot =  Palebot.getInstance();
 
-    public boolean isOn() {
-        return palebot.isOn();
+    public boolean isOn(String channel) {
+        return palebot.isOn(channel);
     }
 
-    public void activateBot() {
-        palebot.activateBot();
+    public void activateBot(String channel) {
+        palebot.activateBot(channel);
     }
 
-    public boolean deactivateBot() {
-        return palebot.deactivateBot();
+    public boolean deactivateBot(String channel) {
+        return palebot.deactivateBot(channel);
     }
 }
