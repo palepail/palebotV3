@@ -40,6 +40,9 @@ public class ChannelDAO {
 
     }
     public void deleteChannel(int id){
+        em.getTransaction().begin();
         em.remove(getChannelById(id));
+        em.getTransaction().commit();
+
     }
 }

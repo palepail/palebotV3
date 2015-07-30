@@ -50,7 +50,7 @@ public class PalebotEndpoint {
     @GET
     @Path("/channels")
     @Produces("application/json")
-    public List<Channel> getAll() {
+    public List<Channel> getAllChannels() {
         return channelManager.getAll();
     }
 
@@ -63,8 +63,12 @@ public class PalebotEndpoint {
 
     @DELETE
     @Path("/channels/{id}")
-    public void deleteById(@PathParam("id") int id) {
+    public List<Channel> deleteById(@PathParam("id") int id) {
+
+        Channel channelToDelete = channelManager.getChannelById(id);
         channelManager.deleteChannel(id);
+        palebotManager.deleteChannelByName(channelToDelete.getName());
+       return getAllChannels();
     }
 
     @POST

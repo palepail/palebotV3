@@ -104,13 +104,16 @@ public class Palebot {
                 .setLogin(BOT_NAME)
                 .setServerPassword(BOT_AUTH)
                 .setServerHostname(BOT_SERVER)
-                .addAutoJoinChannel('#'+channel)
+                .addAutoJoinChannel('#' + channel)
                 .buildForServer(BOT_SERVER, BOT_PORT, BOT_AUTH);
 
         return new PircBotX(configuration);
     }
 
-
-
+    public void deleteChannelByName(String channelName){
+        deactivateBot(channelName);
+        botMap.remove(channelName);
+    }
+    
 
 }

@@ -17,6 +17,11 @@ public class PalebotManager {
         palebot.activateBot(channel);
     }
 
+    public void deleteChannelByName(String channelName)
+    {
+        palebot.deleteChannelByName(channelName);
+    }
+
     public boolean deactivateBot(String channel) {
         return palebot.deactivateBot(channel);
     }

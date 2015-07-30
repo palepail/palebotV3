@@ -20,7 +20,10 @@ public class ChannelManager {
     }
 
     public void deleteChannel(int id) {
-        channelDAO.deleteChannel(id);
+
+        Channel channelToRemove = channelDAO.getChannelById(id);
+        channelDAO.deleteChannel(channelToRemove.getId());
+
     }
 
     public Channel insertChannel(Channel channel) {
