@@ -17,8 +17,10 @@ import java.util.List;
  */
 public class Palebot {
     private static Palebot palebot;
+    private static MessageManager messageManager;
     private static HashMap<String,PircBotX> botMap = new HashMap<>();
     private static OutputIRC serverManager;
+
 
 
     private static String BOT_NAME = "palebot";
@@ -34,6 +36,8 @@ public class Palebot {
         {
             palebot = new Palebot();
             palebot.initializePalebot();
+            messageManager = MessageManager.getInstance();
+            messageManager.startTimer();
 
         }
         return palebot;
