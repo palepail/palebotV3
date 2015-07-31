@@ -1,8 +1,10 @@
 package managers;
 
 import dao.ChannelDAO;
+import dto.ChannelDTO;
 import models.Channel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,9 +12,28 @@ import java.util.List;
  */
 public class ChannelManager {
     ChannelDAO channelDAO = new ChannelDAO();
+    PalebotManager palebot = new PalebotManager();
 
+    public List<ChannelDTO> getAllDTO() {
+
+       return createChannelDTOs(channelDAO.getAll());
+    }
     public List<Channel> getAll() {
-       return channelDAO.getAll();
+        return channelDAO.getAll();
+    }
+
+    private List<ChannelDTO> createChannelDTOs(List<Channel> channels) {
+
+        List<ChannelDTO> dtos = new ArrayList<>();
+        for(Channel channel : channels)
+        {
+            ChannelDTO dto= new ChannelDTO();
+            dto.setName(channel.getName());
+            dto.setId(channel.getId());
+            dto.setStatus(palebot.getStatus(channel.getName()));
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
     public Channel getChannelById(int id) {

@@ -39,14 +39,15 @@ public class Palebot {
         }
         return palebot;
     }
-    public boolean isOn(String channel){
 
+
+    public String getStatus(String channel){
         PircBotX pircBot = botMap.get(channel);
         if(pircBot != null) {
-            return pircBot.getState() == State.CONNECTED;
+            return pircBot.getState().toString();
         }
         else{
-            return false;
+            return "ERROR";
         }
     }
 
@@ -62,6 +63,8 @@ public class Palebot {
 
     }
 
+
+
     public void activateBot(String channel){
         PircBotX pircBot;
         if(!botMap.containsKey(channel))
@@ -70,7 +73,7 @@ public class Palebot {
             botMap.put(channel, pircBot);
 
         }
-        if(!isOn(channel)) {
+        if(getStatus(channel)!="CONNECTED") {
             try {
                 pircBot = botMap.get(channel);
                 pircBot.startBot();
@@ -85,7 +88,7 @@ public class Palebot {
 
     public boolean deactivateBot(String channel){
 
-        if(isOn(channel))
+        if(getStatus(channel)=="CONNECTED")
         {
             PircBotX pircBot = botMap.get(channel);
             serverManager = new OutputIRC(pircBot);
@@ -114,6 +117,6 @@ public class Palebot {
         deactivateBot(channelName);
         botMap.remove(channelName);
     }
-    
+
 
 }

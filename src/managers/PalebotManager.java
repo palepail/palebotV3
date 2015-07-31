@@ -7,10 +7,10 @@ import bot.Palebot;
  */
 
 public class PalebotManager {
-    Palebot palebot =  Palebot.getInstance();
+    static Palebot palebot =  Palebot.getInstance();
 
-    public boolean isOn(String channel) {
-        return palebot.isOn(channel);
+    public String getStatus(String channel) {
+        return palebot.getStatus(channel);
     }
 
     public void activateBot(String channel) {

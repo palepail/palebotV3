@@ -3,9 +3,7 @@ package endpoints;
 
 import javax.ws.rs.*;
 
-import bot.Palebot;
-import dao.ChannelDAO;
-import dao.QuoteDAO;
+import dto.ChannelDTO;
 import managers.ChannelManager;
 import managers.PalebotManager;
 import managers.QuoteManager;
@@ -25,11 +23,12 @@ public class PalebotEndpoint {
     QuoteManager quoteManager = new QuoteManager();
 
 
+
     @GET
-    @Path("/isOn")
+    @Path("/status")
     @Produces("application/json")
-    public boolean palebotIsOn(@QueryParam("channel") String channel) {
-       return palebotManager.isOn(channel);
+    public String palebotGetStatus(@QueryParam("channel") String channel) {
+        return palebotManager.getStatus(channel);
     }
 
     @POST
@@ -50,8 +49,8 @@ public class PalebotEndpoint {
     @GET
     @Path("/channels")
     @Produces("application/json")
-    public List<Channel> getAllChannels() {
-        return channelManager.getAll();
+    public List<ChannelDTO> getAllChannels() {
+        return channelManager.getAllDTO();
     }
 
     @GET
@@ -63,7 +62,7 @@ public class PalebotEndpoint {
 
     @DELETE
     @Path("/channels/{id}")
-    public List<Channel> deleteById(@PathParam("id") int id) {
+    public List<ChannelDTO> deleteById(@PathParam("id") int id) {
 
         Channel channelToDelete = channelManager.getChannelById(id);
         channelManager.deleteChannel(id);
