@@ -7,7 +7,6 @@ import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
 import org.pircbotx.output.OutputIRC;
-import org.pircbotx.PircBotX.State;
 
 import java.io.IOException;
 import java.util.HashMap;

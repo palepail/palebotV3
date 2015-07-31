@@ -37,6 +37,7 @@ public class PalebotEndpoint {
     public void palebotOn(@QueryParam("channel") String channel) {
         palebotManager.activateBot(channel);
     }
+
     @POST
     @Path("/off")
     @Produces("application/json")
@@ -44,6 +45,7 @@ public class PalebotEndpoint {
         return palebotManager.deactivateBot(channel);
 
     }
+
 
 //============================ Channels ==============================
     @GET

@@ -12,7 +12,8 @@ import java.util.List;
  */
 public class ChannelManager {
     ChannelDAO channelDAO = new ChannelDAO();
-    PalebotManager palebot = new PalebotManager();
+    PalebotManager palebot = PalebotManager.getInstance();
+
 
     public List<ChannelDTO> getAllDTO() {
 
