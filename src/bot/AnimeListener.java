@@ -34,7 +34,12 @@ public class AnimeListener extends ListenerAdapter {
             if(event.getMessage().indexOf("(")==-1 || event.getMessage().indexOf(")")==-1 || event.getMessage().substring(event.getMessage().indexOf(")")+1).isEmpty())
             {
                 messageManager.reduceMessages(1);
-                event.getBot().sendIRC().message(event.getChannel().getName(),"Correct waifu syntax is !waifu add (NAME) LINK");
+                event.respond(", correct waifu syntax is !waifu add (NAME) LINK");
+                return;
+            }
+            if(event.getMessage().substring(event.getMessage().indexOf(")")+2).length()>40)
+            {
+                event.respond(", that Link is too long to comprehend");
                 return;
             }
 

@@ -4,7 +4,6 @@ package bot;
 import managers.ChannelManager;
 import managers.ListenerManager;
 import models.Channel;
-import models.Listener;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -21,7 +20,7 @@ import java.util.List;
 public class Palebot {
     private static Palebot palebot;
     private static MessageManager messageManager;
-    private static ListenerManager listenrManager;
+    private static ListenerManager listenerManager;
     private static HashMap<String,PircBotX> botMap = new HashMap<>();
     private static OutputIRC serverManager;
 
@@ -41,7 +40,7 @@ public class Palebot {
             palebot = new Palebot();
             palebot.initializePalebot();
             messageManager = MessageManager.getInstance();
-            listenrManager = ListenerManager.getInstance();
+            listenerManager = ListenerManager.getInstance();
             messageManager.startTimer();
 
         }
@@ -130,7 +129,7 @@ public class Palebot {
 
     private void addListeners(PircBotX pircBotX, String channelName){
 
-        for(ListenerAdapter listener: listenrManager.getAllByChannelName(channelName))
+        for(ListenerAdapter listener: listenerManager.getAllByChannelName(channelName))
         {
             pircBotX.getConfiguration().getListenerManager().addListener(listener);
         }
