@@ -23,13 +23,9 @@ public class WaifuDAO {
         return em.find(Waifu.class, id);
     }
 
-    public Waifu getWaifuByName(String name){
-        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.name = :name");
-        if(query.getResultList().size()>0) {
-            return (Waifu) query.getResultList().get(0);
-        }else{
-            return null;
-        }
+    public List<Waifu> getWaifuByName(String name){
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE UPPER(e.name) like UPPER(:name)");
+        return query.setParameter("name", "%"+name.trim()+"%").getResultList();
     }
 
     public Waifu getRandom(){

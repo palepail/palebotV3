@@ -21,6 +21,10 @@ public class WaifuManager {
         return waifuDAO.getAll();
     }
 
+    public List<Waifu> getWaifuByName(String name){
+        return waifuDAO.getWaifuByName(name);
+    }
+
     public Waifu getRandom(){
         return waifuDAO.getRandom();
     }

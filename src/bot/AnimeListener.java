@@ -6,6 +6,8 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 import org.pircbotx.hooks.events.OpEvent;
 
+import java.util.List;
+
 /**
  * Created by palepail on 7/31/2015.
  */
@@ -23,7 +25,25 @@ public class AnimeListener extends ListenerAdapter {
                 messageManager.reduceMessages(1);
                 Waifu waifu = waifuManager.getRandom();
                 event.getBot().sendIRC().message(event.getChannel().getName(), event.getUser().getNick() + "'s waifu is " +waifu.getLink());
+                return;
             }
+        }
+
+        if(event.getMessage().startsWith("!waifu search ")){
+            String name = event.getMessage().substring(14);
+            List<Waifu> waifu = waifuManager.getWaifuByName(name);
+            String message = "";
+            if(waifu.size()==0){
+                event.getBot().sendIRC().message(event.getChannel().getName(),"http://i.imgur.com/c5IHJC9.png");
+                return;
+            }else{
+                for(Waifu currentWaifu: waifu){
+
+                 message+= currentWaifu.getLink()+" ";
+                }
+                event.getBot().sendIRC().message(event.getChannel().getName(),message);
+            }
+
         }
 
 
@@ -53,6 +73,7 @@ public class AnimeListener extends ListenerAdapter {
                 waifuManager.addWaifu(waifu);
                 messageManager.reduceMessages(1);
                 event.getBot().sendIRC().message(event.getChannel().getName(),"waifu added");
+                return;
             }
         }
 
