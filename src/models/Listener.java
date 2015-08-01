@@ -1,9 +1,6 @@
 package models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by palepail on 7/31/2015.
@@ -16,6 +13,7 @@ public class Listener {
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

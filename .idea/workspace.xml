@@ -2,24 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a777a4b3-5dc1-44aa-b3db-9d1a991029d8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/bot/AnimeListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/models/Listener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/managers/ListenerManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/models/Waifu.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/dto/WaifuDTO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/managers/WaifuManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Channel.java" afterPath="$PROJECT_DIR$/src/models/Channel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dto/ChannelDTO.java" afterPath="$PROJECT_DIR$/src/dto/ChannelDTO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/managers/ChannelManager.java" afterPath="$PROJECT_DIR$/src/managers/ChannelManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bot/DefaultListener.java" afterPath="$PROJECT_DIR$/src/bot/DefaultListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bot/AnimeListener.java" afterPath="$PROJECT_DIR$/src/bot/AnimeListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Listener.java" afterPath="$PROJECT_DIR$/src/models/Listener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bot/MessageManager.java" afterPath="$PROJECT_DIR$/src/bot/MessageManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bot/Palebot.java" afterPath="$PROJECT_DIR$/src/bot/Palebot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/managers/PalebotManager.java" afterPath="$PROJECT_DIR$/src/managers/PalebotManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/managers/QuoteManager.java" afterPath="$PROJECT_DIR$/src/managers/QuoteManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Waifu.java" afterPath="$PROJECT_DIR$/src/models/Waifu.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/src/META-INF/persistence.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="palebotV3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,28 +50,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ListenerManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/managers/ListenerManager.java">
+      <file leaf-file-name="ChannelDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dao/ChannelDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.703704">
-              <caret line="17" column="46" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+            <state vertical-scroll-proportion="-6.296296">
+              <caret line="39" column="56" selection-start-line="39" selection-start-column="6" selection-end-line="39" selection-end-column="56" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#547#548#0" expanded="true" />
-                <element signature="e#585#586#0" expanded="true" />
-                <element signature="e#652#653#0" expanded="true" />
-                <element signature="e#713#714#0" expanded="true" />
+                <element signature="e#477#478#0" expanded="true" />
+                <element signature="e#526#527#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="persistence.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/META-INF/persistence.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.037037">
-              <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -91,7 +66,7 @@
       <file leaf-file-name="WaifuDTO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dto/WaifuDTO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.962963">
+            <state vertical-scroll-proportion="-4.5555553">
               <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
               <folding>
                 <element signature="e#161#162#0" expanded="true" />
@@ -100,38 +75,49 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AnimeListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
+      <file leaf-file-name="WaifuDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dao/WaifuDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.5185184">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="46" />
+            <state vertical-scroll-proportion="-3.8888888">
+              <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1438415532258" expanded="true" signature="871:914" placeholder="SELECT * FRO..Table..." />
+                <marker date="1438415532258" expanded="true" signature="871:922" placeholder="SELECT * FRO..Waifu..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ListenerDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dao/ListenerDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.7777777">
+              <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChannelManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/managers/ChannelManager.java">
+      <file leaf-file-name="ChannelDTO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dto/ChannelDTO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.111111">
-              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state vertical-scroll-proportion="-3.148148">
+              <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#286#287#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WaifuDAO.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/dao/WaifuDAO.java">
+      <file leaf-file-name="persistence.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/META-INF/persistence.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27293065">
-              <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1438408997208" expanded="true" signature="871:914" placeholder="SELECT * FRO..Table..." />
-                <marker date="1438408997208" expanded="true" signature="871:922" placeholder="SELECT * FRO..Waifu..." />
-              </folding>
+            <state vertical-scroll-proportion="-5.4074073">
+              <caret line="15" column="70" selection-start-line="15" selection-start-column="70" selection-end-line="15" selection-end-column="70" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -139,8 +125,8 @@
       <file leaf-file-name="Palebot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bot/Palebot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.666667">
-              <caret line="139" column="1" selection-start-line="139" selection-start-column="1" selection-end-line="139" selection-end-column="1" />
+            <state vertical-scroll-proportion="-22.592592">
+              <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -148,11 +134,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DefaultListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/bot/DefaultListener.java">
+      <file leaf-file-name="AnimeListener.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6296296">
-              <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.3873874">
+              <caret line="21" column="66" selection-start-line="21" selection-start-column="66" selection-end-line="21" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -161,12 +147,25 @@
       <file leaf-file-name="MessageManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bot/MessageManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6296296">
-              <caret line="19" column="7" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="30" />
+            <state vertical-scroll-proportion="-22.148148">
+              <caret line="60" column="33" selection-start-line="60" selection-start-column="33" selection-end-line="60" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#424#425#0" expanded="true" />
+                <element signature="e#499#500#0" expanded="true" />
+                <element signature="e#536#537#0" expanded="true" />
+                <element signature="e#1311#1312#0" expanded="true" />
+                <element signature="e#1347#1348#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuoteDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dao/QuoteDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.4074073">
+              <caret line="15" column="34" selection-start-line="14" selection-start-column="2" selection-end-line="15" selection-end-column="34" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -210,24 +209,25 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/cors/CorsFilter.java" />
         <option value="$PROJECT_DIR$/src/models/Quote.java" />
-        <option value="$PROJECT_DIR$/src/bot/MessageManager.java" />
         <option value="$PROJECT_DIR$/src/dto/WaifuDTO.java" />
         <option value="$PROJECT_DIR$/src/managers/WaifuManager.java" />
-        <option value="$PROJECT_DIR$/src/bot/AnimeListener.java" />
         <option value="$PROJECT_DIR$/src/bot/DefaultListener.java" />
         <option value="$PROJECT_DIR$/src/models/Channel.java" />
-        <option value="$PROJECT_DIR$/src/models/Listener.java" />
         <option value="$PROJECT_DIR$/src/dao/ChannelDAO.java" />
-        <option value="$PROJECT_DIR$/src/bot/Palebot.java" />
         <option value="$PROJECT_DIR$/src/managers/QuoteManager.java" />
         <option value="$PROJECT_DIR$/src/endpoints/PalebotEndpoint.java" />
-        <option value="$PROJECT_DIR$/src/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/src/dto/ChannelDTO.java" />
         <option value="$PROJECT_DIR$/src/managers/ChannelManager.java" />
         <option value="$PROJECT_DIR$/src/managers/ListenerManager.java" />
         <option value="$PROJECT_DIR$/src/dao/ListenerDAO.java" />
         <option value="$PROJECT_DIR$/src/managers/PalebotManager.java" />
+        <option value="$PROJECT_DIR$/src/models/Waifu.java" />
+        <option value="$PROJECT_DIR$/src/models/Listener.java" />
+        <option value="$PROJECT_DIR$/src/bot/Palebot.java" />
         <option value="$PROJECT_DIR$/src/dao/WaifuDAO.java" />
+        <option value="$PROJECT_DIR$/src/META-INF/persistence.xml" />
+        <option value="$PROJECT_DIR$/src/bot/MessageManager.java" />
+        <option value="$PROJECT_DIR$/src/bot/AnimeListener.java" />
       </list>
     </option>
   </component>
@@ -249,8 +249,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-34" />
-    <option name="y" value="25" />
+    <option name="x" value="-13" />
+    <option name="y" value="45" />
     <option name="width" value="1696" />
     <option name="height" value="1005" />
   </component>
@@ -800,7 +800,7 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
-    <frame x="-34" y="25" width="1696" height="1005" extended-state="0" />
+    <frame x="-13" y="45" width="1696" height="1005" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -811,10 +811,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294621" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4256293" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1900978" sideWeight="0.30478087" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1750572" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1900978" sideWeight="0.30097088" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1900978" sideWeight="0.6952191" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1900978" sideWeight="0.69902915" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1900978" sideWeight="0.5124792" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1405868" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -843,7 +843,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="22" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/dao/WaifuDAO.java</url>
+          <line>49</line>
+          <properties />
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="23" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JBossConfiguration">
@@ -1080,14 +1088,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/QuoteDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5555553">
-          <caret line="15" column="34" selection-start-line="14" selection-start-column="2" selection-end-line="15" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/pircbotx-2.0.1.jar!/org/pircbotx/hooks/ListenerAdapter.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="25.5">
@@ -1106,22 +1106,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/Quote.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6296296">
-          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/managers/WaifuManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.222222">
           <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#535#536#0" expanded="true" />
-            <element signature="e#582#583#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#450#451#0" expanded="false" />
+            <element signature="e#493#494#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1149,75 +1141,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dto/ChannelDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5555556">
-          <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#286#287#0" expanded="true" />
-            <element signature="e#344#345#0" expanded="true" />
-            <element signature="e#386#387#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/ListenerDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.296296">
-          <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/managers/PalebotManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.2592592">
           <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/ChannelDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6296296">
-          <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
-          <folding>
-            <element signature="e#526#527#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/Waifu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.037037">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/Listener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.9259257">
-          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/Channel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6296296">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/META-INF/persistence.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.037037">
-          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -1227,30 +1154,12 @@
         <state vertical-scroll-proportion="-10.703704">
           <caret line="17" column="46" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#547#548#0" expanded="true" />
-            <element signature="e#585#586#0" expanded="true" />
-            <element signature="e#652#653#0" expanded="true" />
-            <element signature="e#713#714#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#547#548#0" expanded="false" />
+            <element signature="e#585#586#0" expanded="false" />
+            <element signature="e#652#653#0" expanded="false" />
+            <element signature="e#713#714#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dto/WaifuDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.962963">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-          <folding>
-            <element signature="e#161#162#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5185184">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1259,27 +1168,6 @@
         <state vertical-scroll-proportion="-0.6296296">
           <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bot/MessageManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6296296">
-          <caret line="19" column="7" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#424#425#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bot/Palebot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.666667">
-          <caret line="139" column="1" selection-start-line="139" selection-start-column="1" selection-end-line="139" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1301,15 +1189,140 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/WaifuDAO.java">
+    <entry file="file://$PROJECT_DIR$/src/models/Waifu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27293065">
-          <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
+        <state vertical-scroll-proportion="-5.037037">
+          <caret line="15" column="53" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
+          <folding>
+            <element signature="e#301#302#0" expanded="true" />
+            <element signature="e#326#327#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/Quote.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5185184">
+          <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/Listener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.148148">
+          <caret line="15" column="53" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/Channel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5185184">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1438408997208" expanded="true" signature="871:914" placeholder="SELECT * FRO..Table..." />
-            <marker date="1438408997208" expanded="true" signature="871:922" placeholder="SELECT * FRO..Waifu..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dao/ChannelDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.296296">
+          <caret line="39" column="56" selection-start-line="39" selection-start-column="6" selection-end-line="39" selection-end-column="56" />
+          <folding>
+            <element signature="e#477#478#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dto/WaifuDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.5555553">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <folding>
+            <element signature="e#161#162#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dto/ChannelDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.148148">
+          <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#286#287#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dao/QuoteDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.4074073">
+          <caret line="15" column="34" selection-start-line="14" selection-start-column="2" selection-end-line="15" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dao/WaifuDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.8888888">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1438415532258" expanded="true" signature="871:914" placeholder="SELECT * FRO..Table..." />
+            <marker date="1438415532258" expanded="true" signature="871:922" placeholder="SELECT * FRO..Waifu..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dao/ListenerDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.7777777">
+          <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/META-INF/persistence.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.4074073">
+          <caret line="15" column="70" selection-start-line="15" selection-start-column="70" selection-end-line="15" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bot/Palebot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.592592">
+          <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bot/MessageManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.148148">
+          <caret line="60" column="33" selection-start-line="60" selection-start-column="33" selection-end-line="60" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+            <element signature="e#536#537#0" expanded="true" />
+            <element signature="e#1311#1312#0" expanded="true" />
+            <element signature="e#1347#1348#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3873874">
+          <caret line="21" column="66" selection-start-line="21" selection-start-column="66" selection-end-line="21" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>

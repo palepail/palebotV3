@@ -100,6 +100,7 @@ public class Palebot {
         if(getStatus(channel)=="CONNECTED")
         {
             PircBotX pircBot = botMap.get(channel);
+            pircBot.getConfiguration().getListenerManager().shutdown(pircBot);
             serverManager = new OutputIRC(pircBot);
             serverManager.quitServer();
             return false;

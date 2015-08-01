@@ -47,10 +47,6 @@ public class WaifuDAO {
 
     public Waifu addWaifu(Waifu waifu){
 
-        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.name = :name");
-
-        if(query.setParameter("name", waifu.getName() ).getResultList().size()==0) {
-
             Waifu newWaifu = new Waifu();
             newWaifu.setName(waifu.getName());
             newWaifu.setLink(waifu.getLink());
@@ -58,8 +54,6 @@ public class WaifuDAO {
             newWaifu = em.merge(newWaifu);
             em.getTransaction().commit();
             return newWaifu;
-        }
-        return null;
 
     }
     public void deleteWaifu(int id){
