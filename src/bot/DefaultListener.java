@@ -10,23 +10,30 @@ import java.util.Random;
  */
 public class DefaultListener extends ListenerAdapter{
     MessageManager messageManager = MessageManager.getInstance();
+    public static final String NAME = "DEFAULT";
+
     @Override
     public void onMessage(MessageEvent event) {
 
         if(event.getMessage().startsWith("!palebot")) {
             if(!messageManager.overLimit()) {
-                event.getBot().sendIRC().message(event.getChannel().getName(), "I'm palebot");
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(event.getChannel().getName(), "Hi! I'm palebot.");
             }
         }
 
         if(event.getMessage().startsWith("!suicide")) {
             if(!messageManager.overLimit()) {
+                messageManager.reduceMessages(1);
+                messageManager.delayMessage(1500);
                 event.getBot().sendIRC().message(event.getChannel().getName(), "/timeout " + event.getUser().getNick() + " 1");
             }
         }
 
         if(event.getMessage().startsWith("!dice")) {
+
             if(!messageManager.overLimit()) {
+                messageManager.reduceMessages(1);
                 Random rand = new Random();
                 int number = rand.nextInt(5);
                 number+=1;

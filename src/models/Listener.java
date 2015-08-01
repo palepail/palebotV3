@@ -1,22 +1,21 @@
 package models;
 
-import org.pircbotx.hooks.ListenerAdapter;
-
-import javax.persistence.*;
-
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
- * Created by palepail on 7/25/2015.
+ * Created by palepail on 7/31/2015.
  */
 @Entity
-public class Channel {
+public class Listener {
     private int id;
     private String name;
-
+    private int channelId;
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -35,17 +34,15 @@ public class Channel {
         this.name = name;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Channel channel = (Channel) o;
+        Listener listener = (Listener) o;
 
-        if (id != channel.id) return false;
-        if (name != null ? !name.equals(channel.name) : channel.name != null) return false;
+        if (id != listener.id) return false;
+        if (name != null ? !name.equals(listener.name) : listener.name != null) return false;
 
         return true;
     }
@@ -55,5 +52,15 @@ public class Channel {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "CHANNEL_ID")
+    public int getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(int channelId) {
+        this.channelId = channelId;
     }
 }

@@ -22,12 +22,22 @@ public class ChannelDAO {
     public Channel getChannelById(int id){
         return em.find(Channel.class, id);
     }
-
-    public Channel insertChannel(Channel channel){
+    public Channel getChannelByName(String name){
 
         Query query = em.createQuery("SELECT e FROM models.Channel e WHERE e.name = :name");
+        if(query.setParameter("name", name ).getResultList().size()==0)
+        {
+            return null;
+        }
+        else{
+            return (Channel) query.setParameter("name", name ).getSingleResult();
+        }
+    }
 
-        if(query.setParameter("name", channel.getName() ).getResultList().size()==0) {
+    public Channel addChannel(Channel channel){
+
+
+        if( getChannelByName(channel.getName())!=null) {
 
             Channel newChannel = new Channel();
             newChannel.setName(channel.getName());

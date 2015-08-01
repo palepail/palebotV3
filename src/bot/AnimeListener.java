@@ -1,0 +1,57 @@
+package bot;
+
+import managers.WaifuManager;
+import models.Waifu;
+import org.pircbotx.hooks.ListenerAdapter;
+import org.pircbotx.hooks.events.MessageEvent;
+import org.pircbotx.hooks.events.OpEvent;
+
+/**
+ * Created by palepail on 7/31/2015.
+ */
+public class AnimeListener extends ListenerAdapter {
+
+    MessageManager messageManager = MessageManager.getInstance();
+    WaifuManager waifuManager = new WaifuManager();
+    public static final String NAME = "ANIME";
+    @Override
+    public void onMessage(MessageEvent event) {
+        if(event.getMessage().equals("!waifu")) {
+            if(!messageManager.overLimit()) {
+                messageManager.reduceMessages(1);
+                Waifu waifu = waifuManager.getRandom();
+                event.getBot().sendIRC().message(event.getChannel().getName(), event.getUser().getNick() + "'s waifu is " +waifu.getLink());
+            }
+        }
+
+        if(event.getMessage().startsWith("!waifu add ")) {
+
+            if(event.getMessage().indexOf("(")==-1 || event.getMessage().indexOf(")")==-1 || event.getMessage().substring(event.getMessage().indexOf(")")+1).isEmpty())
+            {
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(event.getChannel().getName(),"Correct waifu syntax is !waifu add (NAME) LINK");
+            }
+
+            if(!messageManager.overLimit()) {
+
+                String name = event.getMessage().substring(event.getMessage().indexOf("(") + 1, event.getMessage().indexOf(")"));
+
+                String link = event.getMessage().substring(event.getMessage().indexOf(")")+2);
+
+                Waifu waifu = new Waifu();
+                waifu.setLink(link);
+                waifu.setName(name);
+                waifuManager.addWaifu(waifu);
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(event.getChannel().getName(),"waifu added");
+            }
+        }
+
+        //OP commands
+        if(event.getUser().getChannelsOpIn().contains(event.getChannel()))
+        {
+
+        }
+    }
+
+}

@@ -19,6 +19,14 @@ public class MessageManager {
     public static MessageManager getInstance(){
         return messageManager;
     }
+    public static void delayMessage(int time){
+        try {
+            Thread.sleep(time);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
+    }
 
     public static void startTimer(){
         timer.schedule(new addMessage(), 0, // initial delay

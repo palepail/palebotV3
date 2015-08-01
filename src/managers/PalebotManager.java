@@ -1,10 +1,6 @@
 package managers;
 
 import bot.Palebot;
-import dto.ChannelDTO;
-import models.Channel;
-
-import java.util.List;
 
 /**
  * Created by palepail on 7/29/2015.

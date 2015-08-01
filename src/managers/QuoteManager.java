@@ -10,7 +10,11 @@ import java.util.List;
  */
 public class QuoteManager {
     QuoteDAO quoteDao = new QuoteDAO();
+    private static QuoteManager quoteManager = new QuoteManager();
 
+    public static QuoteManager getInstance(){
+        return quoteManager;
+    }
     public List<Quote> getAll() {
         return quoteDao.getAll();
     }

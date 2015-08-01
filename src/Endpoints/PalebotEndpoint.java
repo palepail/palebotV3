@@ -19,8 +19,8 @@ import java.util.List;
 public class PalebotEndpoint {
 
     ChannelManager channelManager = new ChannelManager();
-    PalebotManager palebotManager = new PalebotManager();
-    QuoteManager quoteManager = new QuoteManager();
+    PalebotManager palebotManager = PalebotManager.getInstance();
+    QuoteManager quoteManager = QuoteManager.getInstance();
 
 
 
@@ -75,7 +75,7 @@ public class PalebotEndpoint {
     @POST
     @Path("/channels")
     public Channel  addChannel(Channel channel) {
-        return channelManager.insertChannel(channel);
+        return channelManager.addChannel(channel);
     }
 
     //====================== Quotes ===============================

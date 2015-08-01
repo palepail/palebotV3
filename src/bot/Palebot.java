@@ -2,10 +2,13 @@ package bot;
 
 
 import managers.ChannelManager;
+import managers.ListenerManager;
 import models.Channel;
+import models.Listener;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
+import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.output.OutputIRC;
 
 import java.io.IOException;
@@ -18,6 +21,7 @@ import java.util.List;
 public class Palebot {
     private static Palebot palebot;
     private static MessageManager messageManager;
+    private static ListenerManager listenrManager;
     private static HashMap<String,PircBotX> botMap = new HashMap<>();
     private static OutputIRC serverManager;
 
@@ -37,6 +41,7 @@ public class Palebot {
             palebot = new Palebot();
             palebot.initializePalebot();
             messageManager = MessageManager.getInstance();
+            listenrManager = ListenerManager.getInstance();
             messageManager.startTimer();
 
         }
@@ -66,8 +71,6 @@ public class Palebot {
 
     }
 
-
-
     public void activateBot(String channel){
         PircBotX pircBot;
         if(!botMap.containsKey(channel))
@@ -79,6 +82,9 @@ public class Palebot {
         if(getStatus(channel)!="CONNECTED") {
             try {
                 pircBot = botMap.get(channel);
+
+                addListeners(pircBot,channel);
+
                 pircBot.startBot();
 
             } catch (IOException e) {
@@ -119,6 +125,15 @@ public class Palebot {
     public void deleteChannelByName(String channelName){
         deactivateBot(channelName);
         botMap.remove(channelName);
+    }
+
+    private void addListeners(PircBotX pircBotX, String channelName){
+
+        for(ListenerAdapter listener: listenrManager.getAllByChannelName(channelName))
+        {
+            pircBotX.getConfiguration().getListenerManager().addListener(listener);
+        }
+
     }
 
 

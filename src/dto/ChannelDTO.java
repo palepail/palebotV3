@@ -1,5 +1,9 @@
 package dto;
 
+import models.Listener;
+
+import java.util.List;
+
 /**
  * Created by palepail on 7/30/2015.
  */
@@ -7,6 +11,15 @@ public class ChannelDTO {
     int id;
     String name;
     String status;
+    List<Listener> listeners;
+
+    public List<Listener> getListeners() {
+        return listeners;
+    }
+
+    public void setListeners(List<Listener> listeners) {
+        this.listeners = listeners;
+    }
 
     public String getName() {
         return name;
