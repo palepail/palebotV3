@@ -37,7 +37,13 @@ public class WaifuDAO {
     public List<Waifu> getWaifuByLink(String link)
     {
         Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.link = :link");
-        return query.setParameter("link", "%" + link.trim() + "%").getResultList();
+        return query.setParameter("link", link.trim()).getResultList();
+    }
+
+    public List<Waifu> getWaifuByLinkFromChannel(String link, int channelId)
+    {
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.link = :link AND e.channelId = :channelId");
+        return query.setParameter("link", link.trim()).setParameter("channelId", channelId).getResultList();
     }
 
     public Waifu getRandom(){
@@ -71,8 +77,8 @@ public class WaifuDAO {
     public Waifu addWaifu(Waifu waifu){
 
             Waifu newWaifu = new Waifu();
-            newWaifu.setName(waifu.getName());
-            newWaifu.setLink(waifu.getLink());
+            newWaifu.setName(waifu.getName().trim());
+            newWaifu.setLink(waifu.getLink().trim());
             newWaifu.setChannelId(waifu.getChannelId());
             em.getTransaction().begin();
             newWaifu = em.merge(newWaifu);
@@ -89,6 +95,22 @@ public class WaifuDAO {
     public boolean deleteWaifuByLink(String link){
 
         List<Waifu> waifu = getWaifuByLink(link);
+        if(waifu.size()>0)
+        {
+            em.getTransaction().begin();
+            for(Waifu currentWaifu : waifu) {
+                em.remove(currentWaifu);
+            }
+            em.getTransaction().commit();
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteWaifuByLinkFromChannel(String link, int channelId){
+
+        List<Waifu> waifu = getWaifuByLinkFromChannel(link, channelId);
         if(waifu.size()>0)
         {
             em.getTransaction().begin();

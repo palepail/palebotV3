@@ -20,10 +20,9 @@ public class AnimeListener extends ListenerAdapter {
     private static ChannelManager channelManager = new ChannelManager();
     private static String ADD_WAIFU_ID = "ADD_WAIFU";
     private static String WAIFU_ID = "WAIFU";
-    private static String NOT_FOUND_IMG =  "http://i.imgur.com/c5IHJC9.png";
+    private static String NOT_FOUND_IMG = "http://i.imgur.com/c5IHJC9.png";
 
     public static final String NAME = "ANIME";
-
 
 
     @Override
@@ -34,52 +33,49 @@ public class AnimeListener extends ListenerAdapter {
 
         String message = event.getMessage();
 
-        if(event.getMessage().equals("!waifu")) {
-            if(messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 2000)) {
-               messageManager.delayMessage(3000);
+        if (event.getMessage().equals("!waifu")) {
+            if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 2000)) {
+                messageManager.delayMessage(3000);
             }
             messageManager.reduceMessages(1);
             Waifu waifu = waifuManager.getRandomFromChannel(channelEntity.getId());
-            event.getBot().sendIRC().message(channelName, userName + "'s waifu is " +waifu.getLink());
+            event.getBot().sendIRC().message(channelName, userName + "'s waifu is " + waifu.getLink());
         }
 
-        if(message.startsWith("!waifu search ")){
+        if (message.startsWith("!waifu search ")) {
             String name = message.substring(14);
             List<Waifu> waifu = waifuManager.getWaifuByNameFromChannel(name, channelEntity.getId());
             String result = "";
-            if(waifu.size()==0){
+            if (waifu.size() == 0) {
                 event.getBot().sendIRC().message(event.getChannel().getName(), NOT_FOUND_IMG);
                 return;
-            }else{
-                for(Waifu currentWaifu: waifu){
+            } else {
+                for (Waifu currentWaifu : waifu) {
 
-                    result+= currentWaifu.getLink()+" ";
+                    result += currentWaifu.getLink() + " ";
                 }
-                event.getBot().sendIRC().message(channelName,result);
+                event.getBot().sendIRC().message(channelName, result);
             }
 
         }
 
 
+        if (message.startsWith("!waifu add ")) {
 
-        if(message.startsWith("!waifu add ")) {
 
-
-            if(message.indexOf("(")==-1 || message.indexOf(")")==-1 || message.substring(message.indexOf(")")+1).isEmpty())
-            {
+            if (message.indexOf("(") == -1 || message.indexOf(")") == -1 || message.substring(message.indexOf(")") + 1).isEmpty()) {
                 messageManager.reduceMessages(1);
                 event.respond(", correct waifu syntax is !waifu add (NAME) LINK");
                 return;
             }
-            if(message.substring(message.indexOf(")") + 2).length() > 40)
-            {
+            if (message.substring(message.indexOf(")") + 2).length() > 40) {
                 event.respond(", that Link is too long to comprehend");
                 return;
             }
 
-            if(messageManager.overLimit() || !messageManager.lock(ADD_WAIFU_ID, 3000)) {
+            if (messageManager.overLimit() || !messageManager.lock(ADD_WAIFU_ID, 3000)) {
 
-              messageManager.delayMessage(5000);
+                messageManager.delayMessage(5000);
             }
             String name = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
             String link = message.substring(message.indexOf(")") + 2);
@@ -89,25 +85,29 @@ public class AnimeListener extends ListenerAdapter {
             waifu.setChannelId(channelEntity.getId());
             waifuManager.addWaifu(waifu);
             messageManager.reduceMessages(1);
-            event.getBot().sendIRC().message(channelName,"waifu added");
+            event.getBot().sendIRC().message(channelName, "waifu added");
         }
 
         //OP commands
-        if(event.getUser().getChannelsOpIn().contains(event.getChannel()) || event.getUser().getChannelsOwnerIn().contains(event.getChannel()))
-        {
-            if(event.getMessage().startsWith("!waifu slap ")) {
-                String link = message.substring(12);
-                if (waifuManager.deleteWaifuByLink(link)){
-                    messageManager.reduceMessages(1);
-                    event.getBot().sendIRC().message(channelName,"Your waifu has left you for someone else");
-                }else{
-                    messageManager.reduceMessages(1);
-                    event.getBot().sendIRC().message(channelName,"Your waifu was imaginary the entire time");
-                }
 
+        if (event.getMessage().startsWith("!waifu slap ")) {
+            TwitchUsers users = messageManager.getTwitchUsers(channelName.substring(1));
+
+            if (users.getChatters().getModerators().contains(userName)) {
+
+                String link = message.substring(12);
+                if (waifuManager.deleteWaifuByLinkFromChannel(link, channelEntity.getId())) {
+                    messageManager.reduceMessages(1);
+                    event.getBot().sendIRC().message(channelName, "Your waifu has left you for someone else");
+                } else {
+                    messageManager.reduceMessages(1);
+                    event.getBot().sendIRC().message(channelName, "Your waifu was imaginary the entire time");
+                }
             }
 
         }
+
+
     }
 
 }

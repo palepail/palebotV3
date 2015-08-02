@@ -43,6 +43,10 @@ public class WaifuManager {
     public boolean deleteWaifuByLink(String link){
         return waifuDAO.deleteWaifuByLink(link);
     }
+    public boolean deleteWaifuByLinkFromChannel(String link, int channelId){
+        return waifuDAO.deleteWaifuByLinkFromChannel(link, channelId);
+    }
+
 
     private List<WaifuDTO> createWaifuDTOs(List<Waifu> waifus) {
 

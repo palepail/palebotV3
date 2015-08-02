@@ -40,7 +40,7 @@ public class ChannelDAO {
         if( getChannelByName(channel.getName())!=null) {
 
             Channel newChannel = new Channel();
-            newChannel.setName(channel.getName());
+            newChannel.setName(channel.getName().trim());
             em.getTransaction().begin();
             newChannel = em.merge(newChannel);
             em.getTransaction().commit();
