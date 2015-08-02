@@ -44,7 +44,20 @@ public class AnimeListener extends ListenerAdapter {
 
         if (message.startsWith("!waifu search ")) {
             String name = message.substring(14);
+            if(name.length()<3){
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(channelName, "Are trying to start a harem, " + userName +"?");
+                return;
+            }
+
             List<Waifu> waifu = waifuManager.getWaifuByNameFromChannel(name, channelEntity.getId());
+
+            if(waifu.size()>5)
+            {
+                waifu = waifu.subList(0,5);
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(channelName, "Some wifu got stuck in the door");
+            }
             String result = "";
             if (waifu.size() == 0) {
                 event.getBot().sendIRC().message(event.getChannel().getName(), NOT_FOUND_IMG);
@@ -54,6 +67,7 @@ public class AnimeListener extends ListenerAdapter {
 
                     result += currentWaifu.getLink() + " ";
                 }
+                messageManager.reduceMessages(1);
                 event.getBot().sendIRC().message(channelName, result);
             }
 
@@ -77,6 +91,7 @@ public class AnimeListener extends ListenerAdapter {
 
                 messageManager.delayMessage(5000);
             }
+
             String name = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
             String link = message.substring(message.indexOf(")") + 2);
             Waifu waifu = new Waifu();
@@ -86,6 +101,7 @@ public class AnimeListener extends ListenerAdapter {
             waifuManager.addWaifu(waifu);
             messageManager.reduceMessages(1);
             event.getBot().sendIRC().message(channelName, "waifu added");
+            return;
         }
 
         //OP commands
@@ -104,9 +120,12 @@ public class AnimeListener extends ListenerAdapter {
                     event.getBot().sendIRC().message(channelName, "Your waifu was imaginary the entire time");
                 }
             }
+            else{
+                messageManager.reduceMessages(1);
+                event.respond(", how dare you try to slap a waifu");
+            }
 
         }
-
 
     }
 

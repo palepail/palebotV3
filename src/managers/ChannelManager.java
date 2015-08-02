@@ -1,6 +1,5 @@
 package managers;
 
-import com.sun.jersey.spi.inject.Inject;
 import dao.ChannelDAO;
 import dto.ChannelDTO;
 import models.Channel;

@@ -27,6 +27,10 @@ public class ListenerManager {
         return listenerDAO.getAllByChannel(channelId);
     }
 
+    public List<Listener> getAll(){
+        return listenerDAO.getAll();
+    }
+
     public List<ListenerAdapter> getAllByChannelID(int channelId){
 
         List<Listener> listenerEntities = listenerDAO.getAllByChannel(channelId);

@@ -19,4 +19,11 @@ public class ListenerDAO {
         return  query.setParameter("channelId", channelId).getResultList();
     }
 
+    public List<Listener> getAll(){
+
+        Query query = em.createQuery("FROM models.Listener");
+        return  query.getResultList();
+    }
+
+
 }

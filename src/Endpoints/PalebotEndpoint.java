@@ -5,9 +5,11 @@ import javax.ws.rs.*;
 
 import dto.ChannelDTO;
 import managers.ChannelManager;
+import managers.ListenerManager;
 import managers.PalebotManager;
 import managers.QuoteManager;
 import models.Channel;
+import models.Listener;
 import models.Quote;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class PalebotEndpoint {
     ChannelManager channelManager = new ChannelManager();
     PalebotManager palebotManager = PalebotManager.getInstance();
     QuoteManager quoteManager = QuoteManager.getInstance();
+    ListenerManager listenerManager = ListenerManager.getInstance();
 
 
 
@@ -106,5 +109,15 @@ public class PalebotEndpoint {
     public void  addQuote(Quote quote) {
         quoteManager.updateQuote(quote);
     }
+
+    //========================== Listeners ============================
+
+    @GET
+    @Path("/listeners")
+    @Produces("application/json")
+    public List<Listener> getAllListeners() {
+        return listenerManager.getAll();
+    }
+
 
 }

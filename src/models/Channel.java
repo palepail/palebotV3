@@ -1,6 +1,5 @@
 package models;
 
-import org.pircbotx.hooks.ListenerAdapter;
 
 import javax.persistence.*;
 
