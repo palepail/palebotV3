@@ -25,13 +25,25 @@ public class WaifuManager {
         return waifuDAO.getWaifuByName(name);
     }
 
+    public List<Waifu> getWaifuByNameFromChannel(String name, int channelId){
+        return waifuDAO.getWaifuByNameFromChannel(name, channelId);
+    }
+
     public Waifu getRandom(){
         return waifuDAO.getRandom();
+    }
+    public Waifu getRandomFromChannel(int channelId){
+        return waifuDAO.getRandomFromChannel(channelId);
     }
 
     public Waifu addWaifu(Waifu waifu) {
         return waifuDAO.addWaifu(waifu);
     }
+
+    public boolean deleteWaifuByLink(String link){
+        return waifuDAO.deleteWaifuByLink(link);
+    }
+
     private List<WaifuDTO> createWaifuDTOs(List<Waifu> waifus) {
 
         List<WaifuDTO> dtos = new ArrayList<>();
@@ -45,6 +57,7 @@ public class WaifuManager {
         }
         return dtos;
     }
+
 
 
 }

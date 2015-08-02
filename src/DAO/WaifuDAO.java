@@ -28,7 +28,20 @@ public class WaifuDAO {
         return query.setParameter("name", "%"+name.trim()+"%").getResultList();
     }
 
+
+    public List<Waifu> getWaifuByNameFromChannel(String name, int channelId){
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE UPPER(e.name) like UPPER(:name) AND e.channelId = :channelId ");
+        return query.setParameter("channelId", channelId).setParameter("name", "%" + name.trim() + "%").getResultList();
+    }
+
+    public List<Waifu> getWaifuByLink(String link)
+    {
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.link = :link");
+        return query.setParameter("link", "%" + link.trim() + "%").getResultList();
+    }
+
     public Waifu getRandom(){
+        //native query requires db names
         String queryString = "SELECT * FROM palebot.Waifu ORDER BY RAND() LIMIT 1";
 
         Query query = em.createNativeQuery(queryString, Waifu.class);
@@ -41,11 +54,26 @@ public class WaifuDAO {
         }
     }
 
+    public Waifu getRandomFromChannel(int channelId){
+        //native query requires db names
+        String queryString = "SELECT * FROM palebot.Waifu WHERE CHANNEL_ID = :channelId ORDER BY RAND() LIMIT 1";
+
+        Query query = em.createNativeQuery(queryString, Waifu.class);
+        List results = query.setParameter("channelId", channelId).getResultList();
+        if(results.size()==0)
+        {
+            return null;
+        }else{
+            return (Waifu) results.get(0);
+        }
+    }
+
     public Waifu addWaifu(Waifu waifu){
 
             Waifu newWaifu = new Waifu();
             newWaifu.setName(waifu.getName());
             newWaifu.setLink(waifu.getLink());
+            newWaifu.setChannelId(waifu.getChannelId());
             em.getTransaction().begin();
             newWaifu = em.merge(newWaifu);
             em.getTransaction().commit();
@@ -58,4 +86,21 @@ public class WaifuDAO {
         em.getTransaction().commit();
 
     }
+    public boolean deleteWaifuByLink(String link){
+
+        List<Waifu> waifu = getWaifuByLink(link);
+        if(waifu.size()>0)
+        {
+            em.getTransaction().begin();
+            for(Waifu currentWaifu : waifu) {
+                em.remove(currentWaifu);
+            }
+            em.getTransaction().commit();
+
+            return true;
+        }
+        return false;
+    }
+
+
 }

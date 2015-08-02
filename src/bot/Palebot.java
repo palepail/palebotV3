@@ -110,7 +110,7 @@ public class Palebot {
     private static PircBotX createBot(String channel){
 
         Configuration configuration = new Configuration.Builder()
-                .addListener(new DefaultListener())
+                .setCapEnabled(true)
                 .setName(BOT_NAME)
                 .setRealName(BOT_NAME)
                 .setLogin(BOT_NAME)

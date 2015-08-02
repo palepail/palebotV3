@@ -10,9 +10,10 @@ public class Waifu {
     private int id;
     private String name;
     private String link;
+    private int channelId;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -23,7 +24,7 @@ public class Waifu {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -33,7 +34,7 @@ public class Waifu {
     }
 
     @Basic
-    @Column(name = "link")
+    @Column(name = "LINK")
     public String getLink() {
         return link;
     }
@@ -62,5 +63,15 @@ public class Waifu {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (link != null ? link.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "CHANNEL_ID")
+    public int getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(int channelId) {
+        this.channelId = channelId;
     }
 }
