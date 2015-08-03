@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a777a4b3-5dc1-44aa-b3db-9d1a991029d8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bot/AnimeListener.java" afterPath="$PROJECT_DIR$/src/bot/AnimeListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bot/MessageManager.java" afterPath="$PROJECT_DIR$/src/bot/MessageManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Waifu.java" afterPath="$PROJECT_DIR$/src/models/Waifu.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/managers/WaifuManager.java" afterPath="$PROJECT_DIR$/src/managers/WaifuManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="palebotV3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -61,17 +56,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WaifuDAO.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WaifuDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dao/WaifuDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46732673">
-              <caret line="74" column="69" selection-start-line="74" selection-start-column="69" selection-end-line="74" selection-end-column="69" />
+            <state vertical-scroll-proportion="-7.671875">
+              <caret line="55" column="47" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
               <folding>
                 <element signature="e#465#466#0" expanded="true" />
                 <element signature="e#512#513#0" expanded="true" />
-                <marker date="1438611760537" expanded="true" signature="2458:2537" placeholder="Update paleb..." />
-                <marker date="1438611760537" expanded="true" signature="2719:2770" placeholder="SELECT * FRO..Waifu..." />
-                <marker date="1438611760537" expanded="true" signature="3154:3235" placeholder="SELECT * FRO..Waifu..." />
+                <marker date="1438613506639" expanded="true" signature="2353:2432" placeholder="Update paleb..." />
+                <marker date="1438613506639" expanded="true" signature="2614:2665" placeholder="SELECT * FRO..Waifu..." />
+                <marker date="1438613506639" expanded="true" signature="3049:3130" placeholder="SELECT * FRO..Waifu..." />
               </folding>
             </state>
           </provider>
@@ -122,11 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AnimeListener.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AnimeListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.481482">
-              <caret line="185" column="63" selection-start-line="185" selection-start-column="63" selection-end-line="185" selection-end-column="63" />
+            <state vertical-scroll-proportion="4.0155945">
+              <caret line="141" column="111" selection-start-line="141" selection-start-column="111" selection-end-line="141" selection-end-column="111" />
               <folding />
             </state>
           </provider>
@@ -135,25 +130,25 @@
       <file leaf-file-name="WaifuManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/managers/WaifuManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.185185">
-              <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+            <state vertical-scroll-proportion="-4.6666665">
+              <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
               <folding>
                 <element signature="e#380#381#0" expanded="true" />
                 <element signature="e#420#421#0" expanded="true" />
                 <element signature="e#474#475#0" expanded="true" />
                 <element signature="e#526#527#0" expanded="true" />
-                <element signature="e#723#724#0" expanded="true" />
-                <element signature="e#773#774#0" expanded="true" />
-                <element signature="e#817#818#0" expanded="true" />
-                <element signature="e#868#869#0" expanded="true" />
-                <element signature="e#913#914#0" expanded="true" />
-                <element signature="e#959#960#0" expanded="true" />
-                <element signature="e#991#992#0" expanded="true" />
-                <element signature="e#1034#1035#0" expanded="true" />
-                <element signature="e#1287#1288#0" expanded="true" />
-                <element signature="e#1337#1338#0" expanded="true" />
-                <element signature="e#1390#1391#0" expanded="true" />
-                <element signature="e#1445#1446#0" expanded="true" />
+                <element signature="e#729#730#0" expanded="true" />
+                <element signature="e#779#780#0" expanded="true" />
+                <element signature="e#829#830#0" expanded="true" />
+                <element signature="e#880#881#0" expanded="true" />
+                <element signature="e#925#926#0" expanded="true" />
+                <element signature="e#971#972#0" expanded="true" />
+                <element signature="e#1003#1004#0" expanded="true" />
+                <element signature="e#1046#1047#0" expanded="true" />
+                <element signature="e#1299#1300#0" expanded="true" />
+                <element signature="e#1349#1350#0" expanded="true" />
+                <element signature="e#1402#1403#0" expanded="true" />
+                <element signature="e#1457#1458#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -245,9 +240,9 @@
         <option value="$PROJECT_DIR$/src/bot/MessageManager.java" />
         <option value="$PROJECT_DIR$/src/models/Waifu.java" />
         <option value="$PROJECT_DIR$/src/META-INF/persistence.xml" />
-        <option value="$PROJECT_DIR$/src/bot/AnimeListener.java" />
         <option value="$PROJECT_DIR$/src/managers/WaifuManager.java" />
         <option value="$PROJECT_DIR$/src/dao/WaifuDAO.java" />
+        <option value="$PROJECT_DIR$/src/bot/AnimeListener.java" />
       </list>
     </option>
   </component>
@@ -829,14 +824,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/bot/AnimeListener.java</url>
-          <line>216</line>
-          <properties />
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="56" />
     </breakpoint-manager>
     <watches-manager>
@@ -1281,50 +1268,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.481482">
-          <caret line="185" column="63" selection-start-line="185" selection-start-column="63" selection-end-line="185" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/managers/WaifuManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.185185">
-          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+        <state vertical-scroll-proportion="-4.6666665">
+          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
           <folding>
             <element signature="e#380#381#0" expanded="true" />
             <element signature="e#420#421#0" expanded="true" />
             <element signature="e#474#475#0" expanded="true" />
             <element signature="e#526#527#0" expanded="true" />
-            <element signature="e#723#724#0" expanded="true" />
-            <element signature="e#773#774#0" expanded="true" />
-            <element signature="e#817#818#0" expanded="true" />
-            <element signature="e#868#869#0" expanded="true" />
-            <element signature="e#913#914#0" expanded="true" />
-            <element signature="e#959#960#0" expanded="true" />
-            <element signature="e#991#992#0" expanded="true" />
-            <element signature="e#1034#1035#0" expanded="true" />
-            <element signature="e#1287#1288#0" expanded="true" />
-            <element signature="e#1337#1338#0" expanded="true" />
-            <element signature="e#1390#1391#0" expanded="true" />
-            <element signature="e#1445#1446#0" expanded="true" />
+            <element signature="e#729#730#0" expanded="true" />
+            <element signature="e#779#780#0" expanded="true" />
+            <element signature="e#829#830#0" expanded="true" />
+            <element signature="e#880#881#0" expanded="true" />
+            <element signature="e#925#926#0" expanded="true" />
+            <element signature="e#971#972#0" expanded="true" />
+            <element signature="e#1003#1004#0" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
+            <element signature="e#1299#1300#0" expanded="true" />
+            <element signature="e#1349#1350#0" expanded="true" />
+            <element signature="e#1402#1403#0" expanded="true" />
+            <element signature="e#1457#1458#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dao/WaifuDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46732673">
-          <caret line="74" column="69" selection-start-line="74" selection-start-column="69" selection-end-line="74" selection-end-column="69" />
+        <state vertical-scroll-proportion="-7.671875">
+          <caret line="55" column="47" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
           <folding>
             <element signature="e#465#466#0" expanded="true" />
             <element signature="e#512#513#0" expanded="true" />
-            <marker date="1438611760537" expanded="true" signature="2458:2537" placeholder="Update paleb..." />
-            <marker date="1438611760537" expanded="true" signature="2719:2770" placeholder="SELECT * FRO..Waifu..." />
-            <marker date="1438611760537" expanded="true" signature="3154:3235" placeholder="SELECT * FRO..Waifu..." />
+            <marker date="1438613506639" expanded="true" signature="2353:2432" placeholder="Update paleb..." />
+            <marker date="1438613506639" expanded="true" signature="2614:2665" placeholder="SELECT * FRO..Waifu..." />
+            <marker date="1438613506639" expanded="true" signature="3049:3130" placeholder="SELECT * FRO..Waifu..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="4.0155945">
+          <caret line="141" column="111" selection-start-line="141" selection-start-column="111" selection-end-line="141" selection-end-column="111" />
+          <folding />
         </state>
       </provider>
     </entry>

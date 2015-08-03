@@ -46,26 +46,18 @@ public class WaifuDAO {
         return query.setParameter("link", link.trim()).setParameter("channelId", channelId).getResultList();
     }
 
-    public Waifu getBest(int channelId){
+    public List<Waifu> getBest(int channelId){
 
-        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE  e.channelId = :channelId ORDER BY e.points desc ");
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE  e.channelId = :channelId and e.points =(SELECT max(e.points) FROM e )");
         List<Waifu> waifu = query.setParameter("channelId", channelId).getResultList();
-        if (waifu.size()==0)
-        {
-            return null;
-        }
-        return waifu.get(0);
+        return waifu;
     }
 
-    public Waifu getWorst(int channelId){
+    public List<Waifu> getWorst(int channelId){
 
-        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE  e.channelId = :channelId ORDER BY e.points ASC");
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE  e.channelId = :channelId and e.points = (SELECT min(e.points) FROM e )");
         List<Waifu> waifu = query.setParameter("channelId", channelId).getResultList();
-        if (waifu.size()==0)
-        {
-            return null;
-        }
-        return waifu.get(0);
+        return waifu;
     }
 
     public void resetFight(int channelId){

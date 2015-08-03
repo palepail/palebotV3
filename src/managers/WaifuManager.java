@@ -30,11 +30,11 @@ public class WaifuManager {
         return waifuDAO.getWaifuByNameFromChannel(name, channelId);
     }
 
-    public Waifu getBest(int channelId) {
+    public List<Waifu> getBest(int channelId) {
         return waifuDAO.getBest(channelId);
     }
 
-    public Waifu getWorst(int channelId) {
+    public List<Waifu> getWorst(int channelId) {
         return waifuDAO.getWorst(channelId);
     }
 

@@ -139,7 +139,7 @@ public class AnimeListener extends ListenerAdapter {
             }
             else{
                 messageManager.reduceMessages(1);
-                event.respond(", how dare you try to slap a waifu");
+                event.getBot().sendIRC().message(channelName, userName + ", how dare you try to slap a waifu");
             }
             return;
 
@@ -147,10 +147,12 @@ public class AnimeListener extends ListenerAdapter {
 
         if(event.getMessage().equals("!waifu best"))
         {
-            Waifu waifu = waifuManager.getBest(channelEntity.getId());
-
-            if(waifu!=null)
+            long seed = System.nanoTime();
+            List<Waifu> waifuList = waifuManager.getBest(channelEntity.getId());
+            if(waifuList.size()>0)
             {
+                Collections.shuffle(waifuList, new Random(seed));
+                Waifu waifu = waifuList.get(0);
                 messageManager.reduceMessages(1);
                 event.getBot().sendIRC().message(channelName, waifu.getName() + " is the one true waifu. Gaze upon her glory. " + waifu.getLink());
             }
@@ -158,11 +160,13 @@ public class AnimeListener extends ListenerAdapter {
 
         if(event.getMessage().equals("!waifu worst"))
         {
-
-            Waifu waifu = waifuManager.getWorst(channelEntity.getId());
-
-            if(waifu!=null)
+            long seed = System.nanoTime();
+            List<Waifu> waifuList = waifuManager.getWorst(channelEntity.getId());
+            if(waifuList.size()>0)
             {
+            Collections.shuffle(waifuList, new Random(seed));
+            Waifu waifu = waifuList.get(0);
+
                 messageManager.reduceMessages(1);
                 event.getBot().sendIRC().message(channelName, waifu.getName() + " is lower than dirt. See for yourself " + waifu.getLink());
             }
@@ -206,7 +210,7 @@ public class AnimeListener extends ListenerAdapter {
                 }
 
                 messageManager.reduceMessages(1);
-                event.getBot().sendIRC().message(channelName, waifu1.getName() + " - " + waifu1.getLink() + " VS " + waifu2.getName() +" - " + waifu2.getLink());
+                event.getBot().sendIRC().message(channelName, waifu1.getName() + " - " + waifu1.getLink() + " VS " + waifu2.getName() + " - " + waifu2.getLink());
                 messageManager.reduceMessages(1);
                 event.getBot().sendIRC().message(channelName, "Voting open for 30 seconds. 1: " + waifu1.getName() + " 2: "+waifu2.getName());
 
@@ -214,13 +218,13 @@ public class AnimeListener extends ListenerAdapter {
                 messageManager.delayMessage(30000);
                 waifuFightOpen = false;
 
-                if(waifu1Votes>waifu2Votes){
+                if(waifu1Votes > waifu2Votes){
                     messageManager.reduceMessages(1);
                     event.getBot().sendIRC().message(channelName, waifu1.getName() + " wins " + waifu1Votes + " to " + waifu2Votes);
                     waifu1.setPoints(waifu1.getPoints() + 1);
                     waifuManager.updateWaifu(waifu1);
                 }
-                else if( waifu1Votes<waifu2Votes){
+                else if(waifu1Votes < waifu2Votes){
                     messageManager.reduceMessages(1);
                     event.getBot().sendIRC().message(channelName, waifu2.getName() + " wins " +waifu2Votes + " to " +waifu1Votes);
                     waifu2.setPoints(waifu2.getPoints()+1);
@@ -230,11 +234,14 @@ public class AnimeListener extends ListenerAdapter {
                     messageManager.reduceMessages(1);
                     event.getBot().sendIRC().message(channelName, "It's a draw. "+waifu2Votes+ " to "+waifu1Votes);
                 }
+                waifu1Votes=0;
+                waifu2Votes =0;
+                voters.clear();
 
 
-            }else{
+            } else {
                 messageManager.reduceMessages(1);
-                event.respond(", only mods may start a waifu fight");
+                event.getBot().sendIRC().message(channelName, userName + ", only mods may start a waifu fight");
 
             }
 
