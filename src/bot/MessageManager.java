@@ -124,6 +124,11 @@ public class MessageManager {
 
     }
 
+    public boolean isMod(String channelName,String userName){
+        TwitchUsers users = getTwitchUsers(channelName.substring(1));
+        return users.getChatters().getModerators().contains(userName);
+    }
+
     private String convertInputStreamToString(InputStream is){
         String text = null;
         try (final Reader reader = new InputStreamReader(is)) {

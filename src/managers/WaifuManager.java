@@ -17,22 +17,36 @@ public class WaifuManager {
 
         return createWaifuDTOs(waifuDAO.getAll());
     }
+
     public List<Waifu> getAll() {
         return waifuDAO.getAll();
     }
 
-    public List<Waifu> getWaifuByName(String name){
+    public List<Waifu> getWaifuByName(String name) {
         return waifuDAO.getWaifuByName(name);
     }
 
-    public List<Waifu> getWaifuByNameFromChannel(String name, int channelId){
+    public List<Waifu> getWaifuByNameFromChannel(String name, int channelId) {
         return waifuDAO.getWaifuByNameFromChannel(name, channelId);
     }
 
-    public Waifu getRandom(){
+    public Waifu getBest(int channelId) {
+        return waifuDAO.getBest(channelId);
+    }
+
+    public Waifu getWorst(int channelId) {
+        return waifuDAO.getWorst(channelId);
+    }
+
+    public void resetFight(int channelId) {
+        waifuDAO.resetFight(channelId);
+    }
+
+    public Waifu getRandom() {
         return waifuDAO.getRandom();
     }
-    public Waifu getRandomFromChannel(int channelId){
+
+    public Waifu getRandomFromChannel(int channelId) {
         return waifuDAO.getRandomFromChannel(channelId);
     }
 
@@ -40,10 +54,15 @@ public class WaifuManager {
         return waifuDAO.addWaifu(waifu);
     }
 
-    public boolean deleteWaifuByLink(String link){
+    public Waifu updateWaifu(Waifu waifu) {
+        return waifuDAO.updateWaifu(waifu);
+    }
+
+    public boolean deleteWaifuByLink(String link) {
         return waifuDAO.deleteWaifuByLink(link);
     }
-    public boolean deleteWaifuByLinkFromChannel(String link, int channelId){
+
+    public boolean deleteWaifuByLinkFromChannel(String link, int channelId) {
         return waifuDAO.deleteWaifuByLinkFromChannel(link, channelId);
     }
 
@@ -51,9 +70,8 @@ public class WaifuManager {
     private List<WaifuDTO> createWaifuDTOs(List<Waifu> waifus) {
 
         List<WaifuDTO> dtos = new ArrayList<>();
-        for(Waifu waifu : waifus)
-        {
-            WaifuDTO dto= new WaifuDTO();
+        for (Waifu waifu : waifus) {
+            WaifuDTO dto = new WaifuDTO();
             dto.setName(waifu.getName());
             dto.setId(waifu.getId());
             dto.setLink(waifu.getLink());
@@ -61,7 +79,6 @@ public class WaifuManager {
         }
         return dtos;
     }
-
 
 
 }

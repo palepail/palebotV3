@@ -11,17 +11,13 @@
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <exported-key name="CHANNEL_ID" table="listener" schema="" catalog="palebot" columns="CHANNEL_ID"/>
-      <exported-key name="ChannelID" table="waifu" schema="" catalog="palebot" columns="CHANNEL_ID"/>
       <index name="name_UNIQUE" unique="true" columns="NAME"/>
     </table>
     <table name="listener" schema="" catalog="palebot" type="TABLE">
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="CHANNEL_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CHANNEL_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <foreign-key name="CHANNEL_ID" columns="CHANNEL_ID" ref-table="channel" ref-schema="" ref-catalog="palebot" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="CHANNEL_ID_idx" unique="false" columns="CHANNEL_ID"/>
     </table>
     <table name="quote" schema="" catalog="palebot" type="TABLE">
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -36,10 +32,10 @@
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="LINK" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="UPLOADER" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <column name="CHANNEL_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="POINTS" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <foreign-key name="ChannelID" columns="CHANNEL_ID" ref-table="channel" ref-schema="" ref-catalog="palebot" ref-columns="ID" update-rule="3" delete-rule="0" deferrability="2"/>
-      <index name="CHANNEL_ID_idx" unique="false" columns="CHANNEL_ID"/>
     </table>
   </data-source>
 </component>

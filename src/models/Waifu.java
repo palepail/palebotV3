@@ -11,6 +11,8 @@ public class Waifu {
     private String name;
     private String link;
     private int channelId;
+    private String uploader;
+    private Integer points;
 
     @Id
     @Column(name = "ID")
@@ -73,5 +75,25 @@ public class Waifu {
 
     public void setChannelId(int channelId) {
         this.channelId = channelId;
+    }
+
+    @Basic
+    @Column(name = "UPLOADER")
+    public String getUploader() {
+        return uploader;
+    }
+
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
+    }
+
+    @Basic
+    @Column(name = "POINTS")
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }
