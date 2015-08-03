@@ -39,7 +39,12 @@ public class AnimeListener extends ListenerAdapter {
             }
             messageManager.reduceMessages(1);
             Waifu waifu = waifuManager.getRandomFromChannel(channelEntity.getId());
+            if(waifu==null){
+                event.getBot().sendIRC().message(channelName, userName + "'s waifu is " + NOT_FOUND_IMG);
+                return;
+            }
             event.getBot().sendIRC().message(channelName, userName + "'s waifu is " + waifu.getLink());
+            return;
         }
 
         if (message.startsWith("!waifu search ")) {
@@ -70,7 +75,7 @@ public class AnimeListener extends ListenerAdapter {
                 messageManager.reduceMessages(1);
                 event.getBot().sendIRC().message(channelName, result);
             }
-
+            return;
         }
 
 
@@ -124,6 +129,7 @@ public class AnimeListener extends ListenerAdapter {
                 messageManager.reduceMessages(1);
                 event.respond(", how dare you try to slap a waifu");
             }
+            return;
 
         }
 

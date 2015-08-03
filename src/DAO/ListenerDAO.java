@@ -21,7 +21,7 @@ public class ListenerDAO {
 
     public List<Listener> getAll(){
 
-        Query query = em.createQuery("FROM models.Listener");
+        Query query = em.createQuery(" FROM models.Listener Group By (name)");
         return  query.getResultList();
     }
 
