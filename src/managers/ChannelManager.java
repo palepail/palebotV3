@@ -25,19 +25,29 @@ public class ChannelManager {
         return channelDAO.getAll();
     }
 
+    public ChannelDTO getChannelDTOById(int channelId){
+        Channel channel = getChannelById(channelId);
+        ChannelDTO channelDTO = createChannelDTO(channel);
+        return channelDTO;
+    }
+
     private List<ChannelDTO> createChannelDTOs(List<Channel> channels) {
 
         List<ChannelDTO> dtos = new ArrayList<>();
         for(Channel channel : channels)
         {
-            ChannelDTO dto= new ChannelDTO();
-            dto.setName(channel.getName());
-            dto.setId(channel.getId());
-            dto.setStatus(palebot.getStatus(channel.getName()));
-            dto.setListeners(listenerManager.getAllSimpleByChannelID(channel.getId()));
-            dtos.add(dto);
+            dtos.add(createChannelDTO(channel));
         }
         return dtos;
+    }
+
+    private ChannelDTO createChannelDTO(Channel channel){
+        ChannelDTO dto= new ChannelDTO();
+        dto.setName(channel.getName());
+        dto.setId(channel.getId());
+        dto.setStatus(palebot.getStatus(channel.getName()));
+        dto.setListeners(listenerManager.getAllSimpleByChannelID(channel.getId()));
+      return dto;
     }
 
     public Channel getChannelById(int id) {

@@ -34,5 +34,9 @@ public class PalebotManager {
         palebot.deleteChannelByName(channelName);
     }
 
+    public boolean updateListeners(int channelId){
+       return palebot.updateListeners(channelId);
+    }
+
 
 }

@@ -26,7 +26,6 @@ public class PalebotEndpoint {
     ListenerManager listenerManager = ListenerManager.getInstance();
 
 
-
     @GET
     @Path("/status")
     @Produces("application/json")
@@ -49,8 +48,26 @@ public class PalebotEndpoint {
 
     }
 
+    @GET
+    @Path("/{channelId}/toggleListenerOn")
+    @Produces("application/json")
+    public ChannelDTO toggleListenerOn(@PathParam("channelId") int channelId, @QueryParam("listenerName") String listenerName) {
+        listenerManager.addListenerToChannel(channelId, listenerName);
+        palebotManager.updateListeners(channelId);
+        return channelManager.getChannelDTOById(channelId);
+    }
+    @GET
+    @Path("/{channelId}/toggleListenerOff")
+    @Produces("application/json")
+    public ChannelDTO toggleListenerOff(@PathParam("channelId") int channelId, @QueryParam("listenerName") String listenerName) {
 
-//============================ Channels ==============================
+        listenerManager.removeListenerFromChannel(channelId, listenerName);
+        palebotManager.updateListeners(channelId);
+        return channelManager.getChannelDTOById(channelId);
+    }
+
+
+    //============================ Channels ==============================
     @GET
     @Path("/channels")
     @Produces("application/json")
@@ -72,12 +89,12 @@ public class PalebotEndpoint {
         Channel channelToDelete = channelManager.getChannelById(id);
         channelManager.deleteChannel(id);
         palebotManager.deleteChannelByName(channelToDelete.getName());
-       return getAllChannels();
+        return getAllChannels();
     }
 
     @POST
     @Path("/channels")
-    public Channel  addChannel(Channel channel) {
+    public Channel addChannel(Channel channel) {
         return channelManager.addChannel(channel);
     }
 
@@ -106,11 +123,12 @@ public class PalebotEndpoint {
     @POST
     @Path("/quotes")
     @Produces("application/json")
-    public void  addQuote(Quote quote) {
+    public void addQuote(Quote quote) {
         quoteManager.updateQuote(quote);
     }
 
     //========================== Listeners ============================
+
 
     @GET
     @Path("/listeners")

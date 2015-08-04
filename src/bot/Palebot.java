@@ -4,6 +4,7 @@ package bot;
 import managers.ChannelManager;
 import managers.ListenerManager;
 import models.Channel;
+import models.Listener;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
@@ -127,6 +128,18 @@ public class Palebot {
         botMap.remove(channelName);
     }
 
+    public boolean updateListeners(int channelId)
+    {
+        Channel channel = channelManager.getChannelById(channelId);
+        PircBotX pircbot = botMap.get(channel.getName());
+        for(org.pircbotx.hooks.Listener listener :  pircbot.getConfiguration().getListenerManager().getListeners())
+        {
+            pircbot.getConfiguration().getListenerManager().removeListener(listener);
+        }
+        addListeners(pircbot, channel.getName());
+        return true;
+    }
+
     private void addListeners(PircBotX pircBotX, String channelName){
 
         for(ListenerAdapter listener: listenerManager.getAllByChannelName(channelName))
@@ -135,6 +148,8 @@ public class Palebot {
         }
 
     }
+
+
 
 
 }

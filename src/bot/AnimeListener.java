@@ -191,7 +191,7 @@ public class AnimeListener extends ListenerAdapter {
             }
         }
 
-        if(event.getMessage().equals("!waifu fight")){
+        if(event.getMessage().equals("!waifu fight") && waifuFightOpen == false){
             if (messageManager.isMod(channelName,userName)) {
 
                 Waifu waifu1 = waifuManager.getRandomFromChannel(channelEntity.getId());
