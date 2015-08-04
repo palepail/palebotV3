@@ -24,6 +24,7 @@ public class AnimeListener extends ListenerAdapter {
     private static ChannelManager channelManager = new ChannelManager();
 
     private static String WAIFU_ID = "WAIFU";
+
     public static final String NAME = "ANIME";
 
 
@@ -44,7 +45,7 @@ public class AnimeListener extends ListenerAdapter {
             return;
         }
 
-        if (message.startsWith("!waifu search ")) {
+        if (message.startsWith("!waifu search ") && !messageManager.overLimit()) {
 
             String searchCriteria = message.substring(14);
             actor.waifuSearch(event, searchCriteria);
@@ -52,17 +53,17 @@ public class AnimeListener extends ListenerAdapter {
         }
 
 
-        if (message.startsWith("!waifu add ")) {
+        if (message.startsWith("!waifu add " )&& !messageManager.overLimit()) {
             actor.waifuAdd(event);
             return;
         }
 
-        if(event.getMessage().equals("!waifu best"))
+        if(event.getMessage().equals("!waifu best")&& !messageManager.overLimit())
         {
             actor.waifuBest(event);
         }
 
-        if(event.getMessage().equals("!waifu worst"))
+        if(event.getMessage().equals("!waifu worst")&& !messageManager.overLimit())
         {
           actor.waifuWorst(event);
         }
@@ -83,7 +84,7 @@ public class AnimeListener extends ListenerAdapter {
 
         //OP commands
 
-        if (event.getMessage().startsWith("!waifu slap ")) {
+        if (event.getMessage().startsWith("!waifu slap ")&& !messageManager.overLimit()) {
             actor.deleteWaifu(event);
             return;
         }
@@ -95,7 +96,7 @@ public class AnimeListener extends ListenerAdapter {
             }
         }
 
-        if(event.getMessage().equals("!waifu fight") && actor.waifuFightOpen == false){
+        if(event.getMessage().equals("!waifu fight") && actor.waifuFightOpen == false && !messageManager.overLimit()){
             if (messageManager.isMod(channelName,userName)) {
 
                 actor.waifuFight(event);

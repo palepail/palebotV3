@@ -11,7 +11,19 @@
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
+      <exported-key name="custom_message_FK" table="custommessage" schema="" catalog="palebot" columns="CHANNEL_ID"/>
       <index name="name_UNIQUE" unique="true" columns="NAME"/>
+    </table>
+    <table name="custommessage" schema="" catalog="palebot" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="CHANNEL_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="CUSTOM_TRIGGER" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="MESSAGE" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
+      <column name="RESTRICTION" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="ID"/>
+      <foreign-key name="custom_message_FK" columns="CHANNEL_ID" ref-table="channel" ref-schema="" ref-catalog="palebot" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="TRIGGER_UNIQUE" unique="true" columns="CUSTOM_TRIGGER"/>
+      <index name="custom_message_FK_idx" unique="false" columns="CHANNEL_ID"/>
     </table>
     <table name="listener" schema="" catalog="palebot" type="TABLE">
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>

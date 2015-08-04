@@ -42,6 +42,7 @@ public class AnimeActor {
 
     public void postRandomWaifu(MessageEvent event)
     {
+
         messageManager.reduceMessages(1);
         Waifu waifu = waifuManager.getRandomFromChannel(channelEntity.getId());
         if(waifu==null){
