@@ -3,6 +3,7 @@ package bot;
 
 import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
+import org.pircbotx.hooks.events.MessageEvent;
 
 
 import java.io.IOException;
@@ -122,6 +123,11 @@ public class MessageManager {
         return users;
 
 
+    }
+
+    public void sendMessage(MessageEvent event,String message){
+        reduceMessages(1);
+        event.getBot().sendIRC().message(event.getChannel().getName(), message);
     }
 
     public boolean isMod(String channelName,String userName){
