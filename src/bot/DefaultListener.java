@@ -73,16 +73,10 @@ public class DefaultListener extends ListenerAdapter {
 
                 String message = event.getMessage();
                 if (messageManager.isMod(channelName, event.getUser().getNick())) {
-
-                    if (message.indexOf("(") == -1 || message.indexOf(")") == -1 || message.substring(message.indexOf(")") + 1).isEmpty()
-                            || message.substring(message.indexOf("(") + 1).charAt(0) != '!') {
+                        String regex = "\\!custom ?\\(\\!([a-z1-9]+)\\) ?(.{0,240})";
+                    if (!event.getMessage().matches(regex)) {
                         messageManager.reduceMessages(1);
-                        event.getBot().sendIRC().message(channelName,event.getUser().getNick()+ ", correct custom message syntax is !custom (!TRIGGER) MESSAGE");
-                        return;
-                    }
-                    if (message.substring(message.indexOf(")") + 2).length() > 245) {
-                        messageManager.reduceMessages(1);
-                        event.getBot().sendIRC().message(channelName, event.getUser().getNick()+", that message is too long.");
+                        event.getBot().sendIRC().message(channelName,event.getUser().getNick()+ ", correct new custom message syntax is !custom (!TRIGGER) MESSAGE - Max message length is 240");
                         return;
                     }
                     String trigger = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
