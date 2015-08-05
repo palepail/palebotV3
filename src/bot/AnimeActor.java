@@ -196,7 +196,11 @@ public class AnimeActor {
         }else{
 
             messageManager.reduceMessages(1);
-            event.getBot().sendIRC().message(channelName, "It's a draw. "+waifu2Votes+ " to "+waifu1Votes);
+            event.getBot().sendIRC().message(channelName, "It's a draw. " + waifu2Votes + " to " + waifu1Votes + ". Everyone wins!");
+            waifu2.setPoints(waifu2.getPoints() + 1);
+            waifu1.setPoints(waifu1.getPoints() + 1);
+            waifuManager.updateWaifu(waifu2);
+            waifuManager.updateWaifu(waifu1);
         }
         waifu1Votes=0;
         waifu2Votes =0;

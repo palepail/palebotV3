@@ -14,9 +14,15 @@ CustomMessageDAO customMessageDAO = new CustomMessageDAO();
     public List<CustomMessage> getCustomMessagesByChannel(int channelId){
         return customMessageDAO.getCustomMessagesByChannel(channelId);
     }
+    public boolean deleteTriggerFromChannel(int channelId, String trigger)
+    {
+        return customMessageDAO.deleteTriggerFromChannel(channelId, trigger);
+    }
 
     public boolean addCustomMessage(CustomMessage message)
     {
         return customMessageDAO.addCustomMessage(message);
     }
+
+
 }

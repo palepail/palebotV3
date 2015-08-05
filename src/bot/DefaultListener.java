@@ -25,114 +25,137 @@ public class DefaultListener extends ListenerAdapter {
 
         String channelName = event.getChannel().getName();
         Channel channelEntity = channelManager.getChannelByName(channelName.substring(1));
+        if (event.getMessage().startsWith("!")) {
 
-        if (event.getMessage().startsWith("!palebot")) {
-            if (!messageManager.overLimit()) {
-                messageManager.reduceMessages(1);
-                event.getBot().sendIRC().message(event.getChannel().getName(), "Hi! I'm palebot.");
-            }
-        }
-
-        if (event.getMessage().startsWith("!suicide")) {
-            if (!messageManager.overLimit()) {
-                messageManager.reduceMessages(1);
-                messageManager.delayMessage(1500);
-                event.getBot().sendIRC().message(event.getChannel().getName(), "/timeout " + event.getUser().getNick() + " 1");
-            }
-        }
-
-        if (event.getMessage().startsWith("!custom") && !messageManager.overLimit()) {
-
-            String message = event.getMessage();
-            if (messageManager.isMod(channelName, event.getUser().getNick())) {
-
-                if (message.indexOf("(") == -1 || message.indexOf(")") == -1 || message.substring(message.indexOf(")") + 1).isEmpty()
-                        || message.substring(message.indexOf("(") + 1).charAt(0) != '!') {
+            if (event.getMessage().startsWith("!palebot")) {
+                if (!messageManager.overLimit()) {
                     messageManager.reduceMessages(1);
-                    event.respond(", correct waifu syntax is !custom (!TRIGGER) MESSAGE");
-                    return;
+                    event.getBot().sendIRC().message(event.getChannel().getName(), "Hi! I'm palebot.");
                 }
-                if (message.substring(message.indexOf(")") + 2).length() > 245) {
-                    event.respond(", that message is too long to comprehend");
-                    return;
-                }
-                String trigger = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
-                String customMessage = message.substring(message.indexOf(")") + 2);
-
-
-
-                CustomMessage custom = new CustomMessage();
-                if(customMessage.indexOf("-mod")!=-1)
-                {
-                    customMessage.replace("-mod", "");
-                    custom.setRestriction(1);
-                }
-
-
-                custom.setMessage(customMessage);
-                custom.setCustomTrigger(trigger);
-                custom.setChannelId(channelEntity.getId());
-                customMessageManager.addCustomMessage(custom);
-                messageManager.reduceMessages(1);
-                event.getBot().sendIRC().message(channelName, "Custom Message Saved");
+                return;
             }
-            return;
-        }
 
-
-
-
-        if (event.getMessage().startsWith("!dice")) {
-
-            if (!messageManager.overLimit()) {
-                messageManager.reduceMessages(1);
-                Random rand = new Random();
-                int number = rand.nextInt(5);
-                number += 1;
-                String flair = "";
-                switch (number) {
-                    case 1: {
-                        flair = "Kappa";
-                        break;
-                    }
-                    case 2: {
-                        flair = "BibleThump";
-                        break;
-                    }
-                    case 3: {
-                        flair = "DansGame";
-                        break;
-                    }
-                    case 4: {
-                        flair = "MVGame";
-                        break;
-                    }
-                    case 5: {
-                        flair = "FrankerZ";
-                        break;
-                    }
-                    case 6: {
-                        flair = "PogChamp";
-                        break;
-                    }
+            if (event.getMessage().startsWith("!suicide")) {
+                if (!messageManager.overLimit()) {
+                    messageManager.reduceMessages(1);
+                    messageManager.delayMessage(1500);
+                    event.getBot().sendIRC().message(event.getChannel().getName(), "/timeout " + event.getUser().getNick() + " 1");
                 }
-                event.respond("rolled a " + number + " " + flair);
+                return;
             }
-            return;
-        }
 
-        if(event.getMessage().startsWith("!")){
+            if (event.getMessage().startsWith("!custom delete") && !messageManager.overLimit()) {
+                String message = event.getMessage();
+                if (messageManager.isMod(channelName, event.getUser().getNick())) {
+
+                    if (message.indexOf("(") == -1 || message.indexOf(")") == -1
+                            || message.substring(message.indexOf("(") + 1).charAt(0) != '!') {
+                        messageManager.reduceMessages(1);
+                        event.getBot().sendIRC().message(channelName, event.getUser().getNick()+ ", correct !custom delete syntax is !custom delete (!TRIGGER)");
+                        return;
+                    }
+
+                    String trigger = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
+                    if(customMessageManager.deleteTriggerFromChannel(channelEntity.getId(), trigger))
+                    {
+                        messageManager.reduceMessages(1);
+                        event.getBot().sendIRC().message(channelName,"Trigger Deleted");
+                    }else{
+                        messageManager.reduceMessages(1);
+                        event.getBot().sendIRC().message(channelName,"Trigger Not Found");
+                    }
+
+                }
+                return;
+            }
+
+            if (event.getMessage().startsWith("!custom") && !messageManager.overLimit()) {
+
+                String message = event.getMessage();
+                if (messageManager.isMod(channelName, event.getUser().getNick())) {
+
+                    if (message.indexOf("(") == -1 || message.indexOf(")") == -1 || message.substring(message.indexOf(")") + 1).isEmpty()
+                            || message.substring(message.indexOf("(") + 1).charAt(0) != '!') {
+                        messageManager.reduceMessages(1);
+                        event.getBot().sendIRC().message(channelName,event.getUser().getNick()+ ", correct custom message syntax is !custom (!TRIGGER) MESSAGE");
+                        return;
+                    }
+                    if (message.substring(message.indexOf(")") + 2).length() > 245) {
+                        messageManager.reduceMessages(1);
+                        event.getBot().sendIRC().message(channelName, event.getUser().getNick()+", that message is too long.");
+                        return;
+                    }
+                    String trigger = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
+                    String customMessage = message.substring(message.indexOf(")") + 2);
+
+
+                    CustomMessage custom = new CustomMessage();
+                    if (customMessage.indexOf("-mod") != -1) {
+                        customMessage.replace("-mod", "");
+                        custom.setRestriction(1);
+                    }
+
+
+                    custom.setMessage(customMessage);
+                    custom.setCustomTrigger(trigger);
+                    custom.setChannelId(channelEntity.getId());
+                    customMessageManager.addCustomMessage(custom);
+                    messageManager.reduceMessages(1);
+                    event.getBot().sendIRC().message(channelName, "Custom Message Saved");
+                }
+                return;
+            }
+
+
+            if (event.getMessage().startsWith("!dice")) {
+
+                if (!messageManager.overLimit()) {
+                    messageManager.reduceMessages(1);
+                    Random rand = new Random();
+                    int number = rand.nextInt(5);
+                    number += 1;
+                    String flair = "";
+                    switch (number) {
+                        case 1: {
+                            flair = "Kappa";
+                            break;
+                        }
+                        case 2: {
+                            flair = "BibleThump";
+                            break;
+                        }
+                        case 3: {
+                            flair = "DansGame";
+                            break;
+                        }
+                        case 4: {
+                            flair = "MVGame";
+                            break;
+                        }
+                        case 5: {
+                            flair = "FrankerZ";
+                            break;
+                        }
+                        case 6: {
+                            flair = "PogChamp";
+                            break;
+                        }
+                    }
+                    event.respond("rolled a " + number + " " + flair);
+                }
+                return;
+            }
+
+
             List<CustomMessage> customMessages = customMessageManager.getCustomMessagesByChannel(channelEntity.getId());
-            for(CustomMessage customMessage : customMessages)
-            {
-                if(event.getMessage().startsWith(customMessage.getCustomTrigger()))
-                {
+            for (CustomMessage customMessage : customMessages) {
+                if (event.getMessage().startsWith(customMessage.getCustomTrigger())) {
                     messageManager.reduceMessages(1);
                     event.getBot().sendIRC().message(channelName, customMessage.getMessage());
                 }
             }
-        }
 
+        }
 
     }
 

@@ -26,6 +26,21 @@ public class CustomMessageDAO {
         return messages.get(0);
     }
 
+    public boolean deleteTriggerFromChannel(int channelId, String trigger)
+    {
+        CustomMessage customMessage = getCustomMessagesByTriggerFromChannel(channelId, trigger);
+        if(customMessage==null)
+        {
+            return false;
+        }
+        else{
+            em.getTransaction().begin();
+            em.remove(customMessage);
+            em.getTransaction().commit();
+            return true;
+        }
+    }
+
     public boolean addCustomMessage(CustomMessage message)
     {
         CustomMessage customMessage = getCustomMessagesByTriggerFromChannel(message.getChannelId(), message.getCustomTrigger());

@@ -38,15 +38,22 @@ public class AnimeListener extends ListenerAdapter {
         actor.setValues(event);
 
         if (event.getMessage().equals("!waifu")) {
-            if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 2000)) {
-                messageManager.delayMessage(3000);
+            if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 30000)) {
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(channelName, userName + ", I can't handle this many waifu right now");
+                return;
             }
             actor.postRandomWaifu(event);
             return;
         }
 
-        if (message.startsWith("!waifu search ") && !messageManager.overLimit()) {
+        if (message.startsWith("!waifu search ")) {
 
+            if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 30000)) {
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(channelName, userName + ", I can't handle this many waifu right now");
+                return;
+            }
             String searchCriteria = message.substring(14);
             actor.waifuSearch(event, searchCriteria);
             return;
@@ -54,17 +61,32 @@ public class AnimeListener extends ListenerAdapter {
 
 
         if (message.startsWith("!waifu add " )&& !messageManager.overLimit()) {
+            if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 30000)) {
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(channelName, userName + ", I can't handle this many waifu right now");
+                return;
+            }
             actor.waifuAdd(event);
             return;
         }
 
         if(event.getMessage().equals("!waifu best")&& !messageManager.overLimit())
         {
+            if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 30000)) {
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(channelName, userName + ", I can't handle this many waifu right now");
+                return;
+            }
             actor.waifuBest(event);
         }
 
         if(event.getMessage().equals("!waifu worst")&& !messageManager.overLimit())
         {
+            if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 30000)) {
+                messageManager.reduceMessages(1);
+                event.getBot().sendIRC().message(channelName, userName + ", I can't handle this many waifu right now");
+                return;
+            }
           actor.waifuWorst(event);
         }
 
