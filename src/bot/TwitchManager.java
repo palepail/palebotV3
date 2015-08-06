@@ -23,6 +23,10 @@ public class TwitchManager {
         return twitchManager;
     }
 
+    public static String getClientId(){
+        return CLIENT_ID;
+    }
+
 
     public TwitchUsers getTwitchUsers(String channelName) {
         String url = "http://tmi.twitch.tv/group/user/" + channelName + "/chatters";

@@ -3,6 +3,7 @@ package endpoints;
 
 import javax.ws.rs.*;
 
+import bot.TwitchManager;
 import dto.ChannelDTO;
 import managers.ChannelManager;
 import managers.ListenerManager;
@@ -76,15 +77,23 @@ public class PalebotEndpoint {
     }
 
     @GET
-    @Path("/channels/{id}")
+    @Path("/channels/{channelName}")
     @Produces("application/json")
-    public Channel getById(@PathParam("id") int id) {
+    public ChannelDTO getByName(@PathParam("channelName") String channelName) {
+        return channelManager.getChannelDTOByName(channelName);
+    }
+
+
+    @GET
+    @Path("/channels")
+    @Produces("application/json")
+    public Channel getById(@QueryParam("id") int id) {
         return channelManager.getChannelById(id);
     }
 
     @DELETE
-    @Path("/channels/{id}")
-    public List<ChannelDTO> deleteById(@PathParam("id") int id) {
+    @Path("/channels")
+    public List<ChannelDTO> deleteById(@QueryParam("channelId") int id) {
 
         Channel channelToDelete = channelManager.getChannelById(id);
         channelManager.deleteChannel(id);
@@ -137,5 +146,12 @@ public class PalebotEndpoint {
         return listenerManager.getAll();
     }
 
+    //============================ Twitch =============================
 
+    @GET
+    @Path("/twitch/clientId")
+    @Produces("application/json")
+    public String getTwitchClientID() {
+        return TwitchManager.getClientId();
+    }
 }

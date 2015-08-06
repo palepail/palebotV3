@@ -58,6 +58,10 @@ public class ChannelManager {
         return channelDAO.getChannelByName(name);
     }
 
+    public ChannelDTO getChannelDTOByName(String name) {
+        return createChannelDTO(channelDAO.getChannelByName(name));
+    }
+
     public void deleteChannel(int id) {
 
         Channel channelToRemove = channelDAO.getChannelById(id);
