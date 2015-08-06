@@ -136,7 +136,7 @@ public class AnimeActor {
         {
             Collections.shuffle(waifuList, new Random(seed));
             Waifu waifu = waifuList.get(0);
-            messageManager.sendMessage(event, userName + " is the one true waifu. Gaze upon her glory. " + waifu.getLink());
+            messageManager.sendMessage(event, waifu.getName() + " is the one true waifu. Gaze upon her glory. " + waifu.getLink());
         }
     }
     public void waifuWorst(MessageEvent event)
@@ -147,7 +147,7 @@ public class AnimeActor {
         {
             Collections.shuffle(waifuList, new Random(seed));
             Waifu waifu = waifuList.get(0);
-            messageManager.sendMessage(event, waifu.getName() + " is lower than dirt. See for yourself " + waifu.getLink());
+            messageManager.sendMessage(event, waifu.getName() + " is lower than dirt. See for yourself. " + waifu.getLink());
 
         }
     }

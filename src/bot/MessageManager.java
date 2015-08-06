@@ -22,13 +22,15 @@ import java.util.TimerTask;
  */
 public class MessageManager {
 
-    public static MessageManager messageManager = new MessageManager();
+    private static MessageManager messageManager = new MessageManager();
+    TwitchManager twitchManager = TwitchManager.getInstance();
 
 
     static final int MAX_MESSAGES = 19;
     static ArrayList<String> lockArray = new ArrayList();
     static int messageCount = MAX_MESSAGES;
     static Timer timer = new Timer();
+
 
     public static MessageManager getInstance() {
         return messageManager;
@@ -100,30 +102,7 @@ public class MessageManager {
 
     }
 
-    public TwitchUsers getTwitchUsers(String channelName) {
-        String url = "http://tmi.twitch.tv/group/user/" + channelName + "/chatters";
-        String charSet = java.nio.charset.StandardCharsets.UTF_8.name();
-        String jsonString="";
-        try {
-            URLConnection connection = new URL(url).openConnection();
 
-            connection.setRequestProperty("Accept-Charset", charSet);
-            InputStream response = connection.getInputStream();
-
-            jsonString = convertInputStreamToString(response).replace("\n", "");
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Gson gson = new Gson();
-        TwitchUsers users = gson.fromJson(jsonString, TwitchUsers.class);
-        return users;
-
-
-    }
 
     public void sendMessage(MessageEvent event,String message){
         reduceMessages(1);
@@ -131,20 +110,10 @@ public class MessageManager {
     }
 
     public boolean isMod(String channelName,String userName){
-        TwitchUsers users = getTwitchUsers(channelName.substring(1));
+        TwitchUsers users = twitchManager.getTwitchUsers(channelName.substring(1));
         return (users.getChatters().getModerators().contains(userName));
     }
 
-    private String convertInputStreamToString(InputStream is){
-        String text = null;
-        try (final Reader reader = new InputStreamReader(is)) {
-            text = CharStreams.toString(reader);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return text;
-    }
 
     public void reduceMessages(int num) {
         messageCount -= num;

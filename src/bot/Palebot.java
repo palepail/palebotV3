@@ -4,7 +4,6 @@ package bot;
 import managers.ChannelManager;
 import managers.ListenerManager;
 import models.Channel;
-import models.Listener;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;

@@ -48,14 +48,14 @@ public class WaifuDAO {
 
     public List<Waifu> getBest(int channelId){
 
-        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE  e.channelId = :channelId and e.points =(SELECT max(e.points) FROM e )");
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE  e.channelId = :channelId and e.points =(SELECT max(e.points) FROM e WHERE  e.channelId = :channelId)");
         List<Waifu> waifu = query.setParameter("channelId", channelId).getResultList();
         return waifu;
     }
 
     public List<Waifu> getWorst(int channelId){
 
-        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE  e.channelId = :channelId and e.points = (SELECT min(e.points) FROM e )");
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE  e.channelId = :channelId and e.points = (SELECT min(e.points) FROM e WHERE  e.channelId = :channelId)");
         List<Waifu> waifu = query.setParameter("channelId", channelId).getResultList();
         return waifu;
     }

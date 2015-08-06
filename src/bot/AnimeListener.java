@@ -57,16 +57,16 @@ public class AnimeListener extends ListenerAdapter {
             return;
         }
 
-        if(event.getMessage().equals("!waifu best")&& !messageManager.overLimit() && !actor.tooManyWaifu(event))
+        if(event.getMessage().startsWith("!waifu best")&& !messageManager.overLimit() && !actor.tooManyWaifu(event))
         {
-
             actor.waifuBest(event);
+            return;
         }
 
-        if(event.getMessage().equals("!waifu worst")&& !messageManager.overLimit()  && !actor.tooManyWaifu(event))
+        if(event.getMessage().startsWith("!waifu worst")&& !messageManager.overLimit()  && !actor.tooManyWaifu(event))
         {
-         
           actor.waifuWorst(event);
+            return;
         }
 
 
