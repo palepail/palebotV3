@@ -151,6 +151,18 @@ public class AnimeActor {
 
         }
     }
+    public void waifuThirst(MessageEvent event)
+    {
+        long seed = System.nanoTime();
+        List<Waifu> waifuList = waifuManager.getThirst(channelEntity.getId());
+        if(waifuList.size()>0)
+        {
+            Collections.shuffle(waifuList, new Random(seed));
+            Waifu waifu = waifuList.get(0);
+            messageManager.sendMessage(event, waifu.getUploader() + " is so thirsty, he has " + waifuList.size() + " waifu.");
+
+        }
+    }
 
     public void waifuFight(MessageEvent event)
     {

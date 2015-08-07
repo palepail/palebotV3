@@ -8,6 +8,7 @@ public class WaifuDTO {
     String name;
 
     public int getId() {
+
         return id;
     }
 

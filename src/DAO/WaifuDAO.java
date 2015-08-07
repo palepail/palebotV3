@@ -1,5 +1,6 @@
 package dao;
 
+import dto.WaifuDTO;
 import models.Waifu;
 
 import javax.persistence.EntityManager;
@@ -58,6 +59,15 @@ public class WaifuDAO {
         Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE  e.channelId = :channelId and e.points = (SELECT min(e.points) FROM e WHERE  e.channelId = :channelId)");
         List<Waifu> waifu = query.setParameter("channelId", channelId).getResultList();
         return waifu;
+    }
+
+    public List<Waifu> getThirst(int channelId){
+
+        //native query requires db names
+        String queryString = "SELECT * FROM waifu where CHANNEL_ID = :channelId and uploader = (select uploader from (select uploader,count(uploader) as cnt from waifu where CHANNEL_ID = :channelId and uploader = 0) t order by cnt DESC)";
+        Query query = em.createNativeQuery(queryString, Waifu.class);
+        List results = query.setParameter("channelId", channelId).getResultList();
+        return results;
     }
 
     public void resetFight(int channelId){
