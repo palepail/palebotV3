@@ -11,7 +11,7 @@ import java.util.List;
  * Created by palepail on 7/31/2015.
  */
 public class WaifuManager {
-    WaifuDAO waifuDAO = new WaifuDAO();
+   static WaifuDAO waifuDAO = new WaifuDAO();
 
     public List<WaifuDTO> getAllDTO() {
 

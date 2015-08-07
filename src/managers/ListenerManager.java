@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class ListenerManager {
 
-    ListenerDAO listenerDAO = new ListenerDAO();
-    ChannelManager channelManager = new ChannelManager();
+    static ListenerDAO listenerDAO = new ListenerDAO();
+    static ChannelManager channelManager = new ChannelManager();
     private static ListenerManager listenerManager = new ListenerManager();
 
     public static ListenerManager getInstance() {

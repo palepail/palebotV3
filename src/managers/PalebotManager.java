@@ -1,6 +1,7 @@
 package managers;
 
 import bot.Palebot;
+import dao.PalebotDAO;
 
 /**
  * Created by palepail on 7/29/2015.
@@ -8,6 +9,7 @@ import bot.Palebot;
 
 public class PalebotManager {
     static PalebotManager  palebotManager= new PalebotManager();
+    static PalebotDAO palebotDAO = new PalebotDAO();
     static Palebot palebot =  Palebot.getInstance();
 
 
@@ -23,11 +25,11 @@ public class PalebotManager {
         palebot.activateBot(channel);
     }
 
+    public boolean isPalebotAdmin(String userName){return palebotDAO.isPalebotAdmin(userName);}
 
     public boolean deactivateBot(String channel) {
         return palebot.deactivateBot(channel);
     }
-
 
     public void deleteChannelByName(String channelName)
     {

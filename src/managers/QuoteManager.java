@@ -9,7 +9,7 @@ import java.util.List;
  * Created by palepail on 7/29/2015.
  */
 public class QuoteManager {
-    QuoteDAO quoteDao = new QuoteDAO();
+    static QuoteDAO quoteDao = new QuoteDAO();
     private static QuoteManager quoteManager = new QuoteManager();
 
     public static QuoteManager getInstance(){

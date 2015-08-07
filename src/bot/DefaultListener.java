@@ -15,10 +15,7 @@ import java.util.Random;
  */
 public class DefaultListener extends ListenerAdapter {
     MessageManager messageManager = MessageManager.getInstance();
-    ChannelManager channelManager = new ChannelManager();
     DefaultActor actor = new DefaultActor();
-
-    CustomMessageManager customMessageManager = new CustomMessageManager();
     public static final String NAME = "DEFAULT";
 
     @Override

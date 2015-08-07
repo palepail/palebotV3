@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ChannelManager {
 
-    ChannelDAO channelDAO = new ChannelDAO();
+    static ChannelDAO channelDAO = new ChannelDAO();
     PalebotManager palebot = PalebotManager.getInstance();
     ListenerManager listenerManager = ListenerManager.getInstance();
 

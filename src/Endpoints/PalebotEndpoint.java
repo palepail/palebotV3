@@ -50,6 +50,13 @@ public class PalebotEndpoint {
     }
 
     @GET
+    @Path("/isPalebotAdmin")
+    @Produces("application/json")
+    public boolean isPalebotAdmin(@QueryParam("userName") String userName){
+        return palebotManager.isPalebotAdmin(userName);
+    }
+
+    @GET
     @Path("/{channelId}/toggleListenerOn")
     @Produces("application/json")
     public ChannelDTO toggleListenerOn(@PathParam("channelId") int channelId, @QueryParam("listenerName") String listenerName) {
@@ -147,6 +154,8 @@ public class PalebotEndpoint {
     }
 
     //============================ Twitch =============================
+
+
 
     @GET
     @Path("/twitch/clientId")

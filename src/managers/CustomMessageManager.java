@@ -9,7 +9,7 @@ import java.util.List;
  * Created by palepail on 8/3/2015.
  */
 public class CustomMessageManager {
-CustomMessageDAO customMessageDAO = new CustomMessageDAO();
+    static CustomMessageDAO customMessageDAO = new CustomMessageDAO();
 
     public List<CustomMessage> getCustomMessagesByChannel(int channelId){
         return customMessageDAO.getCustomMessagesByChannel(channelId);
