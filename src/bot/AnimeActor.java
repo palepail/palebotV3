@@ -15,7 +15,7 @@ import java.util.Random;
  * Created by palepail on 8/3/2015.
  */
 public class AnimeActor {
-    private static MessageManager messageManager = MessageManager.getInstance();
+    private static MessageManager messageManager ;
     private static WaifuManager waifuManager = new WaifuManager();
     private static ChannelManager channelManager = new ChannelManager();
 
@@ -25,7 +25,7 @@ public class AnimeActor {
 
     public static ArrayList<String> voters = new ArrayList();
 
-    private static String WAIFU_ID = "WAIFU";
+    private static String WAIFU_ID;
     private static String NOT_FOUND_IMG = "http://i.imgur.com/c5IHJC9.png";
 
     String channelName;
@@ -35,6 +35,8 @@ public class AnimeActor {
 
     public void setValues(MessageEvent event){
          channelName = event.getChannel().getName();
+         WAIFU_ID = "WAIFU_"+channelName;
+         messageManager = MessageManager.getInstance(channelName);
          userName = event.getUser().getNick();
          channelEntity = channelManager.getChannelByName(channelName.substring(1));
          message = event.getMessage();

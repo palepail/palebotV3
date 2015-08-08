@@ -13,6 +13,7 @@ import org.pircbotx.output.OutputIRC;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimerTask;
 
 /**
  * Created by palepail on 7/25/2015.
@@ -39,9 +40,8 @@ public class Palebot {
         {
             palebot = new Palebot();
             palebot.initializePalebot();
-            messageManager = MessageManager.getInstance();
             listenerManager = ListenerManager.getInstance();
-            messageManager.startTimer();
+            MessageManager.startTimer();
 
         }
         return palebot;
@@ -147,7 +147,6 @@ public class Palebot {
         }
 
     }
-
 
 
 

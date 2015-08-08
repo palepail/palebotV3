@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,7 +23,7 @@ import java.util.TimerTask;
  */
 public class MessageManager {
 
-    private static MessageManager messageManager = new MessageManager();
+    private static HashMap<String,MessageManager> messageManagerMap = new HashMap<>();
     TwitchManager twitchManager = TwitchManager.getInstance();
 
 
@@ -32,8 +33,13 @@ public class MessageManager {
     static Timer timer = new Timer();
 
 
-    public static MessageManager getInstance() {
-        return messageManager;
+    public static MessageManager getInstance(String channelName) {
+        if(messageManagerMap.containsKey(channelName)){
+            return messageManagerMap.get(channelName);
+        }else{
+            messageManagerMap.put(channelName,new MessageManager());
+            return messageManagerMap.get(channelName);
+        }
     }
 
     public static void delayMessage(int time) {

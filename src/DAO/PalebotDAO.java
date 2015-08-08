@@ -16,7 +16,7 @@ public class PalebotDAO {
 
     public boolean isPalebotAdmin(String userName){
         Query query = em.createQuery("SELECT e FROM models.PalebotAdmin e Where e.name = :userName");
-      List<PalebotAdmin> admins = query.setParameter("userName", userName).getResultList();
+          List<PalebotAdmin> admins = query.setParameter("userName", userName).getResultList();
         if (admins.size()==0)
         {
             return false;

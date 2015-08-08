@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class DefaultActor {
 
-    MessageManager messageManager = MessageManager.getInstance();
+    MessageManager messageManager;
     ChannelManager channelManager = new ChannelManager();
     CustomMessageManager customMessageManager = new CustomMessageManager();
     Channel channelEntity;
@@ -22,6 +22,7 @@ public class DefaultActor {
     String message;
     public void setValues(MessageEvent event){
         channelName = event.getChannel().getName();
+        messageManager = MessageManager.getInstance(channelName);
         channelEntity = channelManager.getChannelByName(channelName.substring(1));
        message = event.getMessage();
     }

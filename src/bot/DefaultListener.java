@@ -14,7 +14,7 @@ import java.util.Random;
  * Created by palepail on 7/26/2015.
  */
 public class DefaultListener extends ListenerAdapter {
-    MessageManager messageManager = MessageManager.getInstance();
+    MessageManager messageManager;
     DefaultActor actor = new DefaultActor();
     public static final String NAME = "DEFAULT";
 
@@ -22,7 +22,8 @@ public class DefaultListener extends ListenerAdapter {
     public void onMessage(MessageEvent event) {
 
         if (event.getMessage().startsWith("!")) {
-
+            String channelName = event.getChannel().getName();
+            messageManager = MessageManager.getInstance(channelName);
             actor.setValues(event);
 
             if (event.getMessage().startsWith("!palebot") && !messageManager.overLimit()) {
