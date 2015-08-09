@@ -5,13 +5,12 @@ import javax.ws.rs.*;
 
 import bot.TwitchManager;
 import dto.ChannelDTO;
-import managers.ChannelManager;
-import managers.ListenerManager;
-import managers.PalebotManager;
-import managers.QuoteManager;
+import dto.WaifuDTO;
+import managers.*;
 import models.Channel;
 import models.Listener;
 import models.Quote;
+import models.Waifu;
 
 import java.util.List;
 
@@ -22,6 +21,7 @@ import java.util.List;
 public class PalebotEndpoint {
 
     ChannelManager channelManager = new ChannelManager();
+    WaifuManager waifuManager = WaifuManager.getInstance();
     PalebotManager palebotManager = PalebotManager.getInstance();
     QuoteManager quoteManager = QuoteManager.getInstance();
     ListenerManager listenerManager = ListenerManager.getInstance();
@@ -74,6 +74,15 @@ public class PalebotEndpoint {
         return channelManager.getChannelDTOById(channelId);
     }
 
+    //============================ Anime =================================
+
+    @GET
+    @Path("/anime/waifu")
+    @Produces("application/json")
+    public List<WaifuDTO> getWaifuByChannel(@QueryParam("channelId") int channelId){
+
+        return waifuManager.getWaifuDTOByChannel(channelId);
+    }
 
     //============================ Channels ==============================
     @GET
@@ -92,9 +101,9 @@ public class PalebotEndpoint {
 
 
     @GET
-    @Path("/channels")
+    @Path("/channels/{channelId}")
     @Produces("application/json")
-    public Channel getById(@QueryParam("id") int id) {
+    public Channel getById(@PathParam("channelId") int id) {
         return channelManager.getChannelById(id);
     }
 

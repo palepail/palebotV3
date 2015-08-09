@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class AnimeActor {
     private static MessageManager messageManager ;
-    private static WaifuManager waifuManager = new WaifuManager();
+    private static WaifuManager waifuManager = WaifuManager.getInstance();
     private static ChannelManager channelManager = new ChannelManager();
 
     public static Boolean waifuFightOpen = false;

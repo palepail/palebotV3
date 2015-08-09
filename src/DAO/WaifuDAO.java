@@ -24,6 +24,11 @@ public class WaifuDAO {
         return em.find(Waifu.class, id);
     }
 
+    public List<Waifu> getWaifuByChannel(int channelId){
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.channelId = :channelId");
+        return query.setParameter("channelId", channelId).getResultList();
+    }
+
     public List<Waifu> getWaifuByName(String name){
         Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE UPPER(e.name) like UPPER(:name)");
         return query.setParameter("name", "%"+name.trim()+"%").getResultList();

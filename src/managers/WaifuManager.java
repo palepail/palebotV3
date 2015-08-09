@@ -11,7 +11,16 @@ import java.util.List;
  * Created by palepail on 7/31/2015.
  */
 public class WaifuManager {
+
+    static WaifuManager waifuManager = new WaifuManager();
    static WaifuDAO waifuDAO = new WaifuDAO();
+
+    public static  WaifuManager getInstance(){return waifuManager;};
+
+    public List<WaifuDTO> getWaifuDTOByChannel(int channelId)
+    {
+        return createWaifuDTOs(waifuDAO.getWaifuByChannel(channelId));
+    }
 
     public List<WaifuDTO> getAllDTO() {
 
