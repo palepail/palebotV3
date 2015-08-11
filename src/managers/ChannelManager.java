@@ -42,6 +42,9 @@ public class ChannelManager {
     }
 
     private ChannelDTO createChannelDTO(Channel channel){
+        if(channel==null){
+            return null;
+        }
         ChannelDTO dto= new ChannelDTO();
         dto.setName(channel.getName());
         dto.setId(channel.getId());

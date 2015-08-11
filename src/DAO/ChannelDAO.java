@@ -37,7 +37,7 @@ public class ChannelDAO {
     public Channel addChannel(Channel channel){
 
 
-        if( getChannelByName(channel.getName())!=null) {
+        if( getChannelByName(channel.getName())==null) {
 
             Channel newChannel = new Channel();
             newChannel.setName(channel.getName().trim());
