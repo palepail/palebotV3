@@ -19,13 +19,14 @@ public class AnimeActor {
     private static WaifuManager waifuManager = WaifuManager.getInstance();
     private static ChannelManager channelManager = new ChannelManager();
 
-    public static Boolean waifuFightOpen = false;
+    public Boolean waifuFightOpen = false;
     public static int waifu1Votes = 0;
     public static int waifu2Votes = 0;
 
     public static ArrayList<String> voters = new ArrayList();
 
     private static String WAIFU_ID;
+    private static String WAIFU_FIGHT_ID;
     private static String NOT_FOUND_IMG = "http://i.imgur.com/c5IHJC9.png";
 
     String channelName;
@@ -35,10 +36,12 @@ public class AnimeActor {
 
     public void setValues(MessageEvent event){
          channelName = event.getChannel().getName();
-         WAIFU_ID = "WAIFU_"+channelName;
-         messageManager = MessageManager.getInstance(channelName);
+
          userName = event.getUser().getNick();
          channelEntity = channelManager.getChannelByName(channelName.substring(1));
+         WAIFU_ID = "WAIFU_"+channelEntity.getId();
+         WAIFU_FIGHT_ID = "WAIFU_FIGHT_"+channelEntity.getId();
+         messageManager = MessageManager.getInstance(channelName);
          message = event.getMessage();
     }
 
