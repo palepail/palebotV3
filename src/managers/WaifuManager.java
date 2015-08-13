@@ -3,6 +3,7 @@ package managers;
 import dao.WaifuDAO;
 import dto.WaifuDTO;
 import models.Waifu;
+import models.WaifuThirst;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,16 @@ public class WaifuManager {
         return createWaifuDTOs(waifuDAO.getAll());
     }
 
+    public void updateWaifuThirst(WaifuThirst thirst)
+    {
+        waifuDAO.updateWaifuThirst(thirst);
+    }
+
+    public WaifuThirst getThirst(String userName, int channelId)
+    {
+       return waifuDAO.getThirst(userName, channelId);
+    }
+
     public List<Waifu> getAll() {
         return waifuDAO.getAll();
     }
@@ -43,8 +54,8 @@ public class WaifuManager {
         return waifuDAO.getBest(channelId);
     }
 
-    public List<Waifu> getThirst(int channelId) {
-        return waifuDAO.getThirst(channelId);
+    public List<Waifu> getThirstiest(int channelId) {
+        return waifuDAO.getThirstiest(channelId);
     }
 
     public List<Waifu> getWorst(int channelId) {

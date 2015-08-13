@@ -4,12 +4,10 @@ import managers.ChannelManager;
 import managers.WaifuManager;
 import models.Channel;
 import models.Waifu;
+import models.WaifuThirst;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by palepail on 8/3/2015.
@@ -18,15 +16,12 @@ public class AnimeActor {
     private static MessageManager messageManager ;
     private static WaifuManager waifuManager = WaifuManager.getInstance();
     private static ChannelManager channelManager = new ChannelManager();
+    public static HashMap<String, ArrayList> WAIFU_VOTE_MAP = new HashMap<>();
 
-    public Boolean waifuFightOpen = false;
-    public static int waifu1Votes = 0;
-    public static int waifu2Votes = 0;
-
-    public static ArrayList<String> voters = new ArrayList();
 
     private static String WAIFU_ID;
     private static String WAIFU_FIGHT_ID;
+    private static int WAIFU_FIGHT_TIME = 30000;
     private static String NOT_FOUND_IMG = "http://i.imgur.com/c5IHJC9.png";
 
     String channelName;
@@ -60,6 +55,10 @@ public class AnimeActor {
         if(waifu==null){
             messageManager.sendMessage(event,  userName + "'s waifu is " + NOT_FOUND_IMG);
         }else{
+            WaifuThirst thirst = new WaifuThirst();
+            thirst.setUser(userName);
+            thirst.setChannelId(channelEntity.getId());
+            waifuManager.updateWaifuThirst(thirst);
             messageManager.sendMessage(event, userName + "'s waifu is " + waifu.getLink());
         }
 
@@ -156,10 +155,42 @@ public class AnimeActor {
 
         }
     }
+
     public void waifuThirst(MessageEvent event)
     {
+
+       WaifuThirst thirst = waifuManager.getThirst(userName, channelEntity.getId());
+        String message = userName;
+        if(thirst.getCount()>25)
+        {
+            message+=", too many waifu ruin your lifu. They have";
+        }
+        else if(thirst.getCount()>20)
+        {
+            message+= " is so thirsty, they have ";
+
+        }
+        else if(thirst.getCount()>15)
+        {
+            message+=" is a little parched, they have ";
+
+        }else if(thirst.getCount()>10)
+        {
+            message+=" could take a sip, they have ";
+        }else if(thirst.getCount()>5){
+            message+=" is cracking the bottle, they have ";
+        }else if(thirst.getCount()<=5)
+        {
+            message+=" is forever alone, they have ";
+        }
+        message+= thirst.getCount() + " waifu." ;
+        messageManager.sendMessage(event,message);
+    }
+
+    public void waifuThirstiest(MessageEvent event)
+    {
         long seed = System.nanoTime();
-        List<Waifu> waifuList = waifuManager.getThirst(channelEntity.getId());
+        List<Waifu> waifuList = waifuManager.getThirstiest(channelEntity.getId());
         if(waifuList.size()>0)
         {
             Collections.shuffle(waifuList, new Random(seed));
@@ -169,8 +200,24 @@ public class AnimeActor {
         }
     }
 
+    public void waifuVote(MessageEvent event){
+
+        if(messageManager.isLocked(WAIFU_FIGHT_ID) &&(WAIFU_VOTE_MAP.get(channelName)!=null)) {
+            if (event.getMessage().startsWith("1")) {
+                WAIFU_VOTE_MAP.get(channelName).add(1);
+            }else if(event.getMessage().startsWith("2")){
+                WAIFU_VOTE_MAP.get(channelName).add(2);
+            }
+        }
+
+    }
+
     public void waifuFight(MessageEvent event)
     {
+        if(!messageManager.lock(WAIFU_FIGHT_ID, WAIFU_FIGHT_TIME))
+        {
+            return;
+        }
         Waifu waifu1 = waifuManager.getRandomFromChannel(channelEntity.getId());
         Waifu waifu2 = waifuManager.getRandomFromChannel(channelEntity.getId());
         int loopBreaker=0;
@@ -183,12 +230,30 @@ public class AnimeActor {
                 return;
             }
         }
-        messageManager.sendMessage(event, waifu1.getName() + waifu1.getName() + " - " + waifu1.getLink() + " VS " + waifu2.getName() + " - " + waifu2.getLink());
+        messageManager.sendMessage(event, waifu1.getName() + " - " + waifu1.getLink() + " VS " + waifu2.getName() + " - " + waifu2.getLink());
         messageManager.sendMessage(event, "Voting open for 30 seconds. 1: " + waifu1.getName() + " 2: " + waifu2.getName());
 
-        waifuFightOpen = true;
-        messageManager.delayMessage(30000);
-        waifuFightOpen = false;
+        if(WAIFU_VOTE_MAP.get(channelName)==null) {
+            WAIFU_VOTE_MAP.put(channelName, new ArrayList());
+        }else
+        {
+            WAIFU_VOTE_MAP.get(channelName).clear();
+        }
+
+        messageManager.delayMessage(WAIFU_FIGHT_TIME);
+
+        int waifu1Votes = 0;
+        int waifu2Votes = 0;
+        ArrayList<Integer> votes = WAIFU_VOTE_MAP.get(channelName);
+        for (int vote : votes){
+            if(vote == 1)
+            {
+                waifu1Votes++;
+            }else if(vote ==2)
+            {
+                waifu2Votes++;
+            }
+        }
 
         if(waifu1Votes > waifu2Votes){
             messageManager.sendMessage(event, waifu1.getName() + " wins " + waifu1Votes + " to " + waifu2Votes);
@@ -206,9 +271,7 @@ public class AnimeActor {
             waifuManager.updateWaifu(waifu2);
             waifuManager.updateWaifu(waifu1);
         }
-        waifu1Votes=0;
-        waifu2Votes =0;
-        voters.clear();
+        WAIFU_VOTE_MAP.get(channelName).clear();
 
     }
 

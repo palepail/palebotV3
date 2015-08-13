@@ -51,6 +51,13 @@ public class MessageManager {
 
     }
 
+    public static boolean isLocked(String id){
+        if (lockArray.contains(id)) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean lock(String id, int time) {
         if (lockArray.contains(id)) {
             return false;
@@ -66,7 +73,7 @@ public class MessageManager {
     }
 
 
-    public static void lockAction(String id, int time) {
+    private static void lockAction(String id, int time) {
         lockArray.add(id);
         timer.schedule(new unlockAction(id), time);
 

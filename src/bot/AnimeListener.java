@@ -73,6 +73,10 @@ public class AnimeListener extends ListenerAdapter {
                 actor.waifuThirst(event);
                 return;
             }
+            if (event.getMessage().startsWith("!waifu thirstiest") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {
+                actor.waifuThirstiest(event);
+                return;
+            }
 
 
             //OP commands
@@ -89,7 +93,7 @@ public class AnimeListener extends ListenerAdapter {
                 }
             }
 
-            if (event.getMessage().equals("!waifu fight") && actor.waifuFightOpen == false && !messageManager.overLimit()) {
+            if (event.getMessage().equals("!waifu fight") && !messageManager.overLimit()) {
                 if (messageManager.isMod(channelName, userName)) {
 
                     actor.waifuFight(event);
@@ -102,16 +106,11 @@ public class AnimeListener extends ListenerAdapter {
             }
         }
 
-        if (actor.waifuFightOpen && event.getMessage().startsWith("1") && !actor.voters.contains(userName)) {
-            actor.voters.add(userName);
-            actor.waifu1Votes++;
+        if (event.getMessage().startsWith("1") || event.getMessage().startsWith("2")) {
+            actor.waifuVote(event);
             return;
         }
-        if (actor.waifuFightOpen && event.getMessage().startsWith("2") && !actor.voters.contains(userName)) {
-            actor.voters.add(userName);
-            actor.waifu2Votes++;
-            return;
-        }
+
 
 
     }

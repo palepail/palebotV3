@@ -2,6 +2,7 @@ package dao;
 
 import dto.WaifuDTO;
 import models.Waifu;
+import models.WaifuThirst;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -14,6 +15,47 @@ import java.util.List;
 public class WaifuDAO {
     EntityManager em = PersistenceManager.getInstance().getEntityManager();
 
+
+    public void updateWaifuThirst(WaifuThirst thirst)
+    {
+        Query query = em.createQuery("SELECT e FROM models.WaifuThirst e WHERE  e.channelId = :channelId and e.user = :user");
+        List<WaifuThirst> waifuThirst = query.setParameter("channelId", thirst.getChannelId()).setParameter("user",thirst.getUser()).getResultList();
+        em.getTransaction().begin();
+        if(waifuThirst.size()==0)
+        {
+            WaifuThirst newThirst = new WaifuThirst();
+            newThirst.setChannelId(thirst.getChannelId());
+            newThirst.setCount(1);
+            newThirst.setUser(thirst.getUser());
+            em.persist(thirst);
+        }else{
+            WaifuThirst existingThirst = waifuThirst.get(0);
+            existingThirst.setCount(existingThirst.getCount()+1);
+        }
+
+        em.getTransaction().commit();
+    }
+
+    public WaifuThirst getThirst(String userName, int channelId)
+    {
+        Query query = em.createQuery("SELECT e FROM models.WaifuThirst e WHERE  e.channelId = :channelId and e.user = :user");
+        List<WaifuThirst> waifuThirst = query.setParameter("channelId", channelId).setParameter("user",userName).getResultList();
+        if(waifuThirst.size()==0)
+        {
+            return null;
+        }else{
+            return waifuThirst.get(0);
+        }
+
+    }
+    public List<Waifu> getThirstiest(int channelId){
+
+        //native query requires db names
+        String queryString = "SELECT * FROM waifu where CHANNEL_ID = :channelId and uploader = (select uploader from (select uploader,count(uploader) as cnt from waifu where CHANNEL_ID = :channelId and uploader = 0) t order by cnt DESC)";
+        Query query = em.createNativeQuery(queryString, Waifu.class);
+        List results = query.setParameter("channelId", channelId).getResultList();
+        return results;
+    }
     public List<Waifu> getAll(){
 
         Query query = em.createQuery("SELECT e FROM models.Waifu e");
@@ -31,7 +73,7 @@ public class WaifuDAO {
 
     public List<Waifu> getWaifuByName(String name){
         Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE UPPER(e.name) like UPPER(:name)");
-        return query.setParameter("name", "%"+name.trim()+"%").getResultList();
+        return query.setParameter("name", "%" + name.trim() + "%").getResultList();
     }
 
 
@@ -66,14 +108,7 @@ public class WaifuDAO {
         return waifu;
     }
 
-    public List<Waifu> getThirst(int channelId){
 
-        //native query requires db names
-        String queryString = "SELECT * FROM waifu where CHANNEL_ID = :channelId and uploader = (select uploader from (select uploader,count(uploader) as cnt from waifu where CHANNEL_ID = :channelId and uploader = 0) t order by cnt DESC)";
-        Query query = em.createNativeQuery(queryString, Waifu.class);
-        List results = query.setParameter("channelId", channelId).getResultList();
-        return results;
-    }
 
     public void resetFight(int channelId){
 
