@@ -27,7 +27,7 @@ public class WaifuDAO {
             newThirst.setChannelId(thirst.getChannelId());
             newThirst.setCount(1);
             newThirst.setUser(thirst.getUser());
-            em.persist(thirst);
+            em.persist(newThirst);
         }else{
             WaifuThirst existingThirst = waifuThirst.get(0);
             existingThirst.setCount(existingThirst.getCount()+1);

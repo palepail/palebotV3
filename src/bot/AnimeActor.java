@@ -160,10 +160,14 @@ public class AnimeActor {
     {
 
        WaifuThirst thirst = waifuManager.getThirst(userName, channelEntity.getId());
+        if(thirst==null){
+            messageManager.sendMessage(event,userName+ ", you don't even know what a waifu is.");
+            return;
+        }
         String message = userName;
         if(thirst.getCount()>25)
         {
-            message+=", too many waifu ruin your lifu. They have";
+            message+=", too many waifu ruin your lifu. They have ";
         }
         else if(thirst.getCount()>20)
         {
