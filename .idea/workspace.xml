@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a777a4b3-5dc1-44aa-b3db-9d1a991029d8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bot/AnimeActor.java" afterPath="$PROJECT_DIR$/src/bot/AnimeActor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/javax_websocket_javax_websocket_api_1_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bot/AnimeListener.java" afterPath="$PROJECT_DIR$/src/bot/AnimeListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/palebotV3.iml" afterPath="$PROJECT_DIR$/palebotV3.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="palebotV3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,16 +66,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Palebot.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/bot/Palebot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.6666665">
-              <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="WaifuManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/managers/WaifuManager.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -88,10 +81,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WaifuDAO.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WaifuDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dao/WaifuDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36853004">
+            <state vertical-scroll-proportion="-12.259259">
               <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
               <folding>
                 <element signature="e#2348#2349#0" expanded="true" />
@@ -122,9 +115,25 @@
       <file leaf-file-name="AnimeListener.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-25.814816">
-              <caret line="76" column="37" selection-start-line="76" selection-start-column="22" selection-end-line="76" selection-end-column="37" />
+            <state vertical-scroll-proportion="-13.851851">
+              <caret line="75" column="97" selection-start-line="75" selection-start-column="97" selection-end-line="75" selection-end-column="97" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WebSocketEndpoint.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/endpoints/WebSocketEndpoint.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.33268103">
+              <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#500#501#0" expanded="true" />
+                <element signature="e#559#560#0" expanded="true" />
+                <element signature="e#629#630#0" expanded="true" />
+                <element signature="e#683#684#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -162,7 +171,7 @@
       <file leaf-file-name="AnimeActor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bot/AnimeActor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="15.111111">
+            <state vertical-scroll-proportion="1.8888888">
               <caret line="169" column="65" selection-start-line="169" selection-start-column="65" selection-end-line="169" selection-end-column="65" />
               <folding />
             </state>
@@ -242,11 +251,12 @@
         <option value="$PROJECT_DIR$/src/dao/ChannelDAO.java" />
         <option value="$PROJECT_DIR$/src/bot/MessageManager.java" />
         <option value="$PROJECT_DIR$/src/managers/WaifuManager.java" />
-        <option value="$PROJECT_DIR$/src/bot/AnimeListener.java" />
         <option value="$PROJECT_DIR$/src/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/src/models/WaifuThirst.java" />
         <option value="$PROJECT_DIR$/src/bot/AnimeActor.java" />
         <option value="$PROJECT_DIR$/src/dao/WaifuDAO.java" />
+        <option value="$PROJECT_DIR$/src/bot/AnimeListener.java" />
+        <option value="$PROJECT_DIR$/src/endpoints/WebSocketEndpoint.java" />
       </list>
     </option>
   </component>
@@ -268,10 +278,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1696" />
-    <option name="height" value="1026" />
+    <option name="x" value="48" />
+    <option name="y" value="66" />
+    <option name="width" value="1618" />
+    <option name="height" value="952" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -333,160 +343,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="META-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="managers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="endpoints" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="palebotV3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="out" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -510,7 +366,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15332031" />
     <property name="project.structure.side.proportion" value="0.2675894" />
     <property name="FullScreen" value="false" />
@@ -815,7 +671,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="7" />
+    <frame x="48" y="66" width="1618" height="952" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19208382" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -826,12 +682,12 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294621" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3982103" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15647922" sideWeight="0.18215613" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3097561" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16431323" sideWeight="0.18318966" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15647922" sideWeight="0.81784385" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16431323" sideWeight="0.81681037" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1900978" sideWeight="0.5124792" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1405868" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14762516" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1900978" sideWeight="0.5124792" order="4" side_tool="true" content_ui="tabs" />
@@ -890,13 +746,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/models/Quote.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dao/QuoteDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1193,9 +1042,9 @@
         <state vertical-scroll-proportion="-8.777778">
           <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding>
-            <element signature="e#537#538#0" expanded="true" />
-            <element signature="e#579#580#0" expanded="true" />
-            <element signature="e#2064#2065#0" expanded="true" />
+            <element signature="e#537#538#0" expanded="false" />
+            <element signature="e#579#580#0" expanded="false" />
+            <element signature="e#2064#2065#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1252,14 +1101,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-25.814816">
-          <caret line="76" column="37" selection-start-line="76" selection-start-column="22" selection-end-line="76" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/META-INF/persistence.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.37209302">
@@ -1305,14 +1146,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bot/AnimeActor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="15.111111">
-          <caret line="169" column="65" selection-start-line="169" selection-start-column="65" selection-end-line="169" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dao/ChannelDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.148148">
@@ -1323,7 +1156,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dao/WaifuDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36853004">
+        <state vertical-scroll-proportion="-12.259259">
           <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
           <folding>
             <element signature="e#2348#2349#0" expanded="true" />
@@ -1334,6 +1167,36 @@
             <marker date="1439436441052" expanded="true" signature="4544:4623" placeholder="Update paleb..." />
             <marker date="1439436441052" expanded="true" signature="4805:4856" placeholder="SELECT * FRO..Waifu..." />
             <marker date="1439436441052" expanded="true" signature="5240:5321" placeholder="SELECT * FRO..Waifu..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bot/AnimeActor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.8888888">
+          <caret line="169" column="65" selection-start-line="169" selection-start-column="65" selection-end-line="169" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bot/AnimeListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.851851">
+          <caret line="75" column="97" selection-start-line="75" selection-start-column="97" selection-end-line="75" selection-end-column="97" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoints/WebSocketEndpoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33268103">
+          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#500#501#0" expanded="true" />
+            <element signature="e#559#560#0" expanded="true" />
+            <element signature="e#629#630#0" expanded="true" />
+            <element signature="e#683#684#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1357,7 +1220,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>JPA (palebotV3)|JPA</last-edited>
+          <last-edited>JPA</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1416,7 +1279,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>com.google.code.gson:gson:2.3.1</last-edited>
+          <last-edited>javax.websocket:javax.websocket-api:1.1</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
