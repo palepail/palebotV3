@@ -41,7 +41,7 @@ public class YoutubeActor {
         if (request.contains("?v=")) {
            request = request.substring(request.indexOf('=')+1, request.length());
         }
-        
+
 
         String json = "{ \"id\":\"" + request.trim() + "\", \"uploader\": \"" + userName.trim() + "\" }";
         webSocket.sendYoutubeRequest(channelEntity.getId(), json);
