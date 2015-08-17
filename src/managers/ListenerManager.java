@@ -2,6 +2,7 @@ package managers;
 
 import bot.AnimeListener;
 import bot.DefaultListener;
+import bot.YoutubeListener;
 import dao.ListenerDAO;
 import models.Channel;
 import models.Listener;
@@ -36,14 +37,18 @@ public class ListenerManager {
         List<Listener> listenerEntities = listenerDAO.getAllByChannel(channelId);
         List<ListenerAdapter> listenerAdapters = new ArrayList<>();
 
-        for (Listener listner : listenerEntities) {
-            switch (listner.getName()) {
+        for (Listener listener : listenerEntities) {
+            switch (listener.getName()) {
                 case DefaultListener.NAME: {
                     listenerAdapters.add(new DefaultListener());
                     break;
                 }
                 case AnimeListener.NAME: {
                     listenerAdapters.add(new AnimeListener());
+                    break;
+                }
+                case YoutubeListener.NAME: {
+                    listenerAdapters.add(new YoutubeListener());
                     break;
                 }
                 default: {
@@ -64,6 +69,10 @@ public class ListenerManager {
             }
             case AnimeListener.NAME: {
                 listenerAdapter = new AnimeListener();
+                break;
+            }
+            case YoutubeListener.NAME: {
+                listenerAdapter = new YoutubeListener();
                 break;
             }
             default: {

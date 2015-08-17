@@ -69,7 +69,7 @@ public class AnimeListener extends ListenerAdapter {
                 return;
             }
 
-            if (event.getMessage().startsWith("!waifu thirst") && !messageManager.overLimit()) {
+            if (event.getMessage().equals("!waifu thirst") && !messageManager.overLimit()) {
                 actor.waifuThirst(event);
                 return;
             }

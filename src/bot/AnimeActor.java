@@ -17,7 +17,7 @@ public class AnimeActor {
     private static WaifuManager waifuManager = WaifuManager.getInstance();
     private static ChannelManager channelManager = new ChannelManager();
     public static HashMap<String, ArrayList> WAIFU_VOTE_MAP = new HashMap<>();
-
+    public static HashMap<String, ArrayList> WAIFU_VOTERS_MAP = new HashMap<>();
 
     private static String WAIFU_ID;
     private static String WAIFU_FIGHT_ID;
@@ -206,7 +206,8 @@ public class AnimeActor {
 
     public void waifuVote(MessageEvent event){
 
-        if(messageManager.isLocked(WAIFU_FIGHT_ID) &&(WAIFU_VOTE_MAP.get(channelName)!=null)) {
+        if(messageManager.isLocked(WAIFU_FIGHT_ID) &&(WAIFU_VOTE_MAP.get(channelName)!=null) && (!WAIFU_VOTERS_MAP.get(channelName).contains(userName))) {
+            WAIFU_VOTERS_MAP.get(channelName).add(userName);
             if (event.getMessage().startsWith("1")) {
                 WAIFU_VOTE_MAP.get(channelName).add(1);
             }else if(event.getMessage().startsWith("2")){
@@ -239,8 +240,10 @@ public class AnimeActor {
 
         if(WAIFU_VOTE_MAP.get(channelName)==null) {
             WAIFU_VOTE_MAP.put(channelName, new ArrayList());
+            WAIFU_VOTERS_MAP.put(channelName, new ArrayList());
         }else
         {
+            WAIFU_VOTERS_MAP.get(channelName).clear();
             WAIFU_VOTE_MAP.get(channelName).clear();
         }
 
@@ -276,6 +279,7 @@ public class AnimeActor {
             waifuManager.updateWaifu(waifu1);
         }
         WAIFU_VOTE_MAP.get(channelName).clear();
+        WAIFU_VOTERS_MAP.get(channelName).clear();
 
     }
 

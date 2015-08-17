@@ -52,6 +52,19 @@ public class PalebotWebSocket {
 
     }
 
+    public void sendYoutubeRequest(int channelId, String request){
+        List<Session> sessions = sessionMap.entrySet()
+                .stream()
+                .filter(entry -> Objects.equals(entry.getValue(), channelId))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        for (Session session : sessions){
+            session.getAsyncRemote().sendText(request);
+        }
+
+    }
+
     @OnClose
     public void close(Session session, CloseReason c) {
         sessionMap.remove(session.getId());
