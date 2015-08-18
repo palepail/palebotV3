@@ -143,7 +143,9 @@ public class Palebot {
 
         for(ListenerAdapter listener: listenerManager.getAllByChannelName(channelName))
         {
-            pircBotX.getConfiguration().getListenerManager().addListener(listener);
+            if(!pircBotX.getConfiguration().getListenerManager().listenerExists(listener)) {
+                pircBotX.getConfiguration().getListenerManager().addListener(listener);
+            }
         }
 
     }

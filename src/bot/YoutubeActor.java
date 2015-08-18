@@ -15,6 +15,8 @@ public class YoutubeActor {
 
     MessageManager messageManager;
     PalebotWebSocket webSocket = new PalebotWebSocket();
+
+    YoutubeManager youtubeManager = YoutubeManager.getInstance();
     private String YOUTUBE_REQUEST_ID;
 
     ChannelManager channelManager = new ChannelManager();
@@ -36,15 +38,17 @@ public class YoutubeActor {
     public void sendYoutubeRequest(MessageEvent event) {
 
 
-        String request = message.replace("!request", "");
+        String request = message.replace("!request", "").trim();
 
         if (request.contains("?v=")) {
            request = request.substring(request.indexOf('=')+1, request.length());
         }
 
+        YoutubeVideo video = youtubeManager.getVideoDetails(request);
+        video.setUploader(userName);
 
-        String json = "{ \"id\":\"" + request.trim() + "\", \"uploader\": \"" + userName.trim() + "\" }";
-        webSocket.sendYoutubeRequest(channelEntity.getId(), json);
+      //  String json = "{ \"id\":\"" + request.trim() + "\", \"uploader\": \"" + userName.trim() + "\" }";
+        webSocket.sendYoutubeRequest(channelEntity.getId(), video);
 
 
     }

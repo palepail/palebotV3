@@ -6,6 +6,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 
+import bot.YoutubeVideo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -52,7 +53,7 @@ public class PalebotWebSocket {
 
     }
 
-    public void sendYoutubeRequest(int channelId, String request){
+    public void sendYoutubeRequest(int channelId, YoutubeVideo video){
         List<Session> sessions = sessionMap.entrySet()
                 .stream()
                 .filter(entry -> Objects.equals(entry.getValue(), channelId))
@@ -60,7 +61,7 @@ public class PalebotWebSocket {
                 .collect(Collectors.toList());
 
         for (Session session : sessions){
-            session.getAsyncRemote().sendText(request);
+            session.getAsyncRemote().sendText(new Gson().toJson(video));
         }
 
     }

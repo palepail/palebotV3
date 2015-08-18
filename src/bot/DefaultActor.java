@@ -118,7 +118,7 @@ public class DefaultActor {
                 break;
             }
         }
-        messageManager.sendMessage(event, event.getUser().getNick() + "rolled a " + number + " " + flair);
+        messageManager.sendMessage(event, event.getUser().getNick() + " rolled a " + number + " " + flair);
 
     }
 
