@@ -45,11 +45,14 @@ public class YoutubeActor {
         }
 
         YoutubeVideo video = youtubeManager.getVideoDetails(request);
-        video.setUploader(userName);
 
-      //  String json = "{ \"id\":\"" + request.trim() + "\", \"uploader\": \"" + userName.trim() + "\" }";
-        webSocket.sendYoutubeRequest(channelEntity.getId(), video);
-
+        if(video!=null) {
+            video.setUploader(userName);
+            webSocket.sendYoutubeRequest(channelEntity.getId(), video);
+            messageManager.sendMessage(event, video.items.get(0).snippet.title + " requested by " + userName);
+        }else{
+            messageManager.sendMessage(event, "Video Not Found");
+        }
 
     }
 
