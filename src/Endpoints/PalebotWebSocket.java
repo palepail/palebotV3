@@ -10,6 +10,7 @@ import bot.YoutubeVideo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import dto.ChannelDTO;
 import jdk.nashorn.internal.parser.JSONParser;
 import models.Channel;
 import org.jboss.logging.Logger;
@@ -40,7 +41,7 @@ public class PalebotWebSocket {
 
     }
 
-    public void sendChannel(Channel channel){
+    public void sendChannel(ChannelDTO channel){
         List<Session> sessions = sessionMap.entrySet()
                 .stream()
                 .filter(entry -> Objects.equals(entry.getValue(), channel.getId()))

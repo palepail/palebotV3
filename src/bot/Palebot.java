@@ -70,7 +70,7 @@ public class Palebot {
 
     }
 
-    public void activateBot(String channel){
+    public boolean activateBot(String channel){
         PircBotX pircBot;
         if(!botMap.containsKey(channel))
         {
@@ -79,19 +79,15 @@ public class Palebot {
 
         }
         if(getStatus(channel)!="CONNECTED") {
-            try {
+
                 pircBot = botMap.get(channel);
 
                 addListeners(pircBot,channel);
 
-                pircBot.startBot();
+                new StartBot(pircBot).start();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (IrcException e) {
-                e.printStackTrace();
-            }
         }
+        return true;
     }
 
     public boolean deactivateBot(String channel){
@@ -100,9 +96,10 @@ public class Palebot {
         {
             PircBotX pircBot = botMap.get(channel);
             pircBot.getConfiguration().getListenerManager().shutdown(pircBot);
+            removeListeners(pircBot);
             serverManager = new OutputIRC(pircBot);
             serverManager.quitServer();
-            return false;
+
         }
         return false;
     }
@@ -131,12 +128,17 @@ public class Palebot {
     {
         Channel channel = channelManager.getChannelById(channelId);
         PircBotX pircbot = botMap.get(channel.getName());
-        for(org.pircbotx.hooks.Listener listener :  pircbot.getConfiguration().getListenerManager().getListeners())
-        {
-            pircbot.getConfiguration().getListenerManager().removeListener(listener);
-        }
+      removeListeners(pircbot);
         addListeners(pircbot, channel.getName());
         return true;
+    }
+
+    private void removeListeners(PircBotX pircBotX){
+
+        for(org.pircbotx.hooks.Listener listener :  pircBotX.getConfiguration().getListenerManager().getListeners())
+        {
+            pircBotX.getConfiguration().getListenerManager().removeListener(listener);
+        }
     }
 
     private void addListeners(PircBotX pircBotX, String channelName){
@@ -147,6 +149,25 @@ public class Palebot {
                 pircBotX.getConfiguration().getListenerManager().addListener(listener);
             }
         }
+
+    }
+
+
+    class StartBot extends Thread{
+        private PircBotX bot;
+
+        public StartBot(PircBotX bot){
+            this.bot = bot;
+        }
+    public void run(){
+        try{
+        bot.startBot();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IrcException e) {
+            e.printStackTrace();
+        }
+    }
 
     }
 

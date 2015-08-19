@@ -25,6 +25,7 @@ public class PalebotEndpoint {
     PalebotManager palebotManager = PalebotManager.getInstance();
     QuoteManager quoteManager = QuoteManager.getInstance();
     ListenerManager listenerManager = ListenerManager.getInstance();
+    PalebotWebSocket webSocket = new PalebotWebSocket();
 
 
     @GET
@@ -37,16 +38,27 @@ public class PalebotEndpoint {
     @POST
     @Path("/on")
     @Produces("application/json")
-    public void palebotOn(@QueryParam("channel") String channel) {
-        palebotManager.activateBot(channel);
+    public ChannelDTO palebotOn(@QueryParam("channel") String channelName) {
+        palebotManager.activateBot(channelName);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return channelManager.getChannelDTOByName(channelName);
     }
 
     @POST
     @Path("/off")
     @Produces("application/json")
-    public boolean palebotOff(@QueryParam("channel") String channel) {
-        return palebotManager.deactivateBot(channel);
-
+    public ChannelDTO palebotOff(@QueryParam("channel") String channelName) {
+        palebotManager.deactivateBot(channelName);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return channelManager.getChannelDTOByName(channelName);
     }
 
     @GET

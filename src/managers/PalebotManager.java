@@ -21,8 +21,8 @@ public class PalebotManager {
         return palebot.getStatus(channel);
     }
 
-    public void activateBot(String channel) {
-        palebot.activateBot(channel);
+    public boolean activateBot(String channel) {
+       return palebot.activateBot(channel);
     }
 
     public boolean isPalebotAdmin(String userName){return palebotDAO.isPalebotAdmin(userName);}
