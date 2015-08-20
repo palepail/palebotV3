@@ -6,6 +6,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 
+import bot.MessageManager;
 import bot.YoutubeVideo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -27,17 +28,30 @@ public class PalebotWebSocket {
     Logger log = Logger.getLogger(this.getClass());
     Gson gson = new Gson();
 
+
     private static HashMap<Session,Integer> sessionMap = new HashMap<>();
 
     @OnMessage
     public void receiveMessage(String message, Session session) {
-        log.info("Received : "+ message + ", session:" + session.getId());
+        int channelId = sessionMap.get(session);
+        YoutubeVideo video = gson.fromJson(message, YoutubeVideo.class);
+        MessageManager messageManager = MessageManager.getInstance(channelId);
+        messageManager.sendMessage(channelId, video.items.get(0).snippet.title);
+
     }
 
     @OnOpen
     public void open(  @PathParam("id")int id, Session session) {
         sessionMap.put(session,id);
         log.info("Open session:" + session.getId());
+
+    }
+    public void sendCurrentSongQuery(int channelId)
+    {
+        List<Session> sessions = getSessionsById(channelId);
+        for (Session session : sessions){
+            session.getAsyncRemote().sendText("currentSong");
+        }
 
     }
 
@@ -55,16 +69,22 @@ public class PalebotWebSocket {
     }
 
     public void sendYoutubeRequest(int channelId, YoutubeVideo video){
-        List<Session> sessions = sessionMap.entrySet()
-                .stream()
-                .filter(entry -> Objects.equals(entry.getValue(), channelId))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+
+       List<Session> sessions = getSessionsById(channelId);
 
         for (Session session : sessions){
             session.getAsyncRemote().sendText(new Gson().toJson(video));
         }
 
+    }
+
+    private List<Session> getSessionsById(int channelId){
+        List<Session> sessions = sessionMap.entrySet()
+                .stream()
+                .filter(entry -> Objects.equals(entry.getValue(), channelId))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        return sessions;
     }
 
     @OnClose

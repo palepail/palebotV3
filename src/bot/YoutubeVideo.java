@@ -10,11 +10,21 @@ import java.util.List;
 public class YoutubeVideo {
 
 
-    String uploader;
-    String kind;
-    String etag;
-    PageInfo pageInfo;
-    List<Item> items;
+     String uploader;
+     int channelId;
+     String kind;
+     String etag;
+     PageInfo pageInfo;
+     public List<Item> items;
+
+
+    public int getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(int channelId) {
+        this.channelId = channelId;
+    }
 
     public String getUploader() {
         return uploader;
@@ -24,20 +34,34 @@ public class YoutubeVideo {
         this.uploader = uploader;
     }
 
-    class PageInfo{
+
+
+
+    class PageInfo {
         int totalResults;
         int resultsPerPage;
     }
-    class Item{
+    public class Item{
         String kind;
         String etag;
         String id;
-        Snippet snippet;
+       public Snippet snippet;
+        ContentDetails contentDetails;
 
-        class Snippet{
+
+
+        public class ContentDetails{
+            String duration;
+            String dimention;
+            String definition;
+            String caption;
+            boolean licensedContnent;
+        }
+
+       public class Snippet{
             String publishedAt;
             String channelId;
-            String title;
+            public String title;
             String description;
             Thumbnails thumbnails;
             String channelTitle;

@@ -1,8 +1,8 @@
-package bot;
+package managers;
 
+import bot.YoutubeVideo;
 import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +31,7 @@ public class YoutubeManager {
 
     public YoutubeVideo getVideoDetails(String videoId)
     {
-        String url =  "https://www.googleapis.com/youtube/v3/videos?part=snippet&id="+videoId+"&key="+API_KEY;
+        String url =  "https://www.googleapis.com/youtube/v3/videos?id="+videoId+"&key="+API_KEY+"&part=snippet,contentDetails";
         String charSet = java.nio.charset.StandardCharsets.UTF_8.name();
         String jsonString="";
 

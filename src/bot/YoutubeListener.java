@@ -17,6 +17,7 @@ public class YoutubeListener extends ListenerAdapter {
     YoutubeActor actor = new YoutubeActor();
     public static final String NAME = "YOUTUBE";
 
+
     @Override
     public void onMessage(MessageEvent event) {
 
@@ -27,6 +28,10 @@ public class YoutubeListener extends ListenerAdapter {
 
             if (event.getMessage().startsWith("!request") && !messageManager.overLimit() && !actor.tooManyRequests(event)) {
                 actor.sendYoutubeRequest(event);
+                return;
+            }
+            if (event.getMessage().startsWith("!song") && !messageManager.overLimit()) {
+                actor.sendCurrentSongQuery(event);
                 return;
             }
 

@@ -2,6 +2,7 @@ package managers;
 
 import bot.Palebot;
 import dao.PalebotDAO;
+import org.pircbotx.PircBotX;
 
 /**
  * Created by palepail on 7/29/2015.
@@ -23,6 +24,10 @@ public class PalebotManager {
 
     public boolean activateBot(String channel) {
        return palebot.activateBot(channel);
+    }
+
+    public PircBotX getBotByChannelId(int channelId){
+        return palebot.getBotByChannelId(channelId);
     }
 
     public boolean isPalebotAdmin(String userName){return palebotDAO.isPalebotAdmin(userName);}

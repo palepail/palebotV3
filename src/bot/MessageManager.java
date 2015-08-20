@@ -3,6 +3,9 @@ package bot;
 
 import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
+import managers.ChannelManager;
+import managers.PalebotManager;
+import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.events.MessageEvent;
 
 
@@ -31,6 +34,8 @@ public class MessageManager {
     static ArrayList<String> lockArray = new ArrayList();
     static int messageCount = MAX_MESSAGES;
     static Timer timer = new Timer();
+    static PalebotManager palebotManager = PalebotManager.getInstance();
+    static ChannelManager channelManager = new ChannelManager();
 
 
     public static MessageManager getInstance(String channelName) {
@@ -40,6 +45,11 @@ public class MessageManager {
             messageManagerMap.put(channelName,new MessageManager());
             return messageManagerMap.get(channelName);
         }
+    }
+
+    public static MessageManager getInstance(int channelId) {
+        String channelName = channelManager.getChannelById(channelId).getName();
+        return getInstance(channelName);
     }
 
     public static void delayMessage(int time) {
@@ -120,6 +130,11 @@ public class MessageManager {
     public void sendMessage(MessageEvent event,String message){
         reduceMessages(1);
         event.getBot().sendIRC().message(event.getChannel().getName(), message);
+    }
+    public void sendMessage(int channelId, String message){
+        reduceMessages(1);
+        PircBotX pircBotX = palebotManager.getBotByChannelId(channelId);
+        pircBotX.sendIRC().message('#'+channelManager.getChannelById(channelId).getName(), message);
     }
 
     public boolean isMod(String channelName,String userName){

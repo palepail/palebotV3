@@ -20,7 +20,6 @@ import java.util.TimerTask;
  */
 public class Palebot {
     private static Palebot palebot;
-    private static MessageManager messageManager;
     private static ListenerManager listenerManager;
     private static HashMap<String,PircBotX> botMap = new HashMap<>();
     private static OutputIRC serverManager;
@@ -45,6 +44,11 @@ public class Palebot {
 
         }
         return palebot;
+    }
+
+    public PircBotX getBotByChannelId(int channelId)
+    {
+        return botMap.get(channelManager.getChannelById(channelId).getName());
     }
 
 

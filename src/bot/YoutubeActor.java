@@ -6,10 +6,13 @@ package bot;
 
 import endpoints.PalebotWebSocket;
 import managers.ChannelManager;
-import managers.CustomMessageManager;
+import managers.YoutubeManager;
 import models.Channel;
-import models.CustomMessage;
 import org.pircbotx.hooks.events.MessageEvent;
+
+import java.sql.Date;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 
 public class YoutubeActor {
 
@@ -34,6 +37,10 @@ public class YoutubeActor {
         YOUTUBE_REQUEST_ID = "YOUTUBE_REQUEST_" + channelEntity.getId();
     }
 
+    public void sendCurrentSongQuery(MessageEvent event){
+        webSocket.sendCurrentSongQuery(channelEntity.getId());
+    }
+
 
     public void sendYoutubeRequest(MessageEvent event) {
 
@@ -48,8 +55,16 @@ public class YoutubeActor {
 
         if(video!=null) {
             video.setUploader(userName);
+            video.setChannelId(channelEntity.getId());
             webSocket.sendYoutubeRequest(channelEntity.getId(), video);
-            messageManager.sendMessage(event, video.items.get(0).snippet.title + " requested by " + userName);
+
+
+
+            Duration duration = Duration.parse(video.items.get(0).contentDetails.duration);
+            String durationString = String.format("%d:%02d:%02d", duration.getSeconds() / 3600, (duration.getSeconds() % 3600) / 60, (duration.getSeconds() % 60));
+            messageManager.sendMessage(event, video.items.get(0).snippet.title + " " + durationString + " requested by " + userName);
+
+
         }else{
             messageManager.sendMessage(event, "Video Not Found");
         }

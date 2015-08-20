@@ -9,9 +9,18 @@ import java.util.List;
  */
 public class ChannelDTO {
     int id;
+    String info;
     String name;
     String status;
     List<Listener> listeners;
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public List<Listener> getListeners() {
         return listeners;
