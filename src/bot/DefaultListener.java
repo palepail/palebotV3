@@ -43,6 +43,13 @@ public class DefaultListener extends ListenerAdapter {
                 return;
             }
 
+            if (event.getMessage().startsWith("!custom all") && !messageManager.overLimit()) {
+
+                    actor.getAllCustomMessages(event);
+
+                return;
+            }
+
             if (event.getMessage().startsWith("!custom") && !messageManager.overLimit()) {
                 if (messageManager.isMod(event.getChannel().getName(), event.getUser().getNick())) {
                     actor.saveCustomMessage(event);

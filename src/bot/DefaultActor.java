@@ -84,6 +84,17 @@ public class DefaultActor {
         messageManager.sendMessage(event, "Custom Message Saved");
 
     }
+    public void getAllCustomMessages(MessageEvent event){
+        List<CustomMessage> messages = customMessageManager.getCustomMessagesByChannel(channelEntity.getId());
+        String post ="";
+        for(CustomMessage message : messages)
+        {
+            post+= message.getCustomTrigger() + " ";
+        }
+
+        messageManager.sendMessage(event, post);
+
+    }
 
     public void rollDice(MessageEvent event)
     {

@@ -48,8 +48,19 @@ public class WaifuDAO {
         }
 
     }
-    public List<Waifu> getThirstiest(int channelId){
+    public List<WaifuThirst> getThirstiest(int channelId){
 
+        Query query = em.createQuery("SELECT e FROM models.WaifuThirst e WHERE  e.channelId = :channelId and e.count = (SELECT max(e.count) FROM e WHERE  e.channelId = :channelId)");
+        List<WaifuThirst> waifuThirst = query.setParameter("channelId", channelId).getResultList();
+        if(waifuThirst.size()==0)
+        {
+            return null;
+        }else{
+            return waifuThirst;
+        }
+    }
+
+    public List<Waifu> getBestUploader(int channelId){
         //native query requires db names
         String queryString = "SELECT * FROM waifu where CHANNEL_ID = :channelId and uploader = (select uploader from (select uploader,count(uploader) as cnt from waifu where CHANNEL_ID = :channelId and uploader = 0) t order by cnt DESC)";
         Query query = em.createNativeQuery(queryString, Waifu.class);

@@ -194,13 +194,13 @@ public class AnimeActor {
     public void waifuThirstiest(MessageEvent event)
     {
         long seed = System.nanoTime();
-        List<Waifu> waifuList = waifuManager.getThirstiest(channelEntity.getId());
-        if(waifuList.size()>0)
-        {
-            Collections.shuffle(waifuList, new Random(seed));
-            Waifu waifu = waifuList.get(0);
-            messageManager.sendMessage(event, waifu.getUploader() + " is so thirsty, he has " + waifuList.size() + " waifu.");
+        List<WaifuThirst> thirstList = waifuManager.getThirstiest(channelEntity.getId());
 
+        if(thirstList.size()>0)
+        {
+            Collections.shuffle(thirstList, new Random(seed));
+            WaifuThirst waifuThirst = thirstList.get(0);
+            messageManager.sendMessage(event, waifuThirst.getUser() + " went for the harem route with " + waifuThirst.getCount() + " waifu.");
         }
     }
 

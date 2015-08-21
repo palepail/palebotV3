@@ -61,6 +61,7 @@ public class YoutubeActor {
 
 
             Duration duration = Duration.parse(video.items.get(0).contentDetails.duration);
+            duration.minusSeconds(1);
             String durationString = String.format("%d:%02d:%02d", duration.getSeconds() / 3600, (duration.getSeconds() % 3600) / 60, (duration.getSeconds() % 60));
             messageManager.sendMessage(event, video.items.get(0).snippet.title + " " + durationString + " requested by " + userName);
 

@@ -54,7 +54,7 @@ public class WaifuManager {
         return waifuDAO.getBest(channelId);
     }
 
-    public List<Waifu> getThirstiest(int channelId) {
+    public List<WaifuThirst> getThirstiest(int channelId) {
         return waifuDAO.getThirstiest(channelId);
     }
 
