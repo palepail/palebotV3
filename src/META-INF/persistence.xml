@@ -11,7 +11,7 @@
         <class>models.PalebotAdmin</class>
         <class>models.WaifuThirst</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/palebotv3war"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/palebotv3"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="adminQdJZ5eV"/>
             <property name="hibernate.connection.password" value="Zrra2XCTkjHI"/>
