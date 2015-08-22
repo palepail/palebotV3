@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="palebotV3:war exploded">
+  <artifact type="exploded-war" build-on-make="true" name="palebotV3:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/palebotV3.war</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="palebotV3/web/Web" />
