@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="war" build-on-make="true" name="palebotV3:war">
-    <output-path>$PROJECT_DIR$/out/artifacts/palebotV3_war</output-path>
+    <output-path>$PROJECT_DIR$/deployments</output-path>
     <root id="archive" name="palebotV3_war.war">
       <element id="artifact" artifact-name="palebotV3:war exploded" />
     </root>
