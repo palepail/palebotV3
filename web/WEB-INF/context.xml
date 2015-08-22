@@ -1,4 +1,5 @@
 <valve name="valve" module="org.jboss.web-valves" class-name="org.apache.catalina.valves.RemoteAddrValve">
     <param param-name="allow" param-value="127.0.0.1"/>
+    <param param-name="allow" param-value="palepail.com"/>
     <param param-name="allow" param-value="184.168.224.180"/>
 </valve>
