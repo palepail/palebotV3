@@ -11,11 +11,19 @@
         <class>models.PalebotAdmin</class>
         <class>models.WaifuThirst</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/palebot"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://127.11.192.2:3306/palebot"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.username" value="palepail"/>
-            <property name="hibernate.connection.password" value="crutonq123"/>
+            <property name="hibernate.connection.username" value="adminl8kLnNq"/>
+            <property name="hibernate.connection.password" value="YbUq8Khuj83_"/>
             <property name="hibernate.archive.autodetection" value="class"/>
+
+            <property name="hibernate.c3p0.min_size" value="5"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.timeout" value="300"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+
+
            <!-- <property name="hibernate.show_sql" value="true"/> -->
             <property name="hibernate.format_sql" value="true"/>
             <property name="hbm2ddl.auto" value="update"/>
