@@ -97,26 +97,27 @@ public class PalebotEndpoint {
     }
 
     //============================ Channels ==============================
-    @GET
-    @Path("/channels")
-    @Produces("application/json")
-    public List<ChannelDTO> getAllChannels() {
-        return channelManager.getAllDTO();
-    }
 
     @GET
-    @Path("/channels/{channelName}")
+    @Path("/channels/name/{channelName}")
     @Produces("application/json")
     public ChannelDTO getByName(@PathParam("channelName") String channelName) {
         return channelManager.getChannelDTOByName(channelName);
     }
 
-
     @GET
-    @Path("/channels/{channelId}")
+    @Path("/channels/id/{channelId}")
     @Produces("application/json")
     public Channel getById(@PathParam("channelId") int id) {
         return channelManager.getChannelById(id);
+    }
+
+
+    @GET
+    @Path("/channels")
+    @Produces("application/json")
+    public List<ChannelDTO> getAllChannels() {
+        return channelManager.getAllDTO();
     }
 
     @DELETE

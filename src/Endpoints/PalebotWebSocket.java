@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * Created by palepail on 8/13/2015.
  */
-@ServerEndpoint("/channels/{id}")
+@ServerEndpoint("/websocket/id/{id}")
 public class PalebotWebSocket {
     Logger log = Logger.getLogger(this.getClass());
     Gson gson = new Gson();
