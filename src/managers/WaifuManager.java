@@ -6,6 +6,7 @@ import models.Waifu;
 import models.WaifuThirst;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -90,6 +91,34 @@ public class WaifuManager {
         return waifuDAO.deleteWaifuByLinkFromChannel(link, channelId);
     }
 
+    public  List<WaifuDTO> saveWaifuByChannel(int channelId, List<WaifuDTO> newWaifu){
+        List<Waifu> currentWaifu = waifuDAO.getWaifuByChannel(channelId);
+        List<Integer> newWaifuIds = new ArrayList<>();
+
+
+        for(WaifuDTO waifuToSave : newWaifu){
+            Waifu waifuToUpdate = waifuDAO.getWaifuById(waifuToSave.getId());
+            if(waifuToUpdate==null){
+                waifuToUpdate = new Waifu();
+                waifuToUpdate.setChannelId(channelId);
+            }
+            waifuToUpdate.setUploader(waifuToSave.getUploader());
+            waifuToUpdate.setLink(waifuToSave.getLink());
+            waifuToUpdate.setName(waifuToSave.getName());
+            waifuDAO.updateWaifu(waifuToUpdate);
+            newWaifuIds.add(waifuToSave.getId());
+
+        }
+        for(Waifu oldWaifu : currentWaifu)
+        {
+            if(!newWaifuIds.contains(oldWaifu.getId())){
+                waifuDAO.deleteWaifu(oldWaifu.getId());
+            }
+        }
+
+        return getWaifuDTOByChannel(channelId);
+
+    }
 
     private List<WaifuDTO> createWaifuDTOs(List<Waifu> waifus) {
 
@@ -99,6 +128,7 @@ public class WaifuManager {
             dto.setName(waifu.getName());
             dto.setId(waifu.getId());
             dto.setLink(waifu.getLink());
+            dto.setUploader(waifu.getUploader());
             dtos.add(dto);
         }
         return dtos;

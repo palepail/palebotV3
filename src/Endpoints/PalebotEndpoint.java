@@ -25,7 +25,7 @@ public class PalebotEndpoint {
     PalebotManager palebotManager = PalebotManager.getInstance();
     QuoteManager quoteManager = QuoteManager.getInstance();
     ListenerManager listenerManager = ListenerManager.getInstance();
-    PalebotWebSocket webSocket = new PalebotWebSocket();
+
 
 
     @GET
@@ -96,16 +96,17 @@ public class PalebotEndpoint {
         return waifuManager.getWaifuDTOByChannel(channelId);
     }
 
-    //============================ Channels ==============================
-    @GET
-    @Path("/channels")
+    @POST
+    @Path("/anime/waifu")
     @Produces("application/json")
-    public List<ChannelDTO> getAllChannels() {
-        return channelManager.getAllDTO();
+    public List<WaifuDTO> SaveWaifu(@QueryParam("channelId") int channelId, List<WaifuDTO> waifu){
+        return waifuManager.saveWaifuByChannel(channelId, waifu);
     }
 
+    //============================ Channels ==============================
+
     @GET
-    @Path("/channels/{channelName}")
+    @Path("/channels/name/{channelName}")
     @Produces("application/json")
     public ChannelDTO getByName(@PathParam("channelName") String channelName) {
         return channelManager.getChannelDTOByName(channelName);
@@ -113,11 +114,20 @@ public class PalebotEndpoint {
 
 
     @GET
-    @Path("/channels/{channelId}")
+    @Path("/channels/id{channelId}")
     @Produces("application/json")
     public Channel getById(@PathParam("channelId") int id) {
         return channelManager.getChannelById(id);
     }
+
+    @GET
+    @Path("/channels")
+    @Produces("application/json")
+    public List<ChannelDTO> getAllChannels() {
+        return channelManager.getAllDTO();
+    }
+
+
 
     @DELETE
     @Path("/channels")
