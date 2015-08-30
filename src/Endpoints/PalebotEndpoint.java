@@ -154,10 +154,10 @@ public class PalebotEndpoint {
     }
 
     @GET
-    @Path("/quotes/{id}")
+    @Path("/quotes/channel/{id}")
     @Produces("application/json")
-    public Quote getQuoteById(@PathParam("id") int id) {
-        return quoteManager.getQuoteById(id);
+    public List<Quote> getQuotesFromChannel(@PathParam("id") int id) {
+        return quoteManager.getQuotesFromChannel(id);
     }
 
     @DELETE

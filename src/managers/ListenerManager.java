@@ -2,6 +2,7 @@ package managers;
 
 import bot.AnimeListener;
 import bot.DefaultListener;
+import bot.QuoteListener;
 import bot.YoutubeListener;
 import dao.ListenerDAO;
 import models.Channel;
@@ -51,6 +52,10 @@ public class ListenerManager {
                     listenerAdapters.add(new YoutubeListener());
                     break;
                 }
+                case QuoteListener.NAME: {
+                    listenerAdapters.add(new QuoteListener());
+                    break;
+                }
                 default: {
                     break;
                 }
@@ -72,6 +77,10 @@ public class ListenerManager {
                 break;
             }
             case YoutubeListener.NAME: {
+                listenerAdapter = new YoutubeListener();
+                break;
+            }
+            case QuoteListener.NAME: {
                 listenerAdapter = new YoutubeListener();
                 break;
             }

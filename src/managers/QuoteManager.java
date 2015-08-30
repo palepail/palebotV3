@@ -19,8 +19,41 @@ public class QuoteManager {
         return quoteDao.getAll();
     }
 
-    public Quote getQuoteById(int id) {
-        return quoteDao.getQuoteById(id);
+    public List<Quote> getQuotesFromChannel(int channelId) {
+
+        return quoteDao.getQuotesFromChannel(channelId);
+    }
+
+    public Quote getQuoteByIdFromChannel(String quoteId, int channelId) {
+        Integer quoteIdInt = convertToInt(quoteId);
+        if(quoteIdInt==null)
+        {
+            return null;
+        }
+
+        return quoteDao.getQuoteByIdFromChannel(quoteIdInt, channelId);
+    }
+
+    public boolean deleteQuoteByIdFromChannel(String quoteId, int channelId) {
+
+        Integer quoteIdInt = convertToInt(quoteId);
+        if(quoteIdInt==null)
+        {
+            return false;
+        }
+        return quoteDao.deleteQuoteByIdFromChannel(quoteIdInt, channelId);
+    }
+
+    public Quote getRandomFromChannel(int channelId){
+        return quoteDao.getRandomFromChannel(channelId);
+    }
+
+    public List<Quote> getQuoteResultsFromChannel(String searchCriteria, int channelId){
+        return quoteDao.getQuoteResultsFromChannel(searchCriteria, channelId);
+    }
+    public boolean addQuote(Quote quote)
+    {
+        return quoteDao.addQuote(quote);
     }
 
     public void deleteQuote(int id) {
@@ -29,5 +62,16 @@ public class QuoteManager {
 
     public void updateQuote(Quote quote) {
         quoteDao.updateQuote(quote);
+    }
+
+    private Integer convertToInt(String string)
+    {
+        Integer integer;
+        try {
+            integer = Integer.parseInt(string);
+        } catch(NumberFormatException e) {
+            return null;
+        }
+        return integer;
     }
 }
