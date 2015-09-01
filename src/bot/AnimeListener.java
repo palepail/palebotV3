@@ -31,14 +31,16 @@ public class AnimeListener extends ListenerAdapter {
     public void onMessage(MessageEvent event) {
 
 
-        String channelName = event.getChannel().getName();
-        messageManager = MessageManager.getInstance(channelName);
-        String userName = event.getUser().getNick();
-        Channel channelEntity = channelManager.getChannelByName(channelName.substring(1));
 
-        String message = event.getMessage();
-        actor.setValues(event);
         if (event.getMessage().startsWith("!")) {
+            String channelName = event.getChannel().getName();
+            messageManager = MessageManager.getInstance(channelName);
+            String userName = event.getUser().getNick();
+            Channel channelEntity = channelManager.getChannelByName(channelName.substring(1));
+
+            String message = event.getMessage();
+            actor.setValues(event);
+
             if (event.getMessage().equals("!waifu") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {
 
                 actor.postRandomWaifu(event);

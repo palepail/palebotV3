@@ -25,12 +25,13 @@ public class QuoteListener  extends ListenerAdapter{
         public void onMessage(MessageEvent event) {
 
 
-            String channelName = event.getChannel().getName();
-            messageManager = MessageManager.getInstance(channelName);
 
-            String message = event.getMessage();
-            actor.setValues(event);
             if (event.getMessage().startsWith("!")) {
+                String channelName = event.getChannel().getName();
+                messageManager = MessageManager.getInstance(channelName);
+
+                String message = event.getMessage();
+                actor.setValues(event);
                 if (event.getMessage().equals("!quote") && !messageManager.overLimit() && !actor.tooManyQuotes(event)) {
                     actor.postRandomQuote(event);
                     return;
