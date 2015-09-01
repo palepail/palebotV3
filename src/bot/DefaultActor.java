@@ -17,6 +17,7 @@ public class DefaultActor {
     MessageManager messageManager;
     ChannelManager channelManager = new ChannelManager();
     CustomMessageManager customMessageManager = new CustomMessageManager();
+    String commandsLink = "palepail.com/palebot/commands/";
     Channel channelEntity;
     String channelName;
     String message;
@@ -24,7 +25,7 @@ public class DefaultActor {
         channelName = event.getChannel().getName();
         messageManager = MessageManager.getInstance(channelName);
         channelEntity = channelManager.getChannelByName(channelName.substring(1));
-       message = event.getMessage();
+        message = event.getMessage();
     }
 
 
@@ -32,6 +33,12 @@ public class DefaultActor {
 
         messageManager.reduceMessages(1);
         event.getBot().sendIRC().message(event.getChannel().getName(), "Hi! I'm palebot.");
+    }
+
+    public void palebotCommands(MessageEvent event){
+
+        messageManager.reduceMessages(1);
+        event.getBot().sendIRC().message(event.getChannel().getName(), "Bot commands can be found here " + commandsLink+channelName);
     }
 
     public void  selfTimeout(MessageEvent event)

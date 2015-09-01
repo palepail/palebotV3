@@ -41,6 +41,11 @@ public class AnimeActor {
     }
 
     public boolean tooManyWaifu(MessageEvent event){
+        if(messageManager.isMod(channelName,userName))
+        {
+            return false;
+        }
+
         if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 30000)) {
             messageManager.sendMessage(event, userName + ", I can't handle that many waifu right now");
             return true;
@@ -118,6 +123,7 @@ public class AnimeActor {
 
     public void deleteWaifu(MessageEvent event)
     {
+        messageManager.updateMods(channelName);
         if (messageManager.isMod(channelName,userName)) {
 
             String link = message.substring(12);
@@ -219,6 +225,7 @@ public class AnimeActor {
 
     public void waifuFight(MessageEvent event)
     {
+        messageManager.updateMods(channelName);
         if(!messageManager.lock(WAIFU_FIGHT_ID, WAIFU_FIGHT_TIME))
         {
             return;
