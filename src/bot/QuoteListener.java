@@ -1,7 +1,6 @@
 package bot;
 
 import managers.ChannelManager;
-import models.Channel;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
