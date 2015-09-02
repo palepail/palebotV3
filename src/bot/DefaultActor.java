@@ -38,7 +38,7 @@ public class DefaultActor {
     public void palebotCommands(MessageEvent event){
 
         messageManager.reduceMessages(1);
-        event.getBot().sendIRC().message(event.getChannel().getName(), "Bot commands can be found here " + commandsLink+channelName);
+        event.getBot().sendIRC().message(event.getChannel().getName(), "Bot commands can be found here " + commandsLink+channelName.substring(1));
     }
 
     public void  selfTimeout(MessageEvent event)
