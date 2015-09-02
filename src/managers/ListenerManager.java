@@ -81,7 +81,7 @@ public class ListenerManager {
                 break;
             }
             case QuoteListener.NAME: {
-                listenerAdapter = new YoutubeListener();
+                listenerAdapter = new QuoteListener();
                 break;
             }
             default: {

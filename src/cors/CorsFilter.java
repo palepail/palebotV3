@@ -18,7 +18,7 @@ public class CorsFilter implements ContainerResponseFilter {
     public void filter(final ContainerRequestContext requestContext,
                        final ContainerResponseContext cres) throws IOException {
 
-        cres.getHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
+        cres.getHeaders().add("Access-Control-Allow-Origin", "http://palepail.com");
         cres.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
         cres.getHeaders().add("Access-Control-Allow-Credentials", "true");
         cres.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
