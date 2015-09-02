@@ -30,7 +30,7 @@ public class YoutubeListener extends ListenerAdapter {
                 actor.sendYoutubeRequest(event);
                 return;
             }
-            if (event.getMessage().startsWith("!song") && !messageManager.overLimit()) {
+            if (event.getMessage().equals("!song") && !messageManager.overLimit()) {
                 actor.sendCurrentSongQuery(event);
                 return;
             }

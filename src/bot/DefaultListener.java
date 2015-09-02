@@ -26,12 +26,18 @@ public class DefaultListener extends ListenerAdapter {
             messageManager = MessageManager.getInstance(channelName);
             actor.setValues(event);
 
-            if (event.getMessage().startsWith("!palebot") && !messageManager.overLimit()) {
+
+
+            if (event.getMessage().equals("!palebot") && !messageManager.overLimit()) {
                 actor.palebotInfo(event);
                 return;
             }
+            if (event.getMessage().equals("!commands") && !messageManager.overLimit()) {
+                actor.palebotCommands(event);
+                return;
+            }
 
-            if (event.getMessage().startsWith("!suicide") && !messageManager.overLimit()) {
+            if (event.getMessage().equals("!suicide") && !messageManager.overLimit()) {
                 actor.selfTimeout(event);
                 return;
             }
@@ -58,7 +64,7 @@ public class DefaultListener extends ListenerAdapter {
             }
 
 
-            if (event.getMessage().startsWith("!dice") && !messageManager.overLimit()) {
+            if (event.getMessage().equals("!dice") && !messageManager.overLimit()) {
                 actor.rollDice(event);
                 return;
             }

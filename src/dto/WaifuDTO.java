@@ -6,6 +6,15 @@ package dto;
 public class WaifuDTO {
     int id;
     String name;
+    String uploader;
+
+    public String getUploader() {
+        return uploader;
+    }
+
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
+    }
 
     public int getId() {
 

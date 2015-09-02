@@ -13,6 +13,7 @@ public class Channel {
     private String name;
 
 
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)

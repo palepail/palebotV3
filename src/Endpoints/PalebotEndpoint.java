@@ -25,7 +25,7 @@ public class PalebotEndpoint {
     PalebotManager palebotManager = PalebotManager.getInstance();
     QuoteManager quoteManager = QuoteManager.getInstance();
     ListenerManager listenerManager = ListenerManager.getInstance();
-    PalebotWebSocket webSocket = new PalebotWebSocket();
+
 
 
     @GET
@@ -96,6 +96,13 @@ public class PalebotEndpoint {
         return waifuManager.getWaifuDTOByChannel(channelId);
     }
 
+    @POST
+    @Path("/anime/waifu")
+    @Produces("application/json")
+    public List<WaifuDTO> SaveWaifu(@QueryParam("channelId") int channelId, List<WaifuDTO> waifu){
+        return waifuManager.saveWaifuByChannel(channelId, waifu);
+    }
+
     //============================ Channels ==============================
 
     @GET
@@ -111,7 +118,6 @@ public class PalebotEndpoint {
     public Channel getById(@PathParam("channelId") int id) {
         return channelManager.getChannelById(id);
     }
-
 
     @GET
     @Path("/channels")
@@ -145,10 +151,10 @@ public class PalebotEndpoint {
     }
 
     @GET
-    @Path("/quotes/{id}")
+    @Path("/quotes/channel/{id}")
     @Produces("application/json")
-    public Quote getQuoteById(@PathParam("id") int id) {
-        return quoteManager.getQuoteById(id);
+    public List<Quote> getQuotesFromChannel(@PathParam("id") int id) {
+        return quoteManager.getQuotesFromChannel(id);
     }
 
     @DELETE

@@ -1,7 +1,7 @@
 package models;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by palepail on 7/23/2015.
@@ -13,7 +13,7 @@ public class Quote {
     private Date date;
     private String quotee;
     private String author;
-    private Integer channelid;
+    private Integer channelId;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,7 +37,8 @@ public class Quote {
     }
 
     @Basic
-    @Column(name = "DATE")
+    @Column(name = "DATE", columnDefinition = "DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getDate() {
         return date;
     }
@@ -94,11 +95,11 @@ public class Quote {
 
     @Basic
     @Column(name = "CHANNELID")
-    public Integer getChannelid() {
-        return channelid;
+    public Integer getChannelId() {
+        return channelId;
     }
 
-    public void setChannelid(Integer channelid) {
-        this.channelid = channelid;
+    public void setChannelId(Integer channelid) {
+        this.channelId = channelid;
     }
 }
