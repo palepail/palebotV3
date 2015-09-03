@@ -211,14 +211,19 @@ public class AnimeActor {
     }
 
     public void waifuVote(MessageEvent event){
+        setValues(event);
+        ArrayList<String> voters = WAIFU_VOTERS_MAP.get(channelName);
+        ArrayList<Integer> votes = WAIFU_VOTE_MAP.get(channelName);
 
-        if(messageManager.isLocked(WAIFU_FIGHT_ID) &&(WAIFU_VOTE_MAP.get(channelName)!=null) && (!WAIFU_VOTERS_MAP.get(channelName).contains(userName))) {
-            WAIFU_VOTERS_MAP.get(channelName).add(userName);
+        if(messageManager.isLocked(WAIFU_FIGHT_ID) && (!voters.contains(userName))) {
+            voters.add(userName);
             if (event.getMessage().startsWith("1")) {
-                WAIFU_VOTE_MAP.get(channelName).add(1);
+                votes.add(1);
             }else if(event.getMessage().startsWith("2")){
-                WAIFU_VOTE_MAP.get(channelName).add(2);
+                votes.add(2);
             }
+            WAIFU_VOTE_MAP.put(channelName,votes);
+            WAIFU_VOTERS_MAP.put(channelName,voters);
         }
 
     }
