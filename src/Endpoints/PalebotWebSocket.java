@@ -14,6 +14,7 @@ import com.google.gson.JsonPrimitive;
 import dto.ChannelDTO;
 import jdk.nashorn.internal.parser.JSONParser;
 import models.Channel;
+import models.WebsocketMessage;
 import org.jboss.logging.Logger;
 
 import java.util.*;
@@ -71,9 +72,9 @@ public class PalebotWebSocket {
     public void sendYoutubeRequest(int channelId, YoutubeVideo video){
 
        List<Session> sessions = getSessionsById(channelId);
-
+        WebsocketMessage message = new WebsocketMessage("YoutubeRequest",video);
         for (Session session : sessions){
-            session.getAsyncRemote().sendText(new Gson().toJson(video));
+            session.getAsyncRemote().sendText(new Gson().toJson(message));
         }
 
     }

@@ -17,7 +17,7 @@ public class DefaultActor {
     MessageManager messageManager;
     ChannelManager channelManager = new ChannelManager();
     CustomMessageManager customMessageManager = new CustomMessageManager();
-    String commandsLink = "palepail.com/palebot/commands/";
+    String commandsLink = "palepail.com/#/palebot/commands/";
     Channel channelEntity;
     String channelName;
     String message;
