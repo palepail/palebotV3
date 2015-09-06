@@ -13,6 +13,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import dto.ChannelDTO;
 import jdk.nashorn.internal.parser.JSONParser;
+import managers.ChannelManager;
+import managers.YoutubeManager;
 import models.Channel;
 import models.WebsocketMessage;
 import org.jboss.logging.Logger;
@@ -28,17 +30,30 @@ import java.util.stream.Collectors;
 public class PalebotWebSocket {
     Logger log = Logger.getLogger(this.getClass());
     Gson gson = new Gson();
-
+    ChannelManager channelManager = new ChannelManager();
+    YoutubeManager youtubeManager = YoutubeManager.getInstance();
 
     private static HashMap<Session,Integer> sessionMap = new HashMap<>();
 
     @OnMessage
     public void receiveMessage(String message, Session session) {
         int channelId = sessionMap.get(session);
-        YoutubeVideo video = gson.fromJson(message, YoutubeVideo.class);
-        MessageManager messageManager = MessageManager.getInstance(channelId);
-        messageManager.sendMessage(channelId, video.items.get(0).snippet.title);
 
+        WebsocketMessage websocketMessage =  gson.fromJson(message, WebsocketMessage.class);
+
+        switch(websocketMessage.getMessageType()){
+            case "CurrentSong":{
+                YoutubeVideo video =  websocketMessage.getPlaylist().get(0);
+                MessageManager messageManager = MessageManager.getInstance(channelId);
+                messageManager.sendMessage(channelId, video.items.get(0).snippet.title);
+                break;
+            }
+            case "PlaylistUpdate":{
+                Channel channel = channelManager.getChannelById(channelId);
+                youtubeManager.setPlayList(channel.getName(), websocketMessage.getPlaylist());
+                break;
+            }
+        }
     }
 
     @OnOpen
@@ -50,8 +65,10 @@ public class PalebotWebSocket {
     public void sendCurrentSongQuery(int channelId)
     {
         List<Session> sessions = getSessionsById(channelId);
+
+        WebsocketMessage message = new WebsocketMessage("CurrentSong","CurrentSong");
         for (Session session : sessions){
-            session.getAsyncRemote().sendText("currentSong");
+            session.getAsyncRemote().sendText(new Gson().toJson(message));
         }
 
     }

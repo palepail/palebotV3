@@ -11,6 +11,8 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by palepail on 8/17/2015.
@@ -27,6 +29,23 @@ public class YoutubeManager {
 
     public static String getApiKey(){
         return API_KEY;
+    }
+
+    public static HashMap<String, List<YoutubeVideo>> playListsMap = new HashMap<>();
+
+
+    public List<YoutubeVideo> getPlaylist(String channelName)
+    {
+        if(playListsMap.containsKey(channelName))
+        {
+            return playListsMap.get(channelName);
+        }
+        else return null;
+    }
+
+    public void setPlayList(String channelName, List<YoutubeVideo> playList)
+    {
+        playListsMap.put(channelName, playList);
     }
 
     public YoutubeVideo getVideoDetails(String videoId)
