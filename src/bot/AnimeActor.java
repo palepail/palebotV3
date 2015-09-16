@@ -4,6 +4,7 @@ import managers.ChannelManager;
 import managers.WaifuManager;
 import models.Channel;
 import models.Waifu;
+import models.WaifuRank;
 import models.WaifuThirst;
 import org.pircbotx.hooks.events.MessageEvent;
 
@@ -54,6 +55,8 @@ public class AnimeActor {
         }
     }
 
+
+
     public void postRandomWaifu(MessageEvent event)
     {
         Waifu waifu = waifuManager.getRandomFromChannel(channelEntity.getId());
@@ -83,7 +86,7 @@ public class AnimeActor {
             long seed = System.nanoTime();
             Collections.shuffle(waifu, new Random(seed));
             waifu = waifu.subList(0,5);
-            messageManager.sendMessage(event, "Some wifu got stuck in the door");
+            messageManager.sendMessage(event, "Some waifu got stuck in the door");
         }
         String result = "";
         if (waifu.size() == 0) {
@@ -100,7 +103,9 @@ public class AnimeActor {
     }
 
     public void waifuAdd(MessageEvent event){
-        if (message.indexOf("(") == -1 || message.indexOf(")") == -1 || message.substring(message.indexOf(")") + 1).isEmpty()) {
+
+        String regex = "\\!waifu add ?\\(([a-z1-9]+)\\) ";
+        if (!message.matches(regex)) {
             messageManager.sendMessage(event, userName + ", correct waifu syntax is !waifu add (NAME) LINK");
             return;
         }
@@ -111,6 +116,11 @@ public class AnimeActor {
 
         String name = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
         String link = message.substring(message.indexOf(")") + 2);
+        if(!link.contains("imgur"))
+        {
+            messageManager.sendMessage(event, userName + ", please use imgur. It just makes things easier");
+            return;
+        }
         Waifu waifu = new Waifu();
         waifu.setLink(link);
         waifu.setName(name);
@@ -170,31 +180,19 @@ public class AnimeActor {
             messageManager.sendMessage(event,userName+ ", you don't even know what a waifu is.");
             return;
         }
-        String message = userName;
-        if(thirst.getCount()>25)
+        int tier = thirst.getCount()/5;
+        WaifuRank rank = waifuManager.getRank(channelEntity.getId(), tier);
+        if(rank==null)
         {
-            message+=", too many waifu ruin your lifu. They have ";
+            messageManager.sendMessage(event, "Tier "+ tier +": "+ userName+ ", I can't comprehend someone with "+ thirst.getCount()+ " waifu");
+            return;
         }
-        else if(thirst.getCount()>20)
-        {
-            message+= " is so thirsty, they have ";
 
-        }
-        else if(thirst.getCount()>15)
-        {
-            message+=" is a little parched, they have ";
+        String text = rank.getRank().replace("NAME", userName).replace("COUNT", Integer.toString(thirst.getCount()));
 
-        }else if(thirst.getCount()>10)
-        {
-            message+=" could take a sip, they have ";
-        }else if(thirst.getCount()>5){
-            message+=" is cracking the bottle, they have ";
-        }else if(thirst.getCount()<=5)
-        {
-            message+=" is forever alone, they have ";
-        }
-        message+= thirst.getCount() + " waifu." ;
-        messageManager.sendMessage(event,message);
+        messageManager.sendMessage(event, "Tier "+ tier +": " + text);
+        return;
+
     }
 
     public void waifuThirstiest(MessageEvent event)
@@ -222,10 +220,30 @@ public class AnimeActor {
             }else if(event.getMessage().startsWith("2")){
                 votes.add(2);
             }
-            WAIFU_VOTE_MAP.put(channelName,votes);
-            WAIFU_VOTERS_MAP.put(channelName,voters);
+            WAIFU_VOTE_MAP.put(channelName, votes);
+            WAIFU_VOTERS_MAP.put(channelName, voters);
         }
 
+    }
+
+    public void waifuAddRank(MessageEvent event, String trimmedMessage)
+    {
+
+        String regex = "\\!waifu tier add ?\\(([0-9]+)\\) ([A-Za-z0-9 _.,!\"'/$]+)";
+        if (!message.matches(regex)) {
+            messageManager.sendMessage(event, userName + ", correct tier syntax is !waifu tier add (NUMBER) MESSAGE");
+            return;
+        }
+        WaifuRank rank = new WaifuRank();
+        String number = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
+        String text = message.substring(message.indexOf(")") + 2);
+        rank.setChannelId(channelEntity.getId());
+        rank.setRank(text);
+        rank.setTier(Integer.parseInt(number));
+
+        waifuManager.addRank(rank);
+        messageManager.sendMessage(event, "Tier Added");
+        return;
     }
 
     public void waifuFight(MessageEvent event)

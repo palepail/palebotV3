@@ -10,11 +10,12 @@
         <class>models.CustomMessage</class>
         <class>models.PalebotAdmin</class>
         <class>models.WaifuThirst</class>
+        <class>models.WaifuRank</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/palebot"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="palepail"/>
-            <property name="hibernate.connection.password" value="crutonq123"/>
+            <property name="hibernate.connection.password" value ="crutonq123"/>
             <property name="hibernate.archive.autodetection" value="class"/>
            <!-- <property name="hibernate.show_sql" value="true"/> -->
             <property name="hibernate.format_sql" value="true"/>

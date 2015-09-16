@@ -3,6 +3,7 @@ package managers;
 import dao.WaifuDAO;
 import dto.WaifuDTO;
 import models.Waifu;
+import models.WaifuRank;
 import models.WaifuThirst;
 
 import java.util.ArrayList;
@@ -49,6 +50,15 @@ public class WaifuManager {
 
     public List<Waifu> getWaifuByNameFromChannel(String name, int channelId) {
         return waifuDAO.getWaifuByNameFromChannel(name, channelId);
+    }
+
+    public WaifuRank addRank(WaifuRank rank){
+        return waifuDAO.addRank(rank);
+    }
+
+    public WaifuRank getRank(int channelId, int tier)
+    {
+        return waifuDAO.getRandomRankFromChannel(channelId, tier);
     }
 
     public List<Waifu> getBest(int channelId) {

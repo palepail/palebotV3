@@ -53,6 +53,12 @@ public class AnimeListener extends ListenerAdapter {
                 actor.waifuSearch(event, searchCriteria);
                 return;
             }
+            if (message.startsWith("!waifu tier add ") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {
+
+                String rankMessage = message.substring(16);
+                actor.waifuAddRank(event, rankMessage);
+                return;
+            }
 
 
             if (message.startsWith("!waifu add ") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {

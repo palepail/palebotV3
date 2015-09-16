@@ -12,6 +12,7 @@
       <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
       <exported-key name="custom_message_FK" table="custommessage" schema="" catalog="palebot" columns="CHANNEL_ID"/>
+      <exported-key name="WAIFU_RANK_FK" table="waifurank" schema="" catalog="palebot" columns="CHANNEL_ID"/>
       <exported-key name="WAIFU_COUNT_FK" table="waifuthirst" schema="" catalog="palebot" columns="CHANNEL_ID"/>
       <index name="name_UNIQUE" unique="true" columns="NAME"/>
     </table>
@@ -55,6 +56,15 @@
       <column name="CHANNEL_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="POINTS" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="ID"/>
+    </table>
+    <table name="waifurank" schema="" catalog="palebot" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="TIER" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="RANK" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CHANNEL_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="ID"/>
+      <foreign-key name="WAIFU_RANK_FK" columns="CHANNEL_ID" ref-table="channel" ref-schema="" ref-catalog="palebot" ref-columns="ID" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="WAIFU_RANK_FK_idx" unique="false" columns="CHANNEL_ID"/>
     </table>
     <table name="waifuthirst" schema="" catalog="palebot" type="TABLE">
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>

@@ -2,6 +2,7 @@ package dao;
 
 import dto.WaifuDTO;
 import models.Waifu;
+import models.WaifuRank;
 import models.WaifuThirst;
 
 import javax.persistence.EntityManager;
@@ -153,6 +154,27 @@ public class WaifuDAO {
             return null;
         }else{
             return (Waifu) results.get(0);
+        }
+    }
+
+    public WaifuRank addRank(WaifuRank rank)
+    {
+        em.getTransaction().begin();
+        WaifuRank newRank = em.merge(rank);
+        em.getTransaction().commit();
+        return newRank;
+    }
+    public WaifuRank getRandomRankFromChannel(int channelId, int tier)
+    {
+        String queryString = "SELECT * FROM palebot.waifurank WHERE CHANNEL_ID = :channelId AND TIER = :tier ORDER BY RAND() LIMIT 1";
+
+        Query query = em.createNativeQuery(queryString, WaifuRank.class);
+        List results = query.setParameter("channelId", channelId).setParameter("tier", tier).getResultList();
+        if(results.size()==0)
+        {
+            return null;
+        }else{
+            return (WaifuRank) results.get(0);
         }
     }
 
