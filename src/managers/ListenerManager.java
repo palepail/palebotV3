@@ -1,9 +1,6 @@
 package managers;
 
-import bot.AnimeListener;
-import bot.DefaultListener;
-import bot.QuoteListener;
-import bot.YoutubeListener;
+import bot.*;
 import dao.ListenerDAO;
 import models.Channel;
 import models.Listener;
@@ -56,6 +53,10 @@ public class ListenerManager {
                     listenerAdapters.add(new QuoteListener());
                     break;
                 }
+                case  SpamBotListener.NAME:{
+                    listenerAdapters.add(new SpamBotListener());
+                    break;
+                }
                 default: {
                     break;
                 }
@@ -82,6 +83,10 @@ public class ListenerManager {
             }
             case QuoteListener.NAME: {
                 listenerAdapter = new YoutubeListener();
+                break;
+            }
+            case SpamBotListener.NAME: {
+                listenerAdapter = new SpamBotListener();
                 break;
             }
             default: {
