@@ -68,7 +68,7 @@ public class DefaultActor {
 
     public void saveCustomMessage(MessageEvent event)
     {
-        String regex = "\\!custom ?\\(\\!([a-z1-9]+)\\) ?(.{0,240})";
+        String regex = "\\!custom ?\\(\\!([A-Za-z1-9]+)\\) ?(.{0,240})";
         if (!event.getMessage().matches(regex)) {
             messageManager.sendMessage(event, event.getUser().getNick() + ", correct new custom message syntax is !custom (!TRIGGER) MESSAGE - Max message length is 240");
             return;
@@ -79,7 +79,7 @@ public class DefaultActor {
 
         CustomMessage custom = new CustomMessage();
         if (customMessage.indexOf("-mod") != -1) {
-            customMessage.replace("-mod", "");
+            customMessage = customMessage.replace("-mod", "");
             custom.setRestriction(1);
         }
 

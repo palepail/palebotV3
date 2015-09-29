@@ -104,7 +104,7 @@ public class AnimeActor {
 
     public void waifuAdd(MessageEvent event){
 
-        String regex = "\\!waifu add ?\\(([a-z1-9]+)\\) ";
+        String regex = "\\!waifu add ?\\(([A-Za-z1-9\\s]+)\\) http\\:\\/\\/[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}\\/[a-zA-Z0-9\\-\\.]+";
         if (!message.matches(regex)) {
             messageManager.sendMessage(event, userName + ", correct waifu syntax is !waifu add (NAME) LINK");
             return;
@@ -137,11 +137,18 @@ public class AnimeActor {
         if (messageManager.isMod(channelName,userName)) {
 
             String link = message.substring(12);
-            if (waifuManager.deleteWaifuByLinkFromChannel(link, channelEntity.getId())) {
-                messageManager.sendMessage(event, "Your waifu has left you for someone else");
-            } else {
-                messageManager.sendMessage(event, "Your waifu was a figment of your imagination the whole time");
+
+            Waifu waifu = waifuManager.getWaifuByLink(link, channelEntity.getId());
+
+            if(waifu!=null){
+               if(waifuManager.deleteWaifuById(waifu.getId()))
+               {
+                   messageManager.sendMessage(event, waifu.getName()+" has left you for someone else");
+               }else{
+                   messageManager.sendMessage(event, waifu.getName()+" was never your waifu");
+               }
             }
+
         }
         else{
             messageManager.sendMessage(event, userName + ", how dare you try to slap a waifu");
@@ -176,19 +183,20 @@ public class AnimeActor {
     {
 
        WaifuThirst thirst = waifuManager.getThirst(userName, channelEntity.getId());
-        if(thirst==null){
-            messageManager.sendMessage(event,userName+ ", you don't even know what a waifu is.");
-            return;
+        int tier=0;
+        int count =0;
+        if(thirst!=null){
+            tier = thirst.getCount()/5;
+            count = thirst.getCount();
         }
-        int tier = thirst.getCount()/5;
         WaifuRank rank = waifuManager.getRank(channelEntity.getId(), tier);
         if(rank==null)
         {
-            messageManager.sendMessage(event, "Tier "+ tier +": "+ userName+ ", I can't comprehend someone with "+ thirst.getCount()+ " waifu");
+            messageManager.sendMessage(event, "Tier "+ tier +": "+ userName+ ", I can't comprehend someone with "+ count+ " waifu");
             return;
         }
 
-        String text = rank.getRank().replace("NAME", userName).replace("COUNT", Integer.toString(thirst.getCount()));
+        String text = rank.getRank().replace("NAME", userName).replace("COUNT", Integer.toString(count));
 
         messageManager.sendMessage(event, "Tier "+ tier +": " + text);
         return;

@@ -40,7 +40,7 @@ public class WaifuDAO {
     public WaifuThirst getThirst(String userName, int channelId)
     {
         Query query = em.createQuery("SELECT e FROM models.WaifuThirst e WHERE  e.channelId = :channelId and e.user = :user");
-        List<WaifuThirst> waifuThirst = query.setParameter("channelId", channelId).setParameter("user",userName).getResultList();
+        List<WaifuThirst> waifuThirst = query.setParameter("channelId", channelId).setParameter("user", userName).getResultList();
         if(waifuThirst.size()==0)
         {
             return null;
@@ -94,10 +94,17 @@ public class WaifuDAO {
         return query.setParameter("channelId", channelId).setParameter("name", "%" + name.trim() + "%").getResultList();
     }
 
-    public List<Waifu> getWaifuByLink(String link)
+    public Waifu getWaifuByLink(String link, int id)
     {
-        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.link = :link");
-        return query.setParameter("link", link.trim()).getResultList();
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.link = :link AND e.channelId = :id");
+        List<Waifu> list = query.setParameter("link", link.trim()).setParameter("id", id).getResultList();
+        if(list.size()==0)
+        {
+            return null;
+        }else{
+            return list.get(0);
+        }
+
     }
 
     public List<Waifu> getWaifuByLinkFromChannel(String link, int channelId)
@@ -208,21 +215,25 @@ public class WaifuDAO {
         return null;
 
     }
-    public void deleteWaifu(int id){
-        em.getTransaction().begin();
-        em.remove(getWaifuById(id));
-        em.getTransaction().commit();
+    public boolean deleteWaifu(int id){
+        Waifu waifu = getWaifuById(id);
+        if(waifu!=null) {
+            em.getTransaction().begin();
+            em.remove(waifu);
+            em.getTransaction().commit();
+            return true;
+        }
+        return false;
+
 
     }
-    public boolean deleteWaifuByLink(String link){
+    public boolean deleteWaifuByLink(String link, int id){
 
-        List<Waifu> waifu = getWaifuByLink(link);
-        if(waifu.size()>0)
+        Waifu waifu = getWaifuByLink(link, id);
+        if(waifu!=null)
         {
             em.getTransaction().begin();
-            for(Waifu currentWaifu : waifu) {
-                em.remove(currentWaifu);
-            }
+            em.remove(waifu);
             em.getTransaction().commit();
 
             return true;

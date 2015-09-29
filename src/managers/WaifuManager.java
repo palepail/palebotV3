@@ -39,6 +39,10 @@ public class WaifuManager {
     {
        return waifuDAO.getThirst(userName, channelId);
     }
+    public Waifu getWaifuByLink(String link, int id)
+    {
+        return waifuDAO.getWaifuByLink(link, id);
+    }
 
     public List<Waifu> getAll() {
         return waifuDAO.getAll();
@@ -93,12 +97,15 @@ public class WaifuManager {
         return waifuDAO.updateWaifu(waifu);
     }
 
-    public boolean deleteWaifuByLink(String link) {
-        return waifuDAO.deleteWaifuByLink(link);
+    public boolean deleteWaifuByLink(String link, int id) {
+        return waifuDAO.deleteWaifuByLink(link, id);
     }
-
     public boolean deleteWaifuByLinkFromChannel(String link, int channelId) {
         return waifuDAO.deleteWaifuByLinkFromChannel(link, channelId);
+    }
+
+    public boolean deleteWaifuById(int id){
+        return waifuDAO.deleteWaifu(id);
     }
 
     public  List<WaifuDTO> saveWaifuByChannel(int channelId, List<WaifuDTO> newWaifu){
