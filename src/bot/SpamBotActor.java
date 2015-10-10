@@ -50,12 +50,13 @@ public class SpamBotActor {
                 spamManager.addSpam(spam);
 
                 spamList = spamManager.getAll();
+                messageManager.sendMessage(event, "Spam added");
             }
         }
     }
 
     public void checkIfBot(MessageEvent event){
-
+        message = event.getMessage();
         for(Spam currentSpam : spamList){
             if(message.contains(currentSpam.getOffence()))
             {
@@ -66,7 +67,8 @@ public class SpamBotActor {
         }
     }
     public void banBot(MessageEvent event){
-        messageManager.sendMessage(event, "I think "+ userName+" is a bot.");
+        messageManager.delayMessage(2);
+        messageManager.sendMessage(event, "I think " + userName + " is a MrDestructoid .");
         messageManager.sendMessage(event, ".ban "+userName);
     }
 
