@@ -29,7 +29,7 @@ public class TwitchManager {
 
 
     public TwitchUsers getTwitchUsers(String channelName) {
-        String url = "http://tmi.twitch.tv/group/user/" + channelName + "/chatters";
+        String url = "https://tmi.twitch.tv/group/user/" + channelName + "/chatters";
         String charSet = java.nio.charset.StandardCharsets.UTF_8.name();
         String jsonString="";
 

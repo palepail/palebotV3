@@ -39,7 +39,7 @@ public class WaifuManager {
     {
        return waifuDAO.getThirst(userName, channelId);
     }
-    public Waifu getWaifuByLink(String link, int id)
+    public List<Waifu> getWaifuByLink(String link, int id)
     {
         return waifuDAO.getWaifuByLink(link, id);
     }
@@ -54,6 +54,19 @@ public class WaifuManager {
 
     public List<Waifu> getWaifuByNameFromChannel(String name, int channelId) {
         return waifuDAO.getWaifuByNameFromChannel(name, channelId);
+    }
+
+    public List<Waifu> getWaifuFromChannel(String query, int channelId) {
+        List<Waifu> waifu = new ArrayList<Waifu>();
+        List<Waifu> waifuByName = waifuDAO.getWaifuByNameFromChannel(query, channelId);
+        List<Waifu> waifuByLink = waifuDAO.getWaifuByLink(query, channelId);
+        if(waifuByLink != null){
+            waifu.addAll(waifuByLink);
+        }
+        if(waifuByName != null) {
+            waifu.addAll(waifuByName);
+        }
+        return waifu;
     }
 
     public WaifuRank addRank(WaifuRank rank){

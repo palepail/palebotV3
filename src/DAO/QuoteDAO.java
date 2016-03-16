@@ -27,6 +27,7 @@ public class QuoteDAO {
     }
 
     public Quote getQuoteByIdFromChannel(int quoteId, int channelId){
+
         Query query = em.createQuery("SELECT e FROM models.Quote e WHERE e.id = :quoteId AND e.channelId = :channelId");
         List<Quote> list = query.setParameter("quoteId", quoteId).setParameter("channelId", channelId).getResultList();
         return list.get(0);

@@ -94,7 +94,7 @@ public class WaifuDAO {
         return query.setParameter("channelId", channelId).setParameter("name", "%" + name.trim() + "%").getResultList();
     }
 
-    public Waifu getWaifuByLink(String link, int id)
+    public List<Waifu> getWaifuByLink(String link, int id)
     {
         Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.link = :link AND e.channelId = :id");
         List<Waifu> list = query.setParameter("link", link.trim()).setParameter("id", id).getResultList();
@@ -102,7 +102,7 @@ public class WaifuDAO {
         {
             return null;
         }else{
-            return list.get(0);
+            return list;
         }
 
     }
@@ -229,8 +229,8 @@ public class WaifuDAO {
     }
     public boolean deleteWaifuByLink(String link, int id){
 
-        Waifu waifu = getWaifuByLink(link, id);
-        if(waifu!=null)
+        List<Waifu> foundWaifu = getWaifuByLink(link, id);
+        for(Waifu waifu : foundWaifu)
         {
             em.getTransaction().begin();
             em.remove(waifu);

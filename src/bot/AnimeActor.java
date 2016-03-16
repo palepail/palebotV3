@@ -79,7 +79,7 @@ public class AnimeActor {
             messageManager.sendMessage(event, "Are trying to start a harem, " + userName + "?");
             return;
         }
-        List<Waifu> waifu = waifuManager.getWaifuByNameFromChannel(searchCriteria, channelEntity.getId());
+        List<Waifu> waifu = waifuManager.getWaifuFromChannel(searchCriteria, channelEntity.getId());
 
         if(waifu.size()>5)
         {
@@ -95,7 +95,7 @@ public class AnimeActor {
         } else {
             for (Waifu currentWaifu : waifu) {
 
-                result += currentWaifu.getLink() + " ";
+                result += currentWaifu.getName() + " - "+ currentWaifu.getLink() + " ";
             }
             messageManager.sendMessage(event, result);
 
@@ -104,7 +104,7 @@ public class AnimeActor {
 
     public void waifuAdd(MessageEvent event){
 
-        String regex = "\\!waifu add ?\\(([A-Za-z1-9\\s]+)\\) http\\:\\/\\/[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}\\/[a-zA-Z0-9\\-\\.]+";
+        String regex = "\\!waifu add ?\\(([A-Za-z1-9]+)\\) ?(.{0,240})";
         if (!message.matches(regex)) {
             messageManager.sendMessage(event, userName + ", correct waifu syntax is !waifu add (NAME) LINK");
             return;
@@ -138,15 +138,16 @@ public class AnimeActor {
 
             String link = message.substring(12);
 
-            Waifu waifu = waifuManager.getWaifuByLink(link, channelEntity.getId());
+            List<Waifu> foundWaifu = waifuManager.getWaifuByLink(link, channelEntity.getId());
 
-            if(waifu!=null){
-               if(waifuManager.deleteWaifuById(waifu.getId()))
-               {
+            for(Waifu waifu : foundWaifu)
+            {
                    messageManager.sendMessage(event, waifu.getName()+" has left you for someone else");
-               }else{
-                   messageManager.sendMessage(event, waifu.getName()+" was never your waifu");
-               }
+
+            }
+            if(foundWaifu.size()==0)
+            {
+                messageManager.sendMessage(event, "You never had that waifu");
             }
 
         }

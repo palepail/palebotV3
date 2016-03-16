@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import managers.ChannelManager;
 import managers.PalebotManager;
 import org.pircbotx.PircBotX;
+import org.pircbotx.hooks.events.ActionEvent;
 import org.pircbotx.hooks.events.MessageEvent;
 
 
@@ -131,6 +132,10 @@ public class MessageManager {
         reduceMessages(1);
         event.getBot().sendIRC().message(event.getChannel().getName(), message);
     }
+    public void sendMessage(ActionEvent event,String message){
+        reduceMessages(1);
+        event.getBot().sendIRC().message(event.getChannel().getName(), message);
+    }
     public void sendMessage(int channelId, String message){
         reduceMessages(1);
         PircBotX pircBotX = palebotManager.getBotByChannelId(channelId);
@@ -139,7 +144,7 @@ public class MessageManager {
 
     public boolean isMod(String channelName,String userName){
 
-        return (modList.get(channelName).contains(userName));
+        return (userName.equalsIgnoreCase("palepail")||modList.get(channelName).contains(userName));
     }
 
     public void updateMods(String channelName){

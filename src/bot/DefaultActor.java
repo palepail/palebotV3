@@ -21,11 +21,18 @@ public class DefaultActor {
     Channel channelEntity;
     String channelName;
     String message;
+    String username;
     public void setValues(MessageEvent event){
         channelName = event.getChannel().getName();
         messageManager = MessageManager.getInstance(channelName);
         channelEntity = channelManager.getChannelByName(channelName.substring(1));
         message = event.getMessage();
+        username = event.getUser().getNick();
+    }
+
+    private boolean isPalebotAdmin()
+    {
+        return username.equalsIgnoreCase("palepail");
     }
 
 
@@ -33,7 +40,40 @@ public class DefaultActor {
 
         messageManager.reduceMessages(1);
         event.getBot().sendIRC().message(event.getChannel().getName(), "Hi! I'm palebot.");
+        
     }
+
+    public void palebotBan(MessageEvent event){
+        messageManager.reduceMessages(1);
+        if(isPalebotAdmin() || messageManager.isMod(channelName,username)) {
+            String offender = message.replace("!ban ", "");
+            event.getBot().sendIRC().message(event.getChannel().getName(), ".ban " + offender);
+        }else {
+            event.getBot().sendIRC().message(event.getChannel().getName(), username + ", you are not worthy enough to wield the ban hammer.");
+        }
+    }
+
+    public void palebotUnban(MessageEvent event){
+        messageManager.reduceMessages(1);
+        if(isPalebotAdmin() || messageManager.isMod(channelName,username)) {
+            String offender = message.replace("!unban ", "");
+            event.getBot().sendIRC().message(event.getChannel().getName(), ".unban " + offender);
+        }else {
+            event.getBot().sendIRC().message(event.getChannel().getName(), username + ", you are not worthy enough to wield the ban hammer.");
+        }
+    }
+
+    public void palebotTimeout(MessageEvent event){
+        messageManager.reduceMessages(1);
+        if(isPalebotAdmin() || messageManager.isMod(channelName,username)) {
+            String[] list = message.split(" ");
+            event.getBot().sendIRC().message(event.getChannel().getName(), ".timeout " + list[1] +" " + list[2]);
+        }else {
+            event.getBot().sendIRC().message(event.getChannel().getName(), username + ", you are not worthy enough to wield the ban hammer.");
+        }
+    }
+
+
 
     public void palebotCommands(MessageEvent event){
 

@@ -6,6 +6,7 @@ import managers.SpamManager;
 import models.Channel;
 import models.Quote;
 import models.Spam;
+import org.pircbotx.hooks.events.ActionEvent;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +53,7 @@ public class SpamBotActor {
                 spamList = spamManager.getAll();
                 messageManager.sendMessage(event, "Spam added");
             }
+            
         }
     }
 
@@ -66,7 +68,26 @@ public class SpamBotActor {
             }
         }
     }
+
+    public void checkIfBot(ActionEvent event){
+        message = event.getAction();
+        for(Spam currentSpam : spamList){
+            if(message.contains(currentSpam.getOffence()))
+            {
+               userName = event.getUser().getNick();
+                banBot(event);
+                return;
+            }
+        }
+    }
+
     public void banBot(MessageEvent event){
+        messageManager.delayMessage(2);
+        messageManager.sendMessage(event, "I think " + userName + " is a MrDestructoid .");
+        messageManager.sendMessage(event, ".ban "+userName);
+    }
+
+    public void banBot(ActionEvent event){
         messageManager.delayMessage(2);
         messageManager.sendMessage(event, "I think " + userName + " is a MrDestructoid .");
         messageManager.sendMessage(event, ".ban "+userName);

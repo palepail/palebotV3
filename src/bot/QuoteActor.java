@@ -26,6 +26,7 @@ public class QuoteActor {
         String userName;
         Channel channelEntity;
         String message;
+        String command = "";
 
         public void setValues(MessageEvent event){
             channelName = event.getChannel().getName();
@@ -58,7 +59,7 @@ public class QuoteActor {
         }
     public void postQuoteById(MessageEvent event)
     {
-       String quoteId =  message.substring(message.indexOf('#')+1);
+       String quoteId =  message.substring(message.indexOf('#') + 1);
         Quote quote = quoteManager.getQuoteByIdFromChannel( quoteId,channelEntity.getId());
         if(quote==null){
             messageManager.sendMessage(event,  "Quote Not Found");
@@ -69,13 +70,24 @@ public class QuoteActor {
     }
 
 
-        public void quoteSearch(MessageEvent event, String searchCriteria){
+        public void quoteSearch(MessageEvent event){
 
-            if(searchCriteria.length()<3){
+            if(message.contains("!quote search "))
+            {
+               message = message.replace("!quote search ","");
+                command = "quote";
+            }
+            else if( message.contains("!fkosays search "))
+            {
+                message = message.replace("!fkosays search ","");
+                command ="fkosays";
+            }
+
+            if(message.length()<3){
                 messageManager.sendMessage(event, userName + ", please search for more than three characters.");
                 return;
             }
-            List<Quote> quotes = quoteManager.getQuoteResultsFromChannel(searchCriteria, channelEntity.getId());
+            List<Quote> quotes = quoteManager.getQuoteResultsFromChannel(message, channelEntity.getId());
 
             if(quotes.size()>5)
             {
@@ -99,8 +111,21 @@ public class QuoteActor {
         }
 
         public void quoteAdd(MessageEvent event){
+
+
+            if(message.contains("!quote add "))
+            {
+               message = message.replace("!quote add ","");
+                command = "quote";
+            }
+            else if( message.contains("!fkosays add "))
+            {
+               message = message.replace("!fkosays add ","");
+                command ="fkosays";
+            }
+
             if (message.indexOf("(") == -1 || message.indexOf(")") == -1 || message.substring(message.indexOf(")") + 1).isEmpty()) {
-                messageManager.sendMessage(event, userName + ", correct waifu syntax is !quote add (NAME) quote");
+                messageManager.sendMessage(event, userName + ", correct quote syntax is !"+command+" add (NAME) quote");
                 return;
             }
             if (message.substring(message.indexOf(")") + 2).length() > 140) {
@@ -121,10 +146,21 @@ public class QuoteActor {
 
         }
 
+
         public void deleteQuote(MessageEvent event)
         {
             if (messageManager.isMod(channelName,userName)) {
-                String quoteId = message.substring(14);
+
+                if(message.contains("!quote delete "))
+                {
+                  message = message.replace("!quote delete ","");
+                }
+                else if( message.contains("!fkosays delete "))
+                {
+                   message = message.replace("!fkosays delete ","");
+                }
+
+                String quoteId = message;
                 quoteId = quoteId.replace("#","");
 
                 if (quoteManager.deleteQuoteByIdFromChannel(quoteId, channelEntity.getId())) {

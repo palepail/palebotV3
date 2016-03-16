@@ -13,12 +13,31 @@
         <class>models.WaifuRank</class>
         <class>models.Spam</class>
         <properties>
+
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/palebot"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+
+
+
             <property name="hibernate.connection.username" value="palepail"/>
             <property name="hibernate.connection.password" value="crutonq123"/>
             <property name="hibernate.archive.autodetection" value="class"/>
-           <!-- <property name="hibernate.show_sql" value="true"/> -->
+
+            <property name="hibernate.c3p0.automaticTestTable" value="waifu"/>
+
+            <property name="hibernate.c3p0.checkoutTimeout" value="30"/>
+            <property name="hibernate.c3p0.idleConnectionTestPeriod" value="30"/>
+            <property name="hibernate.c3p0.initialPoolSize" value="10"/>
+            <property name="hibernate.c3p0.timeout" value="30"/>
+            <property name="hibernate.c3p0.maxIdleTime" value="30"/>
+            <property name="hibernate.c3p0.maxPoolSize" value="100"/>
+            <property name="hibernate.c3p0.minPoolSize" value="10"/>
+
+            <property name="check-valid-connection-sql" value="select top 1 * from waifu"/>
+            <property name="hibernate.c3p0.preferredTestQuery" value="select 1"/>
+
+
+            <!-- <property name="hibernate.show_sql" value="true"/> -->
             <property name="hibernate.format_sql" value="true"/>
             <property name="hbm2ddl.auto" value="update"/>
             <property name="hibernate.hbm2ddl.auto" value="update" />

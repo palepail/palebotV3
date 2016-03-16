@@ -41,7 +41,7 @@ public class PalebotEndpoint {
     public ChannelDTO palebotOn(@QueryParam("channel") String channelName) {
         palebotManager.activateBot(channelName);
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

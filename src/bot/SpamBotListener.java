@@ -5,6 +5,7 @@ import managers.CustomMessageManager;
 import models.Channel;
 import models.CustomMessage;
 import org.pircbotx.hooks.ListenerAdapter;
+import org.pircbotx.hooks.events.ActionEvent;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.util.List;
@@ -31,6 +32,13 @@ public class SpamBotListener extends ListenerAdapter {
                 return;
             }
         }
+        actor.checkIfBot(event);
+
+    }
+    @Override
+    public void onAction(ActionEvent event) {
+
+
         actor.checkIfBot(event);
 
     }

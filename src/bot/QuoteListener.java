@@ -31,25 +31,26 @@ public class QuoteListener  extends ListenerAdapter{
 
                 String message = event.getMessage();
                 actor.setValues(event);
-                if (event.getMessage().equals("!quote") && !messageManager.overLimit() && !actor.tooManyQuotes(event)) {
+                if ((event.getMessage().equals("!quote")|| event.getMessage().equals("!fkosays")) && !messageManager.overLimit() && !actor.tooManyQuotes(event)) {
+
                     actor.postRandomQuote(event);
                     return;
                 }
 
-                if (event.getMessage().equals("!quote #") && !messageManager.overLimit() && !actor.tooManyQuotes(event)) {
+                if ((event.getMessage().startsWith("!quote #") || event.getMessage().startsWith("!fkosays #")) && !messageManager.overLimit() && !actor.tooManyQuotes(event)) {
                     actor.postQuoteById(event);
                     return;
                 }
 
-                if (message.startsWith("!quote search ") && !messageManager.overLimit() && !actor.tooManyQuotes(event)) {
+                if ((message.startsWith("!quote search ")|| event.getMessage().startsWith("!fkosays search ")) && !messageManager.overLimit() && !actor.tooManyQuotes(event)) {
 
-                    String searchCriteria = message.substring(14);
-                    actor.quoteSearch(event, searchCriteria);
+
+                    actor.quoteSearch(event);
                     return;
                 }
 
 
-                if (message.startsWith("!quote add ") && !messageManager.overLimit() && !actor.tooManyQuotes(event)) {
+                if ((message.startsWith("!quote add ")|| event.getMessage().startsWith("!fkosays add ")) && !messageManager.overLimit() && !actor.tooManyQuotes(event)) {
 
                     actor.quoteAdd(event);
                     return;
@@ -58,7 +59,7 @@ public class QuoteListener  extends ListenerAdapter{
 
                 //OP commands
 
-                if (event.getMessage().startsWith("!quote delete ") && !messageManager.overLimit()) {
+                if ((event.getMessage().startsWith("!quote delete ") || event.getMessage().startsWith("!fkosays delete")) && !messageManager.overLimit()) {
                     actor.deleteQuote(event);
                     return;
                 }

@@ -26,12 +26,27 @@ public class DefaultListener extends ListenerAdapter {
             messageManager = MessageManager.getInstance(channelName);
             actor.setValues(event);
 
+            if (event.getMessage().startsWith("!ban") && !messageManager.overLimit()) {
+                actor.palebotBan(event);
+                return;
+            }
 
+            if (event.getMessage().startsWith("!unban") && !messageManager.overLimit()) {
+                actor.palebotUnban(event);
+                return;
+            }
+
+            if (event.getMessage().startsWith("!timeout") && !messageManager.overLimit()) {
+                actor.palebotTimeout(event);
+                return;
+            }
 
             if (event.getMessage().equals("!palebot") && !messageManager.overLimit()) {
                 actor.palebotInfo(event);
                 return;
             }
+
+
             if (event.getMessage().equals("!commands") && !messageManager.overLimit()) {
                 actor.palebotCommands(event);
                 return;
@@ -69,8 +84,9 @@ public class DefaultListener extends ListenerAdapter {
                 return;
             }
 
-            if (!messageManager.overLimit()) {
+            if (event.getMessage().startsWith("!")) {
                 actor.customTrigger(event);
+                return;
             }
         }
 
