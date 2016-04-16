@@ -27,7 +27,7 @@ public class Palebot {
 
 
     private static String BOT_NAME = "palebot";
-    private static String BOT_SERVER = "irc.twitch.tv";
+    private static String BOT_SERVER = "irc.chat.twitch.tv";
     private static int BOT_PORT = 6667;
     private static String BOT_AUTH = "oauth:xfm9be1bwt7kvnr4nmbbtmq5imsohy";
 

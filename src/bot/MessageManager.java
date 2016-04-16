@@ -131,6 +131,7 @@ public class MessageManager {
     public void sendMessage(MessageEvent event,String message){
         reduceMessages(1);
         event.getBot().sendIRC().message(event.getChannel().getName(), message);
+        event.getBot().sendRaw().rawLine( message);
     }
     public void sendMessage(ActionEvent event,String message){
         reduceMessages(1);
@@ -153,7 +154,10 @@ public class MessageManager {
 
     public static List<String> getMods(String channelName){
         TwitchUsers users = twitchManager.getTwitchUsers(channelName.substring(1));
-        return users.getChatters().getModerators();
+        if(users != null) {
+            return users.getChatters().getModerators();
+        }
+        return new ArrayList();
     }
 
 

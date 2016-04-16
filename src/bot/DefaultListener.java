@@ -48,7 +48,7 @@ public class DefaultListener extends ListenerAdapter {
 
 
             if (event.getMessage().equals("!commands") && !messageManager.overLimit()) {
-                actor.palebotCommands(event);
+              //  actor.palebotCommands(event);
                 return;
             }
 

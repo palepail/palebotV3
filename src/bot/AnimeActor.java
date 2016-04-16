@@ -64,9 +64,12 @@ public class AnimeActor {
             messageManager.sendMessage(event,  userName + "'s waifu is " + NOT_FOUND_IMG);
         }else{
             WaifuThirst thirst = new WaifuThirst();
+
             thirst.setUser(userName);
             thirst.setChannelId(channelEntity.getId());
             waifuManager.updateWaifuThirst(thirst);
+            waifu.setPoints(waifu.getPoints() + 1);
+            waifuManager.updateWaifu(waifu);
             messageManager.sendMessage(event, userName + "'s waifu is " + waifu.getLink());
         }
 
@@ -193,7 +196,7 @@ public class AnimeActor {
         WaifuRank rank = waifuManager.getRank(channelEntity.getId(), tier);
         if(rank==null)
         {
-            messageManager.sendMessage(event, "Tier "+ tier +": "+ userName+ ", I can't comprehend someone with "+ count+ " waifu");
+            messageManager.sendMessage(event, "Tier "+ tier +": "+ userName+ " has "+ count+ " waifu");
             return;
         }
 
