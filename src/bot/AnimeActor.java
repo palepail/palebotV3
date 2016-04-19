@@ -21,7 +21,9 @@ public class AnimeActor {
     public static HashMap<String, ArrayList> WAIFU_VOTERS_MAP = new HashMap<>();
 
     private static String WAIFU_ID;
+    private static String WAIFU_ADD_ID;
     private static String WAIFU_FIGHT_ID;
+    private static String WAIFU_SEARCH_ID;
     private static int WAIFU_FIGHT_TIME = 30000;
     private static String NOT_FOUND_IMG = "http://i.imgur.com/c5IHJC9.png";
 
@@ -36,18 +38,21 @@ public class AnimeActor {
          userName = event.getUser().getNick();
          channelEntity = channelManager.getChannelByName(channelName.substring(1));
          WAIFU_ID = "WAIFU_"+channelEntity.getId();
+         WAIFU_SEARCH_ID = "WAIFU_SEARCH_"+channelEntity.getId();
          WAIFU_FIGHT_ID = "WAIFU_FIGHT_"+channelEntity.getId();
+         WAIFU_ADD_ID = "WAIFU_ADD_"+channelEntity.getId();
          messageManager = MessageManager.getInstance(channelName);
          message = event.getMessage();
     }
 
-    public boolean tooManyWaifu(MessageEvent event){
+    public boolean tooManyWaifu(MessageEvent event, String ID){
+
         if(messageManager.isMod(channelName,userName))
         {
             return false;
         }
 
-        if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID, 30000)) {
+        if (messageManager.overLimit() || !messageManager.lock(ID, 30000)) {
             messageManager.sendMessage(event, userName + ", I can't handle that many waifu right now");
             return true;
         }else{
@@ -59,9 +64,12 @@ public class AnimeActor {
 
     public void postRandomWaifu(MessageEvent event)
     {
+        if(tooManyWaifu(event, WAIFU_ID)){
+            return;
+        }
         Waifu waifu = waifuManager.getRandomFromChannel(channelEntity.getId());
         if(waifu==null){
-            messageManager.sendMessage(event,  userName + "'s waifu is " + NOT_FOUND_IMG);
+            messageManager.sendMessage(event,  userName + "'s waifu does not exist " + NOT_FOUND_IMG);
         }else{
             WaifuThirst thirst = new WaifuThirst();
 
@@ -70,14 +78,16 @@ public class AnimeActor {
             waifuManager.updateWaifuThirst(thirst);
             waifu.setPoints(waifu.getPoints() + 1);
             waifuManager.updateWaifu(waifu);
-            messageManager.sendMessage(event, userName + "'s waifu is " + waifu.getLink());
+            messageManager.sendMessage(event, userName + "'s waifu is " +waifu.getName() + " - " + waifu.getLink());
         }
 
     }
 
 
     public void waifuSearch(MessageEvent event, String searchCriteria){
-
+        if(tooManyWaifu(event, WAIFU_SEARCH_ID)){
+            return;
+        }
         if(searchCriteria.length()<3){
             messageManager.sendMessage(event, "Are trying to start a harem, " + userName + "?");
             return;
@@ -106,8 +116,11 @@ public class AnimeActor {
     }
 
     public void waifuAdd(MessageEvent event){
+        if(tooManyWaifu(event, WAIFU_ADD_ID)){
+           return;
 
-        String regex = "\\!waifu add ?\\(([A-Za-z1-9]+)\\) ?(.{0,240})";
+        }
+        String regex = "\\!waifu add ?\\((.+)\\) ?(.{0,240})";
         if (!message.matches(regex)) {
             messageManager.sendMessage(event, userName + ", correct waifu syntax is !waifu add (NAME) LINK");
             return;
@@ -146,7 +159,7 @@ public class AnimeActor {
             for(Waifu waifu : foundWaifu)
             {
                    messageManager.sendMessage(event, waifu.getName()+" has left you for someone else");
-
+                   waifuManager.deleteWaifuById(waifu.getId());
             }
             if(foundWaifu.size()==0)
             {
@@ -161,24 +174,30 @@ public class AnimeActor {
 
     public void waifuBest(MessageEvent event)
     {
+        if(tooManyWaifu(event, WAIFU_ID)){
+            return;
+        }
         long seed = System.nanoTime();
         List<Waifu> waifuList = waifuManager.getBest(channelEntity.getId());
         if(waifuList.size()>0)
         {
             Collections.shuffle(waifuList, new Random(seed));
             Waifu waifu = waifuList.get(0);
-            messageManager.sendMessage(event, waifu.getName() + " is the one true waifu. Gaze upon her glory. " + waifu.getLink());
+            messageManager.sendMessage(event, waifu.getName() + " gets around. She has been claimed "+waifu.getPoints()+" times. " + waifu.getLink());
         }
     }
     public void waifuWorst(MessageEvent event)
     {
+        if(tooManyWaifu(event, WAIFU_ID)){
+            return;
+        }
         long seed = System.nanoTime();
         List<Waifu> waifuList = waifuManager.getWorst(channelEntity.getId());
         if(waifuList.size()>0)
         {
             Collections.shuffle(waifuList, new Random(seed));
             Waifu waifu = waifuList.get(0);
-            messageManager.sendMessage(event, waifu.getName() + " is lower than dirt. See for yourself. " + waifu.getLink());
+            messageManager.sendMessage(event, waifu.getName() + " is so pure, they have been claimed "+ waifu.getPoints() +" times. " + waifu.getLink());
 
         }
     }

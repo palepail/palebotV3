@@ -41,19 +41,19 @@ public class AnimeListener extends ListenerAdapter {
             String message = event.getMessage();
             actor.setValues(event);
 
-            if (event.getMessage().equals("!waifu") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {
+            if (event.getMessage().equals("!waifu") && !messageManager.overLimit()) {
 
                 actor.postRandomWaifu(event);
                 return;
             }
 
-            if (message.startsWith("!waifu search ") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {
+            if (message.startsWith("!waifu search ") && !messageManager.overLimit()) {
 
                 String searchCriteria = message.substring(14);
                 actor.waifuSearch(event, searchCriteria);
                 return;
             }
-            if (message.startsWith("!waifu tier add ") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {
+            if (message.startsWith("!waifu tier add ") && !messageManager.overLimit()) {
 
                 String rankMessage = message.substring(16);
                 actor.waifuAddRank(event, rankMessage);
@@ -61,18 +61,18 @@ public class AnimeListener extends ListenerAdapter {
             }
 
 
-            if (message.startsWith("!waifu add ") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {
+            if (message.startsWith("!waifu add ") && !messageManager.overLimit()) {
 
                 actor.waifuAdd(event);
                 return;
             }
 
-            if (event.getMessage().startsWith("!waifu best") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {
+            if (event.getMessage().startsWith("!waifu best") && !messageManager.overLimit()) {
                 actor.waifuBest(event);
                 return;
             }
 
-            if (event.getMessage().startsWith("!waifu worst") && !messageManager.overLimit() && !actor.tooManyWaifu(event)) {
+            if (event.getMessage().startsWith("!waifu worst") && !messageManager.overLimit()) {
                 actor.waifuWorst(event);
                 return;
             }
