@@ -129,13 +129,13 @@ public class WaifuDAO {
 
 
 
+
     public void resetFight(int channelId){
 
         String queryString = "Update palebot.Waifu Set palebot.waifu.POINTS = 0 WHERE CHANNEL_ID = :channelId";
 
         Query query = em.createNativeQuery(queryString, Waifu.class);
     }
-
     public Waifu getRandom(){
         //native query requires db names
         String queryString = "SELECT * FROM palebot.Waifu ORDER BY RAND() LIMIT 1";
@@ -150,6 +150,8 @@ public class WaifuDAO {
         }
     }
 
+
+
     public Waifu getRandomFromChannel(int channelId){
         //native query requires db names
         String queryString = "SELECT * FROM palebot.Waifu WHERE CHANNEL_ID = :channelId ORDER BY RAND() LIMIT 1";
@@ -163,6 +165,9 @@ public class WaifuDAO {
             return (Waifu) results.get(0);
         }
     }
+
+    
+
 
     public WaifuRank addRank(WaifuRank rank)
     {
