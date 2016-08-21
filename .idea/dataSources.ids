@@ -31,6 +31,7 @@
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="CHANNEL_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="ACTIVE" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="ID"/>
     </table>
     <table name="palebotadmin" schema="" catalog="palebot" type="TABLE">
@@ -64,6 +65,7 @@
       <column name="UPLOADER" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <column name="CHANNEL_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="POINTS" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="CLAIMED" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
     </table>
     <table name="waifurank" schema="" catalog="palebot" type="TABLE">

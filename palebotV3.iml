@@ -40,5 +40,12 @@
     <orderEntry type="library" name="com.google.code.gson:gson:2.3.1" level="project" />
     <orderEntry type="library" name="javax.websocket:javax.websocket-api:1.1" level="project" />
     <orderEntry type="library" name="org.hibernate:hibernate-c3p0:5.0.3.Final" level="project" />
+    <orderEntry type="library" name="hibernate-core-5.1.0.Final" level="project" />
+    <orderEntry type="library" name="hibernate-c3p0-5.0.3.Final" level="project" />
+    <orderEntry type="library" name="hibernate-commons-annotations-5.0.0.Final (2)" level="project" />
+    <orderEntry type="library" name="jboss-logging-3.3.0.Final" level="project" />
+    <orderEntry type="library" name="com.mchange:c3p0:0.9.5.2" level="project" />
+    <orderEntry type="library" name="mchange-commons-java-0.2.11" level="project" />
+    <orderEntry type="library" name="c3p0-0.9.5.2" level="project" />
   </component>
 </module>

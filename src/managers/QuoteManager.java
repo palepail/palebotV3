@@ -51,6 +51,10 @@ public class QuoteManager {
     public List<Quote> getQuoteResultsFromChannel(String searchCriteria, int channelId){
         return quoteDao.getQuoteResultsFromChannel(searchCriteria, channelId);
     }
+    public Quote getExactQuoteFromChannel(String searchCriteria, int channelId){
+        return quoteDao.getExactQuoteFromChannel(searchCriteria, channelId);
+    }
+
     public boolean addQuote(Quote quote)
     {
         return quoteDao.addQuote(quote);

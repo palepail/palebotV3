@@ -20,7 +20,7 @@ import java.util.List;
 @Path("/palebot")
 public class PalebotEndpoint {
 
-    ChannelManager channelManager = new ChannelManager();
+    ChannelManager channelManager = ChannelManager.getInstance();
     WaifuManager waifuManager = WaifuManager.getInstance();
     PalebotManager palebotManager = PalebotManager.getInstance();
     QuoteManager quoteManager = QuoteManager.getInstance();

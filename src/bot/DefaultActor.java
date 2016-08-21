@@ -6,6 +6,7 @@ import models.Channel;
 import models.CustomMessage;
 import org.pircbotx.hooks.events.MessageEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -22,7 +23,8 @@ public class DefaultActor {
     String channelName;
     String message;
     String username;
-    public void setValues(MessageEvent event){
+
+    public void setValues(MessageEvent event) {
         channelName = event.getChannel().getName();
         messageManager = MessageManager.getInstance(channelName);
         channelEntity = channelManager.getChannelByName(channelName.substring(1));
@@ -30,84 +32,78 @@ public class DefaultActor {
         username = event.getUser().getNick();
     }
 
-    private boolean isPalebotAdmin()
-    {
+    private boolean isPalebotAdmin() {
         return username.equalsIgnoreCase("palepail");
     }
 
 
-    public void palebotInfo(MessageEvent event){
+    public void palebotInfo(MessageEvent event) {
 
         messageManager.reduceMessages(1);
         event.getBot().sendIRC().message(event.getChannel().getName(), "Hi! I'm palebot.");
-        
+
     }
 
-    public void palebotBan(MessageEvent event){
+    public void palebotBan(MessageEvent event) {
         messageManager.reduceMessages(1);
-        if(isPalebotAdmin() || messageManager.isMod(channelName,username)) {
+        if (isPalebotAdmin() || messageManager.isMod(channelName, username)) {
             String offender = message.replace("!ban ", "");
             event.getBot().sendIRC().message(event.getChannel().getName(), ".ban " + offender);
-        }else {
+        } else {
             event.getBot().sendIRC().message(event.getChannel().getName(), username + ", you are not worthy enough to wield the ban hammer.");
         }
     }
 
-    public void palebotUnban(MessageEvent event){
+    public void palebotUnban(MessageEvent event) {
         messageManager.reduceMessages(1);
-        if(isPalebotAdmin() || messageManager.isMod(channelName,username)) {
+        if (isPalebotAdmin() || messageManager.isMod(channelName, username)) {
             String offender = message.replace("!unban ", "");
             event.getBot().sendIRC().message(event.getChannel().getName(), ".unban " + offender);
-        }else {
+        } else {
             event.getBot().sendIRC().message(event.getChannel().getName(), username + ", you are not worthy enough to wield the ban hammer.");
         }
     }
 
-    public void palebotTimeout(MessageEvent event){
+    public void palebotTimeout(MessageEvent event) {
         messageManager.reduceMessages(1);
-        if(isPalebotAdmin() || messageManager.isMod(channelName,username)) {
+        if (isPalebotAdmin() || messageManager.isMod(channelName, username)) {
             String[] list = message.split(" ");
-            event.getBot().sendIRC().message(event.getChannel().getName(), ".timeout " + list[1] +" " + list[2]);
-        }else {
+            event.getBot().sendIRC().message(event.getChannel().getName(), ".timeout " + list[1] + " " + list[2]);
+        } else {
             event.getBot().sendIRC().message(event.getChannel().getName(), username + ", you are not worthy enough to wield the ban hammer.");
         }
     }
 
 
-
-    public void palebotCommands(MessageEvent event){
+    public void palebotCommands(MessageEvent event) {
 
         messageManager.reduceMessages(1);
-        event.getBot().sendIRC().message(event.getChannel().getName(), "Bot commands can be found here " + commandsLink+channelName.substring(1));
+        event.getBot().sendIRC().message(event.getChannel().getName(), "Bot commands can be found here " + commandsLink + channelName.substring(1));
     }
 
-    public void  selfTimeout(MessageEvent event)
-        {
-            messageManager.reduceMessages(1);
-            messageManager.delayMessage(1500);
-            event.getBot().sendIRC().message(event.getChannel().getName(), "/timeout " + event.getUser().getNick() + " 1");
-        }
+    public void selfTimeout(MessageEvent event) {
+        messageManager.reduceMessages(1);
+        messageManager.delayMessage(1500);
+        event.getBot().sendIRC().message(event.getChannel().getName(), "/timeout " + event.getUser().getNick() + " 1");
+    }
 
-    public void deleteCustomMessage(MessageEvent event)
-    {
+    public void deleteCustomMessage(MessageEvent event) {
         String message = event.getMessage();
         String regex = "\\!custom delete ?\\(\\!([a-z1-9]+)\\)";
         if (!message.matches(regex)) {
-            messageManager.sendMessage(event, event.getUser().getNick()+ ", correct !custom delete syntax is !custom delete (!TRIGGER)");
+            messageManager.sendMessage(event, event.getUser().getNick() + ", correct !custom delete syntax is !custom delete (!TRIGGER)");
             return;
         }
 
         String trigger = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
-        if(customMessageManager.deleteTriggerFromChannel(channelEntity.getId(), trigger))
-        {
-            messageManager.sendMessage(event,"Trigger Deleted");
-        }else{
-            messageManager.sendMessage(event, "Trigger Not Found" );
+        if (customMessageManager.deleteTriggerFromChannel(channelEntity.getId(), trigger)) {
+            messageManager.sendMessage(event, "Trigger Deleted");
+        } else {
+            messageManager.sendMessage(event, "Trigger Not Found");
         }
     }
 
-    public void saveCustomMessage(MessageEvent event)
-    {
+    public void saveCustomMessage(MessageEvent event) {
         String regex = "\\!custom ?\\(\\!([A-Za-z1-9]+)\\) ?(.{0,240})";
         if (!event.getMessage().matches(regex)) {
             messageManager.sendMessage(event, event.getUser().getNick() + ", correct new custom message syntax is !custom (!TRIGGER) MESSAGE - Max message length is 240");
@@ -131,20 +127,19 @@ public class DefaultActor {
         messageManager.sendMessage(event, "Custom Message Saved");
 
     }
-    public void getAllCustomMessages(MessageEvent event){
+
+    public void getAllCustomMessages(MessageEvent event) {
         List<CustomMessage> messages = customMessageManager.getCustomMessagesByChannel(channelEntity.getId());
-        String post ="";
-        for(CustomMessage message : messages)
-        {
-            post+= message.getCustomTrigger() + " ";
+        String post = "";
+        for (CustomMessage message : messages) {
+            post += message.getCustomTrigger() + " ";
         }
 
         messageManager.sendMessage(event, post);
 
     }
 
-    public void rollDice(MessageEvent event)
-    {
+    public void rollDice(MessageEvent event) {
 
         Random rand = new Random();
         int number = rand.nextInt(5);
@@ -180,7 +175,7 @@ public class DefaultActor {
 
     }
 
-    public void customTrigger(MessageEvent event){
+    public void customTrigger(MessageEvent event) {
         List<CustomMessage> customMessages = customMessageManager.getCustomMessagesByChannel(channelEntity.getId());
         for (CustomMessage customMessage : customMessages) {
             if (event.getMessage().startsWith(customMessage.getCustomTrigger())) {
@@ -188,6 +183,28 @@ public class DefaultActor {
                 event.getBot().sendIRC().message(channelName, customMessage.getMessage());
             }
         }
+    }
+
+    public void nastyReply(MessageEvent event) {
+        ArrayList replies = new ArrayList();
+        replies.add("http://i.imgur.com/u6h34d6.jpg");
+        replies.add("http://i.imgur.com/frJBX4P.jpg");
+        replies.add("http://i.imgur.com/V7WjucC.gifv");
+        replies.add("http://i.imgur.com/V7WjucC.gifv");
+        replies.add("http://i.imgur.com/yU3a19G.png");
+        replies.add("http://i.imgur.com/sUkUsVV.gifv");
+        replies.add("http://i.imgur.com/Cc3VpL8.jpg");
+        replies.add("http://i.imgur.com/lDbp2Ct.jpg");
+        replies.add("http://i.imgur.com/TvnprUt.jpg");
+        replies.add("http://i.imgur.com/TvnprUt.jpg");
+        replies.add("http://i.imgur.com/NEfwlxV.jpg");
+
+        Random ran = new Random();
+
+
+        event.getBot().sendIRC().message(channelName, "Hey " + event.getUser().getNick() + ", I got something for you. " + replies.get(ran.nextInt(replies.size() - 1)));
+
+
     }
 
 }

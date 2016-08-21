@@ -1,35 +1,29 @@
 package bot;
 
 import managers.ChannelManager;
+import managers.ListenerManager;
 import managers.WaifuManager;
 import models.Channel;
-import models.Waifu;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
-import org.pircbotx.hooks.events.OpEvent;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by palepail on 7/31/2015.
  */
 public class WaifuListener extends ListenerAdapter {
 
-    AnimeActor actor = new AnimeActor();
+    WaifuActor actor = new WaifuActor();
     private MessageManager messageManager;
     private static WaifuManager waifuManager = new WaifuManager();
     private static ChannelManager channelManager = new ChannelManager();
+    private static ListenerManager listenerManager = new ListenerManager();
 
 
     public static final String NAME = "ANIME";
-
+    public static final String WAIFU_SLEEP_KEY = "WAIFU_SLEEP";
 
     @Override
     public void onMessage(MessageEvent event) {
-
 
 
         if (event.getMessage().startsWith("!")) {
@@ -37,13 +31,44 @@ public class WaifuListener extends ListenerAdapter {
             messageManager = MessageManager.getInstance(channelName);
             String userName = event.getUser().getNick();
             Channel channelEntity = channelManager.getChannelByName(channelName.substring(1));
-
             String message = event.getMessage();
+
+
             actor.setValues(event);
+            if (messageManager.isMod(channelName, userName)) {
+                if (event.getMessage().equals("!waifu on") && !messageManager.overLimit()) {
+                    listenerManager.setActive(channelEntity.getId(), WaifuListener.NAME, true);
+                    messageManager.sendMessage(event, "The waifu woke up");
+                    return;
+                }
+                if (event.getMessage().equals("!waifu off") && !messageManager.overLimit()) {
+                    listenerManager.setActive(channelEntity.getId(), WaifuListener.NAME, false);
+                    messageManager.sendMessage(event, "The waifu are getting ready for a nap");
+                    return;
+                }
+            }
+
+
+
+            if (!listenerManager.getActive(channelEntity.getId(), WaifuListener.NAME) && (event.getMessage().startsWith("!waifu") || message.startsWith("!yourwaifu") || message.startsWith("!mywaifu"))) {
+                if (!actor.tooManyWaifu(event, WAIFU_SLEEP_KEY, 600 * 1000)) {
+                    messageManager.sendMessage(event, "Shhhh. The waifu are sleeping.");
+                }
+                return;
+            }
 
             if (event.getMessage().equals("!waifu") && !messageManager.overLimit()) {
 
                 actor.postRandomWaifu(event);
+                return;
+            }
+            if (message.equals("!mywaifu") && !messageManager.overLimit()) {
+                actor.myWaifu(event);
+            }
+
+            if (message.startsWith("!yourwaifu") && !messageManager.overLimit()) {
+
+                actor.yourWaifu(event);
                 return;
             }
 
@@ -112,13 +137,16 @@ public class WaifuListener extends ListenerAdapter {
                 }
 
             }
+
+
         }
+
+
 
         if (event.getMessage().startsWith("1") || event.getMessage().startsWith("2")) {
             actor.waifuVote(event);
             return;
         }
-
 
 
     }

@@ -10,6 +10,7 @@ public class Listener {
     private int id;
     private String name;
     private int channelId;
+    private boolean active;
 
     @Id
     @Column(name = "ID")
@@ -20,6 +21,16 @@ public class Listener {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "ACTIVE")
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Basic

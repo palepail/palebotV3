@@ -163,6 +163,24 @@ public class WaifuManager {
         }
         return dtos;
     }
+    public Waifu getClaimed(int channelId,String userName) {
+        List<Waifu> list = waifuDAO.getWaifuByClaimed(channelId,userName);
+
+        if(list.size()>0) {
+            return list.get(0);
+        }else {
+            return null;
+        }
+
+    }
 
 
+    public void removeClaimed(int channelId,String userName) {
+        List<Waifu> list = waifuDAO.getWaifuByClaimed(channelId,userName);
+
+        for (Waifu waifu: list){
+            waifu.setClaimed(null);
+            waifuDAO.updateWaifu(waifu);
+        }
+    }
 }

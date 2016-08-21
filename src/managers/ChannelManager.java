@@ -13,9 +13,15 @@ import java.util.List;
 public class ChannelManager {
 
     static ChannelDAO channelDAO = new ChannelDAO();
+    static ChannelManager  channelManager= new ChannelManager();
     PalebotManager palebot = PalebotManager.getInstance();
     ListenerManager listenerManager = ListenerManager.getInstance();
 
+
+    public static ChannelManager getInstance(){
+
+        return channelManager;
+    }
 
     public List<ChannelDTO> getAllDTO() {
 

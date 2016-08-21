@@ -7,6 +7,7 @@ public class WaifuDTO {
     int id;
     String name;
     String uploader;
+    String claimed;
 
     public String getUploader() {
         return uploader;
@@ -31,6 +32,14 @@ public class WaifuDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getClaimed() {
+        return claimed;
+    }
+
+    public void setClaimed(String claimed) {
+        this.claimed = claimed;
     }
 
     public String getLink() {

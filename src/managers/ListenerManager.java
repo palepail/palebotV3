@@ -30,6 +30,16 @@ public class ListenerManager {
         return listenerDAO.getAll();
     }
 
+    public boolean getActive(int channelId, String name)
+    {
+
+        return listenerDAO.getActive(channelId, name);
+    }
+    public void setActive(int channelId, String name, boolean active)
+    {
+
+         listenerDAO.setActive(channelId, name, active);
+    }
     public List<ListenerAdapter> getAllByChannelID(int channelId) {
 
         List<Listener> listenerEntities = listenerDAO.getAllByChannel(channelId);
@@ -41,8 +51,8 @@ public class ListenerManager {
                     listenerAdapters.add(new DefaultListener());
                     break;
                 }
-                case AnimeListener.NAME: {
-                    listenerAdapters.add(new AnimeListener());
+                case WaifuListener.NAME: {
+                    listenerAdapters.add(new WaifuListener());
                     break;
                 }
                 case YoutubeListener.NAME: {
@@ -73,8 +83,8 @@ public class ListenerManager {
                 listenerAdapter = new DefaultListener();
                 break;
             }
-            case AnimeListener.NAME: {
-                listenerAdapter = new AnimeListener();
+            case WaifuListener.NAME: {
+                listenerAdapter = new WaifuListener();
                 break;
             }
             case YoutubeListener.NAME: {

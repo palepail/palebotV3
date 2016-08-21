@@ -48,7 +48,7 @@ public class DefaultListener extends ListenerAdapter {
 
 
             if (event.getMessage().equals("!commands") && !messageManager.overLimit()) {
-              //  actor.palebotCommands(event);
+                //  actor.palebotCommands(event);
                 return;
             }
 
@@ -66,7 +66,7 @@ public class DefaultListener extends ListenerAdapter {
 
             if (event.getMessage().startsWith("!custom all") && !messageManager.overLimit()) {
 
-                    actor.getAllCustomMessages(event);
+                actor.getAllCustomMessages(event);
 
                 return;
             }
@@ -88,6 +88,10 @@ public class DefaultListener extends ListenerAdapter {
                 actor.customTrigger(event);
                 return;
             }
+        }
+        if (event.getMessage().toLowerCase().contains("palebot") && event.getMessage().toLowerCase().contains("fuck")) {
+            actor.nastyReply(event);
+            return;
         }
 
     }

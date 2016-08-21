@@ -13,6 +13,7 @@ public class Waifu {
     private int channelId;
     private String uploader;
     private Integer points;
+    private String claimed;
 
     @Id
     @Column(name = "ID")
@@ -33,6 +34,16 @@ public class Waifu {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "CLAIMED")
+    public String getClaimed() {
+        return claimed;
+    }
+
+    public void setClaimed(String claimed) {
+        this.claimed = claimed;
     }
 
     @Basic
@@ -96,4 +107,6 @@ public class Waifu {
     public void setPoints(Integer points) {
         this.points = points;
     }
+
+
 }
