@@ -6,9 +6,7 @@ import models.Waifu;
 import models.WaifuRank;
 import models.WaifuThirst;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by palepail on 7/31/2015.
@@ -107,8 +105,65 @@ public class WaifuManager {
         return waifuDAO.getRandom();
     }
 
-    public Waifu getRandomFromChannel(int channelId) {
-        return waifuDAO.getRandomFromChannel(channelId);
+
+    public Waifu getRandomFromChannel(int channelId, String rarity) {
+        List<Waifu> waifu = waifuDAO.getWaifuByChannel(channelId);
+
+        int top3p = (int) (waifu.size()-(waifu.size()*.03));
+        int top10p = (int) (waifu.size()-(waifu.size()*.1));
+        int top30p = (int) (waifu.size()-(waifu.size()*.3));
+        int top50p = (int) (waifu.size()-(waifu.size()*.5));
+
+        switch(rarity)
+        {
+            case "SSR": waifu = waifu.subList(top3p,waifu.size());
+                break;
+            case "SR": waifu = waifu.subList(top10p,top3p);
+                break;
+            case "R": waifu = waifu.subList(top30p,top10p);
+                break;
+            case "U": waifu = waifu.subList(top50p,top30p);
+                break;
+            case "C": waifu = waifu.subList(0,top50p);
+        }
+        Collections.shuffle(waifu, new Random(System.nanoTime()));
+
+        return waifu.get(0);
+    }
+
+    public String findWaifuRarity(int waifuId,int channelId)
+    {
+        Waifu waifu = waifuDAO.getWaifuById(waifuId);
+        List<Waifu> list = waifuDAO.getWaifuByChannel(channelId);
+        int position = list.indexOf(waifu);
+
+        return findRarity(position,list.size());
+
+    }
+
+    public String findRarity(int position, int total){
+        int top3p = (int) (total-(total*.03));
+        int top10p = (int) (total-(total*.1));
+        int top30p = (int) (total-(total*.3));
+        int top50p = (int) (total-(total*.5));
+
+        String rarity;
+        if(position<top50p)
+        {
+            rarity = "C";
+
+        }else if (position < top30p)
+        {
+            rarity = "U";
+        }else if (position < top10p)
+        {
+            rarity = "R";
+        }else if (position < top3p){
+            rarity = "SR";
+        }else{
+            rarity = "SSR";
+        }
+        return rarity;
     }
 
     public Waifu addWaifu(Waifu waifu) {

@@ -20,6 +20,7 @@ public class WaifuActor {
     private static ChannelManager channelManager = new ChannelManager();
     public static HashMap<String, ArrayList> WAIFU_VOTE_MAP = new HashMap<>();
     public static HashMap<String, ArrayList> WAIFU_VOTERS_MAP = new HashMap<>();
+    private static RNGManager rng = RNGManager.getInstance();
 
     public static int BASE_TIME = 60;
     public static int TIME_RANGE = 240;
@@ -95,7 +96,7 @@ public class WaifuActor {
         Waifu waifu = waifuManager.getClaimed(channelEntity.getId(), event.getUser().getNick());
 
         if (waifu != null) {
-            messageManager.sendMessage(event, event.getUser().getNick() + "'s waifu for laifu is " + waifu.getName() + " - " + waifu.getLink());
+            messageManager.sendMessage(event, event.getUser().getNick() + "'s waifu for laifu is " + waifu.getName() +" (" + waifuManager.findWaifuRarity(waifu.getId(),channelEntity.getId()) +") - " + waifu.getLink());
 
         } else {
 
@@ -121,7 +122,8 @@ public class WaifuActor {
 
         Waifu waifu = waifuManager.getClaimed(channelEntity.getId(), message);
         if (waifu != null) {
-            messageManager.sendMessage(event, message + "'s waifu for laifu is " + waifu.getName() + " - " + waifu.getLink());
+            String rarity = waifuManager.findWaifuRarity(waifu.getId(),channelEntity.getId());
+            messageManager.sendMessage(event, message + "'s waifu for laifu is " + waifu.getName() + "("+ rarity + ") - " + waifu.getLink());
 
         } else {
 
@@ -137,7 +139,8 @@ public class WaifuActor {
         if (tooManyWaifu(event, WAIFU_ID + event.getUser().getNick(), getWaifuCooldown(event.getUser().getNick()))) {
             return;
         }
-        Waifu waifu = waifuManager.getRandomFromChannel(channelEntity.getId());
+       String rarity = rng.getRarity();
+        Waifu waifu = waifuManager.getRandomFromChannel(channelEntity.getId(), rarity);
         if (waifu == null) {
             messageManager.sendMessage(event, event.getUser().getNick() + "'s waifu does not exist " + NOT_FOUND_IMG);
         } else {
@@ -151,10 +154,10 @@ public class WaifuActor {
 
             waifuManager.removeClaimed(channelEntity.getId(), event.getUser().getNick());
             if (waifu.getClaimed() == null || waifu.getClaimed().equalsIgnoreCase(event.getUser().getNick())) {
-                messageManager.sendMessage(event, event.getUser().getNick() + "'s waifu is " + waifu.getName() + " - " + waifu.getLink());
+                messageManager.sendMessage(event, event.getUser().getNick() + "'s waifu is " + waifu.getName() + " ("+ rarity + ") - " + waifu.getLink());
             } else {
 
-                messageManager.sendMessage(event, event.getUser().getNick() + " has stolen " + waifu.getName() + " from " + waifu.getClaimed() + " - " + waifu.getLink());
+                messageManager.sendMessage(event, event.getUser().getNick() + " has stolen " + waifu.getName() + " ("+ rarity + ") from " + waifu.getClaimed() + " - " + waifu.getLink());
             }
 
             waifu.setClaimed(event.getUser().getNick());
@@ -186,8 +189,8 @@ public class WaifuActor {
             return;
         } else {
             for (Waifu currentWaifu : waifu) {
-
-                result += currentWaifu.getName() + " - " + currentWaifu.getLink() + " " + (currentWaifu.getClaimed()!= null ? " ("+currentWaifu.getClaimed()+") " : "");
+                String rarity = waifuManager.findWaifuRarity(currentWaifu.getId(),channelEntity.getId());
+                result += currentWaifu.getName() + "("+ rarity + ") - " + currentWaifu.getLink() + " " + (currentWaifu.getClaimed()!= null ? " ("+currentWaifu.getClaimed()+") " : "");
             }
             messageManager.sendMessage(event, result);
 
@@ -199,6 +202,7 @@ public class WaifuActor {
         if (tooManyWaifu(event, WAIFU_ID + event.getUser().getNick(), getWaifuCooldown(event.getUser().getNick()))) {
             return;
         }
+        int points = 1;
 
         String regex =  "\\!waifu lure (\\d{1,3}) (.{0,250})";
         if (!event.getMessage().matches(regex)) {
@@ -220,15 +224,15 @@ public class WaifuActor {
         if(thirst.getCount() > number)
         {
             waifuManager.updateWaifuThirst(thirst, -number);
-            Random random = new Random();
+
             List<Waifu> waifuList = waifuManager.getWaifuFromChannel(searchCriteria, channelEntity.getId());
-            int odds = random.nextInt(100)+1;
+            int odds = rng.getRandom(1,100);
             Waifu waifu;
             if(number < odds || waifuList.size()==0)
             {
-
-                waifu = waifuManager.getRandomFromChannel(channelEntity.getId());
-                messageManager.sendMessage(event, event.getUser().getNick() + ", "+ waifu.getName()+" became your waifu instead "+ waifu.getLink());
+                String rarity = rng.getRarity();
+                waifu = waifuManager.getRandomFromChannel(channelEntity.getId(),rarity);
+                messageManager.sendMessage(event, event.getUser().getNick() + ", "+ waifu.getName()+ " ("+rarity+") became your waifu instead -"+ waifu.getLink());
 
             }else{
                 if(waifuList.size()>1) {
@@ -236,7 +240,8 @@ public class WaifuActor {
                 }
                 waifu = waifuList.get(0);
                 if(waifu.getClaimed() == null || waifu.getClaimed().equalsIgnoreCase(event.getUser().getNick())) {
-                    messageManager.sendMessage(event, waifu.getName() + " has fallen head over heels for " + event.getUser().getNick() +". "+ waifu.getLink());
+                    messageManager.sendMessage(event, waifu.getName() + " ("+waifuManager.findWaifuRarity(waifu.getId(),channelEntity.getId())+") has fallen head over heels for " + event.getUser().getNick() +". "+ waifu.getLink());
+                    points=15;
                 }else {
 
                     messageManager.sendMessage(event, waifu.getName() + " left " +waifu.getClaimed()+" to be with "+ event.getUser().getNick() +". " + waifu.getLink() );
@@ -245,7 +250,7 @@ public class WaifuActor {
             }
             waifuManager.removeClaimed(channelEntity.getId(), event.getUser().getNick());
             waifu.setClaimed(event.getUser().getNick());
-            waifu.setPoints(waifu.getPoints() + 5);
+            waifu.setPoints(waifu.getPoints() + points);
             waifuManager.updateWaifu(waifu);
 
         } else{
@@ -426,11 +431,12 @@ public class WaifuActor {
         if (!messageManager.lock(WAIFU_FIGHT_ID, WAIFU_FIGHT_TIME)) {
             return;
         }
-        Waifu waifu1 = waifuManager.getRandomFromChannel(channelEntity.getId());
-        Waifu waifu2 = waifuManager.getRandomFromChannel(channelEntity.getId());
+        String rarity = rng.getRarity();
+        Waifu waifu1 = waifuManager.getRandomFromChannel(channelEntity.getId(),rarity);
+        Waifu waifu2 = waifuManager.getRandomFromChannel(channelEntity.getId(),rarity);
         int loopBreaker = 0;
         while (waifu1.equals(waifu2)) {
-            waifu2 = waifuManager.getRandomFromChannel(channelEntity.getId());
+            waifu2 = waifuManager.getRandomFromChannel(channelEntity.getId(),rarity);
             loopBreaker++;
             if (loopBreaker > 10) {
                 messageManager.sendMessage(event, waifu1.getName() + " stands unopposed");
@@ -488,24 +494,25 @@ public class WaifuActor {
             return;
         }
 
-        Random ran = new Random(System.nanoTime());
+
         ArrayList categories;
 
         categories = getBooruList();
 
-        BooruImage[] images =null;
+        BooruImage[] images = null;
         int retries = 0;
         while (images == null && retries < 3)
         {
-            String tag = (String) categories.get(ran.nextInt(categories.size() - 1));
+            String tag = (String) categories.get(rng.getRandom(0, categories.size()));
             images = BooruManager.getInstance().getBooruImages(tag);
             retries++;
         }
 
         if(images.length>0) {
 
-            int ranIndex = ran.nextInt(images.length);
-            BooruImage image = images[ranIndex];
+            List<BooruImage> list = Arrays.asList(images);
+            Collections.shuffle(Arrays.asList(list), new Random(System.nanoTime()));
+            BooruImage image = list.get(0);
             String longUrl = "http://danbooru.donmai.us" + image.file_url;
 
             String charName= "Original - ";
@@ -524,7 +531,7 @@ public class WaifuActor {
             return;
         }
 
-        Random ran = new Random();
+
         ArrayList categories;
 
         GelBooruImage[] images = null;
@@ -532,13 +539,13 @@ public class WaifuActor {
         categories = getGelBooruList();
         while (images == null && retries < 3)
         {
-            String tag = (String) categories.get(ran.nextInt(categories.size() - 1));
+            String tag = (String) categories.get(rng.getRandom(0, categories.size()));
             images = BooruManager.getInstance().getGelBooruImages(tag);
             retries++;
         }
 
         if(images.length>0) {
-            GelBooruImage image = images[ran.nextInt(images.length)];
+            GelBooruImage image = images[rng.getRandom(0,images.length)];
             String longUrl = image.file_url;
 
             messageManager.sendMessage(event,longUrl);
@@ -606,6 +613,5 @@ public class WaifuActor {
         replies.add("underboob");
         return replies;
     }
-
 
 }

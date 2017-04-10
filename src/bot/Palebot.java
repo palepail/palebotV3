@@ -13,6 +13,7 @@ import org.pircbotx.output.OutputIRC;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.TimerTask;
 
 /**

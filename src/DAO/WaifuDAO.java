@@ -107,10 +107,19 @@ public class WaifuDAO {
     public List<Waifu> getWaifuByChannel(int channelId) {
         EntityManager em = PersistenceManager.getInstance().getEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.channelId = :channelId");
+        Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE e.channelId = :channelId ORDER BY e.points ASC");
         List<Waifu> list = query.setParameter("channelId", channelId).getResultList();
         em.close();
         return list;
+    }
+
+    public long getCountByChannel(int channelId) {
+        EntityManager em = PersistenceManager.getInstance().getEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery("SELECT Count(e) FROM models.Waifu e WHERE e.channelId = :channelId ");
+        long count = (long) query.setParameter("channelId", channelId).getSingleResult();
+        em.close();
+        return count;
     }
 
     public List<Waifu> getWaifuByName(String name) {
@@ -216,28 +225,6 @@ public class WaifuDAO {
         }
     }
 
-
-    public Waifu getRandomFromChannel(int channelId) {
-        List<Waifu> list = getWaifuByChannel(channelId);
-
-        Collections.sort(list, new Comparator<Waifu>() {
-            public int compare(Waifu o1, Waifu o2) {
-                if (o1.getPoints() == o2.getPoints())
-                    return 0;
-                return o1.getPoints() < o2.getPoints() ? -1 : 1;
-            }
-        });
-
-
-        int pos = random.nextInt(list.size());
-
-        if (pos > list.size() * .9) {
-            pos = random.nextInt(list.size());
-        }
-
-        return list.get(pos);
-
-    }
 
 
     public WaifuRank addRank(WaifuRank rank) {

@@ -24,6 +24,7 @@ public class DefaultActor {
     String channelName;
     String message;
     String username;
+    private static RNGManager rng = RNGManager.getInstance();
 
     public void setValues(MessageEvent event) {
         channelName = event.getChannel().getName();
@@ -142,9 +143,8 @@ public class DefaultActor {
 
     public void rollDice(MessageEvent event) {
 
-        Random rand = new Random();
-        int number = rand.nextInt(6);
-        number += 1;
+
+        int number = rng.getRandom(1,6);
         String flair = "";
         switch (number) {
             case 1: {
@@ -200,11 +200,7 @@ public class DefaultActor {
         replies.add("http://i.imgur.com/TvnprUt.jpg");
         replies.add("http://i.imgur.com/NEfwlxV.jpg");
 
-
-        Random ran = new Random();
-
-
-        event.getBot().sendIRC().message(channelName, "Hey " + event.getUser().getNick() + ", I got something for you. " + replies.get(ran.nextInt(replies.size())));
+        event.getBot().sendIRC().message(channelName, "Hey " + event.getUser().getNick() + ", I got something for you. " + replies.get(rng.getRandom(0,replies.size())));
 
 
     }
