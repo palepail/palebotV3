@@ -15,6 +15,7 @@ import java.util.*;
  */
 public class WaifuActor {
     private static MessageManager messageManager;
+    private static TwitchManager twitchManager = TwitchManager.getInstance();
     private static WaifuManager waifuManager = WaifuManager.getInstance();
     private static ChannelManager channelManager = new ChannelManager();
     public static HashMap<String, ArrayList> WAIFU_VOTE_MAP = new HashMap<>();
@@ -27,39 +28,40 @@ public class WaifuActor {
     private static String WAIFU_ADD_ID;
     private static String WAIFU_FIGHT_ID;
     private static String WAIFU_SEARCH_ID;
+
+    private static int WAIFU_COOLDOWN_TIME =  5 * 60 * 1000;
+
     private static int WAIFU_FIGHT_TIME = 30000;
     private static String NOT_FOUND_IMG = "http://i.imgur.com/c5IHJC9.png";
 
     String channelName;
-    String userName;
     Channel channelEntity;
-    String message;
+
+
+
 
     public void setValues(MessageEvent event) {
         channelName = event.getChannel().getName();
 
-        userName = event.getUser().getNick();
         channelEntity = channelManager.getChannelByName(channelName.substring(1));
-
         WAIFU_ID = "WAIFU_" + channelEntity.getId();
         WAIFU_SEARCH_ID = "WAIFU_SEARCH_" + channelEntity.getId();
         WAIFU_FIGHT_ID = "WAIFU_FIGHT_" + channelEntity.getId();
         WAIFU_ADD_ID = "WAIFU_ADD_" + channelEntity.getId();
         messageManager = MessageManager.getInstance(channelName);
-        message = event.getMessage();
     }
 
 
     public boolean tooManyWaifu(MessageEvent event, String ID) {
 
-        if (messageManager.isMod(channelName, userName)) {
-            messageManager.updateMods(channelName);
+        if (twitchManager.isMod(channelName, event.getUser().getNick())) {
+            twitchManager.updateMods(channelName);
             return false;
 
         }
 
         if (messageManager.overLimit() || !messageManager.lock(ID, BASE_TIME * 1000)) {
-            messageManager.sendMessage(event, userName + ", don't be greedy.");
+            messageManager.sendMessage(event, event.getUser().getNick() + ", don't be greedy.");
             return true;
         } else {
             return false;
@@ -68,16 +70,14 @@ public class WaifuActor {
 
     public boolean tooManyWaifu(MessageEvent event, String ID, int time) {
 
-        if (messageManager.isMod(channelName, userName)) {
-            messageManager.updateMods(channelName);
+        if (twitchManager.isMod(channelName, event.getUser().getNick())) {
+            twitchManager.updateMods(channelName);
             return false;
 
         }
 
         if (messageManager.overLimit() || !messageManager.lock(ID, time)) {
-            if (Math.random() * 20 + 1 > 15) {
-                messageManager.sendMessage(event, ".emote Waifu run away from " + userName);
-            }
+                messageManager.sendMessage(event, "/w " + event.getUser().getNick() + " Remaining cooldown is "+ messageManager.getRemainingTime(ID).toString("mm:ss")+ ". Please wait" );
             return true;
         } else {
             return false;
@@ -86,21 +86,20 @@ public class WaifuActor {
 
     public void myWaifu(MessageEvent event) {
 
-        if (!messageManager.isMod(channelName, userName)) {
-            messageManager.updateMods(channelName);
-            if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID + userName, 300 * 1000)) {
-                messageManager.sendMessage(event, "No one cares, " + userName);
-                return;
-            }
+
+        if (tooManyWaifu(event, WAIFU_ID + event.getUser().getNick(), getWaifuCooldown(event.getUser().getNick()))) {
+
+            return;
         }
-        Waifu waifu = waifuManager.getClaimed(channelEntity.getId(), userName);
+
+        Waifu waifu = waifuManager.getClaimed(channelEntity.getId(), event.getUser().getNick());
 
         if (waifu != null) {
-            messageManager.sendMessage(event, userName + "'s waifu for laifu is " + waifu.getName() + " - " + waifu.getLink());
+            messageManager.sendMessage(event, event.getUser().getNick() + "'s waifu for laifu is " + waifu.getName() + " - " + waifu.getLink());
 
         } else {
 
-            messageManager.sendMessage(event, userName + " may be forever alone. BibleThump");
+            messageManager.sendMessage(event, event.getUser().getNick() + " may be forever alone. BibleThump");
         }
 
         return;
@@ -109,17 +108,13 @@ public class WaifuActor {
 
     public void yourWaifu(MessageEvent event) {
 
-        if (!messageManager.isMod(channelName, userName)) {
-            messageManager.updateMods(channelName);
-            if (messageManager.overLimit() || !messageManager.lock(WAIFU_ID + WAIFU_SEARCH_ID, 300 * 1000)) {
-                messageManager.sendMessage(event, "No one cares, " + userName);
-                return;
-            }
+        if (tooManyWaifu(event, WAIFU_ID + event.getUser().getNick(), getWaifuCooldown(event.getUser().getNick()))) {
+            return;
         }
 
-        message = message.replace("!yourwaifu","").trim();
+        String message = event.getMessage().replace("!yourwaifu","").trim();
 
-        if(message.equalsIgnoreCase(userName))
+        if(message.equalsIgnoreCase(event.getUser().getNick()))
         {
             return;
         }
@@ -138,31 +133,31 @@ public class WaifuActor {
     }
 
     public void postRandomWaifu(MessageEvent event) {
-        int time = (int) ((BASE_TIME * 1000) + ((Math.random() * TIME_RANGE + 1) * 1000));
-        if (tooManyWaifu(event, WAIFU_ID + userName, time)) {
+
+        if (tooManyWaifu(event, WAIFU_ID + event.getUser().getNick(), getWaifuCooldown(event.getUser().getNick()))) {
             return;
         }
         Waifu waifu = waifuManager.getRandomFromChannel(channelEntity.getId());
         if (waifu == null) {
-            messageManager.sendMessage(event, userName + "'s waifu does not exist " + NOT_FOUND_IMG);
+            messageManager.sendMessage(event, event.getUser().getNick() + "'s waifu does not exist " + NOT_FOUND_IMG);
         } else {
             WaifuThirst thirst = new WaifuThirst();
 
-            thirst.setUser(userName);
+            thirst.setUser(event.getUser().getNick());
             thirst.setChannelId(channelEntity.getId());
-            waifuManager.updateWaifuThirst(thirst);
+            waifuManager.updateWaifuThirst(thirst , 1);
             waifu.setPoints(waifu.getPoints() + 1);
 
 
-            waifuManager.removeClaimed(channelEntity.getId(), userName);
-            if (waifu.getClaimed() == null || waifu.getClaimed().equalsIgnoreCase(userName)) {
-                messageManager.sendMessage(event, userName + "'s waifu is " + waifu.getName() + " - " + waifu.getLink());
+            waifuManager.removeClaimed(channelEntity.getId(), event.getUser().getNick());
+            if (waifu.getClaimed() == null || waifu.getClaimed().equalsIgnoreCase(event.getUser().getNick())) {
+                messageManager.sendMessage(event, event.getUser().getNick() + "'s waifu is " + waifu.getName() + " - " + waifu.getLink());
             } else {
 
-                messageManager.sendMessage(event, userName + " has stolen " + waifu.getName() + " from " + waifu.getClaimed() + " - " + waifu.getLink());
+                messageManager.sendMessage(event, event.getUser().getNick() + " has stolen " + waifu.getName() + " from " + waifu.getClaimed() + " - " + waifu.getLink());
             }
 
-            waifu.setClaimed(userName);
+            waifu.setClaimed(event.getUser().getNick());
             waifuManager.updateWaifu(waifu);
         }
 
@@ -170,11 +165,11 @@ public class WaifuActor {
 
 
     public void waifuSearch(MessageEvent event, String searchCriteria) {
-        if (tooManyWaifu(event, WAIFU_SEARCH_ID)) {
+        if (tooManyWaifu(event, WAIFU_ID + event.getUser().getNick(), getWaifuCooldown(event.getUser().getNick()))) {
             return;
         }
         if (searchCriteria.length() < 3) {
-            messageManager.sendMessage(event, "Are trying to start a harem, " + userName + "?");
+            messageManager.sendMessage(event, "Are trying to start a harem, " + event.getUser().getNick() + "?");
             return;
         }
         List<Waifu> waifu = waifuManager.getWaifuFromChannel(searchCriteria, channelEntity.getId());
@@ -192,65 +187,140 @@ public class WaifuActor {
         } else {
             for (Waifu currentWaifu : waifu) {
 
-                result += currentWaifu.getName() + " - " + currentWaifu.getLink() + " " + (currentWaifu.getClaimed()!= null ? "("+currentWaifu.getClaimed()+")" : "");
+                result += currentWaifu.getName() + " - " + currentWaifu.getLink() + " " + (currentWaifu.getClaimed()!= null ? " ("+currentWaifu.getClaimed()+") " : "");
             }
             messageManager.sendMessage(event, result);
 
         }
     }
 
+    public void lureWaifu(MessageEvent event) {
+
+        if (tooManyWaifu(event, WAIFU_ID + event.getUser().getNick(), getWaifuCooldown(event.getUser().getNick()))) {
+            return;
+        }
+
+        String regex =  "\\!waifu lure (\\d{1,3}) (.{0,250})";
+        if (!event.getMessage().matches(regex)) {
+            messageManager.sendMessage(event, event.getUser().getNick() + ", correct waifu lure syntax is !waifu lure NUMBER QUERY");
+            return;
+        }
+       String message = event.getMessage().replace("!waifu lure", "").trim();
+        String[] split = message.split(" ");
+        int number = Integer.parseInt(split[0]);
+
+        if(number>100 || number < 1)
+        {
+            messageManager.sendMessage(event, event.getUser().getNick() + ", NUMBER must be between 1-100");
+            return;
+        }
+        String searchCriteria = split[1];
+
+        WaifuThirst thirst = waifuManager.getThirst(event.getUser().getNick(), channelEntity.getId());
+        if(thirst.getCount() > number)
+        {
+            waifuManager.updateWaifuThirst(thirst, -number);
+            Random random = new Random();
+            List<Waifu> waifuList = waifuManager.getWaifuFromChannel(searchCriteria, channelEntity.getId());
+            int odds = random.nextInt(100)+1;
+            Waifu waifu;
+            if(number < odds || waifuList.size()==0)
+            {
+
+                waifu = waifuManager.getRandomFromChannel(channelEntity.getId());
+                messageManager.sendMessage(event, event.getUser().getNick() + ", "+ waifu.getName()+" became your waifu instead "+ waifu.getLink());
+
+            }else{
+                if(waifuList.size()>1) {
+                    Collections.shuffle(waifuList, new Random(System.nanoTime()));
+                }
+                waifu = waifuList.get(0);
+                if(waifu.getClaimed() == null || waifu.getClaimed().equalsIgnoreCase(event.getUser().getNick())) {
+                    messageManager.sendMessage(event, waifu.getName() + " has fallen head over heels for " + event.getUser().getNick() +". "+ waifu.getLink());
+                }else {
+
+                    messageManager.sendMessage(event, waifu.getName() + " left " +waifu.getClaimed()+" to be with "+ event.getUser().getNick() +". " + waifu.getLink() );
+                }
+
+            }
+            waifuManager.removeClaimed(channelEntity.getId(), event.getUser().getNick());
+            waifu.setClaimed(event.getUser().getNick());
+            waifu.setPoints(waifu.getPoints() + 5);
+            waifuManager.updateWaifu(waifu);
+
+        } else{
+
+            messageManager.sendMessage(event, event.getUser().getNick() + ", you aren't thirsty enough for that.");
+
+        }
+
+
+    }
+
     public void waifuAdd(MessageEvent event) {
 
         String regex = "\\!waifu add ?\\((.+)\\) ?(.{0,240})";
-        if (!message.matches(regex)) {
-            messageManager.sendMessage(event, userName + ", correct waifu syntax is !waifu add (NAME) LINK");
+        if (!event.getMessage().matches(regex)) {
+            messageManager.sendMessage(event, event.getUser().getNick() + ", correct waifu syntax is !waifu add (NAME) LINK");
             return;
         }
 
 
-        String name = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
-        String link = message.substring(message.indexOf(")") + 2);
+        String name = event.getMessage().substring(event.getMessage().indexOf("(") + 1, event.getMessage().lastIndexOf(")"));
+        String link = event.getMessage().substring(event.getMessage().lastIndexOf(")") + 2);
         if (name.length() > 45) {
-            messageManager.sendMessage(event, userName + ", that Name is too long.");
+            messageManager.sendMessage(event, event.getUser().getNick() + ", that Name is too long.");
             return;
         }
 
         if (link.length() > 40) {
-            messageManager.sendMessage(event, userName + ", that Link is too long to comprehend");
+            messageManager.sendMessage(event, event.getUser().getNick() + ", that Link is too long to comprehend");
             return;
         }
-        if (!link.contains("imgur")) {
-            messageManager.sendMessage(event, userName + ", please use imgur. It just makes things easier");
+        if (!link.contains("imgur") ) {
+            messageManager.sendMessage(event, event.getUser().getNick() + ", please use imgur. It just makes things easier");
             return;
         }
-        Waifu waifu = new Waifu();
-        waifu.setLink(link);
-        waifu.setName(name);
-        waifu.setUploader(userName);
-        waifu.setChannelId(channelEntity.getId());
-        waifuManager.addWaifu(waifu);
-        messageManager.sendMessage(event, "Waifu Added");
+        if (link.contains("/a/") || link.contains("gallery") || link.lastIndexOf('.') < (link.length()-5)) {
+            messageManager.sendMessage(event, event.getUser().getNick() + ", please use the direct link. It just makes things easier");
+            return;
+        }
+
+        List<Waifu> check = waifuManager.getWaifuByLink(link, channelEntity.getId());
+
+        if(check==null || check.size()==0) {
+
+            Waifu waifu = new Waifu();
+            waifu.setLink(link);
+            waifu.setName(name);
+            waifu.setUploader(event.getUser().getNick());
+            waifu.setChannelId(channelEntity.getId());
+            waifuManager.addWaifu(waifu);
+            messageManager.sendMessage(event, "Waifu Added");
+        }else{
+            messageManager.sendMessage(event, "That Waifu Is already here");
+        }
 
     }
 
     public void deleteWaifu(MessageEvent event) {
 
-        if (messageManager.isMod(channelName, userName)) {
+        if (twitchManager.isMod(channelName, event.getUser().getNick())) {
 
-            String link = message.substring(12);
+            String link = event.getMessage().substring(12);
 
             List<Waifu> foundWaifu = waifuManager.getWaifuByLink(link, channelEntity.getId());
-
+            if (foundWaifu == null || foundWaifu.size() == 0) {
+                messageManager.sendMessage(event, "You never had that waifu");
+            }
             for (Waifu waifu : foundWaifu) {
                 messageManager.sendMessage(event, waifu.getName() + " has left you for someone else");
                 waifuManager.deleteWaifuById(waifu.getId());
             }
-            if (foundWaifu.size() == 0) {
-                messageManager.sendMessage(event, "You never had that waifu");
-            }
+
 
         } else {
-            messageManager.sendMessage(event, userName + ", how dare you try to slap a waifu");
+            messageManager.sendMessage(event, event.getUser().getNick() + ", how dare you try to slap a waifu");
         }
     }
 
@@ -283,7 +353,7 @@ public class WaifuActor {
 
     public void waifuThirst(MessageEvent event) {
 
-        WaifuThirst thirst = waifuManager.getThirst(userName, channelEntity.getId());
+        WaifuThirst thirst = waifuManager.getThirst(event.getUser().getNick(), channelEntity.getId());
         int tier = 0;
         int count = 0;
         if (thirst != null) {
@@ -292,11 +362,11 @@ public class WaifuActor {
         }
         WaifuRank rank = waifuManager.getRank(channelEntity.getId(), tier);
         if (rank == null) {
-            messageManager.sendMessage(event, "Tier " + tier + ": " + userName + " has " + count + " waifu");
+            messageManager.sendMessage(event, "Tier " + tier + ": " + event.getUser().getNick() + " has " + count + " waifu");
             return;
         }
 
-        String text = rank.getRank().replace("NAME", userName).replace("COUNT", Integer.toString(count));
+        String text = rank.getRank().replace("NAME", event.getUser().getNick()).replace("COUNT", Integer.toString(count));
 
         messageManager.sendMessage(event, "Tier " + tier + ": " + text);
         return;
@@ -319,8 +389,8 @@ public class WaifuActor {
         ArrayList<String> voters = WAIFU_VOTERS_MAP.get(channelName);
         ArrayList<Integer> votes = WAIFU_VOTE_MAP.get(channelName);
 
-        if (messageManager.isLocked(WAIFU_FIGHT_ID) && (!voters.contains(userName))) {
-            voters.add(userName);
+        if (messageManager.isLocked(WAIFU_FIGHT_ID) && (!voters.contains(event.getUser().getNick()))) {
+            voters.add(event.getUser().getNick());
             if (event.getMessage().startsWith("1")) {
                 votes.add(1);
             } else if (event.getMessage().startsWith("2")) {
@@ -335,13 +405,13 @@ public class WaifuActor {
     public void waifuAddRank(MessageEvent event, String trimmedMessage) {
 
         String regex = "\\!waifu tier add ?\\(([0-9]+)\\) ([A-Za-z0-9 _.,!\"'/$]+)";
-        if (!message.matches(regex)) {
-            messageManager.sendMessage(event, userName + ", correct tier syntax is !waifu tier add (NUMBER) MESSAGE");
+        if (!event.getMessage().matches(regex)) {
+            messageManager.sendMessage(event, event.getUser().getNick() + ", correct tier syntax is !waifu tier add (NUMBER) MESSAGE");
             return;
         }
         WaifuRank rank = new WaifuRank();
-        String number = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
-        String text = message.substring(message.indexOf(")") + 2);
+        String number = event.getMessage().substring(event.getMessage().indexOf("(") + 1, event.getMessage().indexOf(")"));
+        String text = event.getMessage().substring(event.getMessage().indexOf(")") + 2);
         rank.setChannelId(channelEntity.getId());
         rank.setRank(text);
         rank.setTier(Integer.parseInt(number));
@@ -352,7 +422,7 @@ public class WaifuActor {
     }
 
     public void waifuFight(MessageEvent event) {
-        messageManager.updateMods(channelName);
+        twitchManager.updateMods(channelName);
         if (!messageManager.lock(WAIFU_FIGHT_ID, WAIFU_FIGHT_TIME)) {
             return;
         }
@@ -409,6 +479,132 @@ public class WaifuActor {
         WAIFU_VOTE_MAP.get(channelName).clear();
         WAIFU_VOTERS_MAP.get(channelName).clear();
 
+    }
+
+    public void postBooru(MessageEvent event){
+
+
+        if (tooManyWaifu(event, WAIFU_ID + event.getUser().getNick(), WAIFU_COOLDOWN_TIME)) {
+            return;
+        }
+
+        Random ran = new Random(System.nanoTime());
+        ArrayList categories;
+
+        categories = getBooruList();
+
+        BooruImage[] images =null;
+        int retries = 0;
+        while (images == null && retries < 3)
+        {
+            String tag = (String) categories.get(ran.nextInt(categories.size() - 1));
+            images = BooruManager.getInstance().getBooruImages(tag);
+            retries++;
+        }
+
+        if(images.length>0) {
+
+            int ranIndex = ran.nextInt(images.length);
+            BooruImage image = images[ranIndex];
+            String longUrl = "http://danbooru.donmai.us" + image.file_url;
+
+            String charName= "Original - ";
+            if(image.tag_string_character.split(" ")[0] != null && image.tag_string_character.split(" ")[0].length() > 1) {
+             charName = image.tag_string_character.split(" ")[0] + " - ";
+            }
+            messageManager.sendMessage(event, charName + BooruManager.getInstance().getShortenedUrl(longUrl));
+        }
+
+    }
+
+    public void postGelBooru(MessageEvent event){
+
+        int time = (int) ((BASE_TIME * 1000) + ((Math.random() * TIME_RANGE + 1) * 1000));
+        if (tooManyWaifu(event, WAIFU_ID + event.getUser().getNick(), time)) {
+            return;
+        }
+
+        Random ran = new Random();
+        ArrayList categories;
+
+        GelBooruImage[] images = null;
+        int retries = 0;
+        categories = getGelBooruList();
+        while (images == null && retries < 3)
+        {
+            String tag = (String) categories.get(ran.nextInt(categories.size() - 1));
+            images = BooruManager.getInstance().getGelBooruImages(tag);
+            retries++;
+        }
+
+        if(images.length>0) {
+            GelBooruImage image = images[ran.nextInt(images.length)];
+            String longUrl = image.file_url;
+
+            messageManager.sendMessage(event,longUrl);
+        }
+    }
+
+
+    private int getWaifuCooldown(String username){
+
+//        if(twitchManager.isSubscriber(username))
+//        {
+//            return WAIFU_COOLDOWN_TIME - 1*60*1000;
+//        }
+        return WAIFU_COOLDOWN_TIME;
+    }
+    private ArrayList getBooruList(){
+
+        ArrayList replies = new ArrayList();
+        replies.add("armpits");
+        replies.add("breasts");
+        replies.add("large_breasts");
+        replies.add("bikini");
+        replies.add("small_breasts");
+        replies.add("cleavage");
+        replies.add("panties");
+        replies.add("underwear");
+        replies.add("navel");
+        replies.add("medium_breats");
+        replies.add("open_clothes");
+        replies.add("sideboob");
+        replies.add("ass");
+        replies.add("skirt_lift");
+        replies.add("hanging_breasts");
+        replies.add("huge_breasts");
+        replies.add("side-tie_panties");
+        replies.add("cat_lingerie");
+        replies.add("underwear_only");
+        replies.add("lingerie");
+
+        return replies;
+    }
+
+    private ArrayList getGelBooruList(){
+
+        ArrayList replies = new ArrayList();
+        replies.add("armpits");
+        replies.add("breasts");
+        replies.add("large_breasts");
+        replies.add("bikini");
+        replies.add("small_breasts");
+        replies.add("cleavage");
+        replies.add("thighhighs");
+        replies.add("panties");
+        replies.add("underwear");
+        replies.add("skirt");
+        replies.add("navel");
+        replies.add("bare_shoulders");
+        replies.add("sweat");
+        replies.add("open_clothes");
+        replies.add("medium_breasts");
+        replies.add("loli");
+        replies.add("restrained");
+        replies.add("huge_breasts");
+        replies.add("ass");
+        replies.add("underboob");
+        return replies;
     }
 
 

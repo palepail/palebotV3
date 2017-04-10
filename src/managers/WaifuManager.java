@@ -17,6 +17,15 @@ public class WaifuManager {
 
     static WaifuManager waifuManager = new WaifuManager();
    static WaifuDAO waifuDAO = new WaifuDAO();
+    static Boolean lock = false;
+
+    public static boolean isLocked(){
+        return lock;
+    }
+
+    public static void setLocked(Boolean set){
+        lock = set;
+    }
 
     public static  WaifuManager getInstance(){return waifuManager;};
 
@@ -30,9 +39,9 @@ public class WaifuManager {
         return createWaifuDTOs(waifuDAO.getAll());
     }
 
-    public void updateWaifuThirst(WaifuThirst thirst)
+    public void updateWaifuThirst(WaifuThirst thirst, int amount)
     {
-        waifuDAO.updateWaifuThirst(thirst);
+        waifuDAO.updateWaifuThirst(thirst, amount);
     }
 
     public WaifuThirst getThirst(String userName, int channelId)
@@ -157,6 +166,8 @@ public class WaifuManager {
             WaifuDTO dto = new WaifuDTO();
             dto.setName(waifu.getName());
             dto.setId(waifu.getId());
+            dto.setPoints(waifu.getPoints());
+            dto.setClaimed(waifu.getClaimed());
             dto.setLink(waifu.getLink());
             dto.setUploader(waifu.getUploader());
             dtos.add(dto);

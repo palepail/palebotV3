@@ -5,6 +5,7 @@ import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
 import managers.ChannelManager;
 import managers.PalebotManager;
+import org.joda.time.DateTime;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.events.ActionEvent;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -24,28 +25,32 @@ import java.util.*;
  */
 public class MessageManager {
 
+
+
     private static HashMap<String,MessageManager> messageManagerMap = new HashMap<>();
    static TwitchManager twitchManager = TwitchManager.getInstance();
 
     static final int MAX_MESSAGES = 19;
-    static ArrayList<String> lockArray = new ArrayList();
+    static HashMap<String, DateTime> lockArray = new HashMap<>();
     static int messageCount = MAX_MESSAGES;
     static Timer timer = new Timer();
     static PalebotManager palebotManager = PalebotManager.getInstance();
     static ChannelManager channelManager = new ChannelManager();
 
-    private static HashMap<String, List<String>> modList = new HashMap<>();
+
 
     public static MessageManager getInstance(String channelName) {
         if(messageManagerMap.containsKey(channelName)){
             return messageManagerMap.get(channelName);
         }else{
             MessageManager manager = new MessageManager();
-            modList.put(channelName, getMods(channelName));
+            twitchManager.updateMods(channelName);
             messageManagerMap.put(channelName, manager);
             return messageManagerMap.get(channelName);
         }
     }
+
+
 
 
     public static MessageManager getInstance(int channelId) {
@@ -62,15 +67,25 @@ public class MessageManager {
 
     }
 
+    public DateTime getRemainingTime(String id)
+    {
+        DateTime unlockTime = lockArray.get(id);
+        if(unlockTime.isAfterNow())
+        {
+            return new DateTime( unlockTime.getMillis() - DateTime.now().getMillis() );
+        }
+        return DateTime.now();
+    }
+
     public static boolean isLocked(String id){
-        if (lockArray.contains(id)) {
+        if (lockArray.containsKey(id)) {
             return true;
         }
         return false;
     }
 
     public static boolean lock(String id, int time) {
-        if (lockArray.contains(id)) {
+        if (lockArray.containsKey(id)) {
             return false;
         }
         lockAction(id, time);
@@ -85,14 +100,12 @@ public class MessageManager {
 
 
     private static void lockAction(String id, int time) {
-        lockArray.add(id);
+        lockArray.put(id, DateTime.now().plusMillis(time));
         timer.schedule(new unlockAction(id), time);
-
     }
 
     static class unlockAction extends TimerTask {
         private String id;
-
         unlockAction(String id) {
             this.id = id;
         }
@@ -141,23 +154,6 @@ public class MessageManager {
         reduceMessages(1);
         PircBotX pircBotX = palebotManager.getBotByChannelId(channelId);
         pircBotX.sendIRC().message('#'+channelManager.getChannelById(channelId).getName(), message);
-    }
-
-    public boolean isMod(String channelName,String userName){
-
-        return (userName.equalsIgnoreCase("palepail")||modList.get(channelName).contains(userName));
-    }
-
-    public void updateMods(String channelName){
-        modList.put(channelName, getMods(channelName));
-    }
-
-    public static List<String> getMods(String channelName){
-        TwitchUsers users = twitchManager.getTwitchUsers(channelName.substring(1));
-        if(users != null) {
-            return users.getChatters().getModerators();
-        }
-        return new ArrayList();
     }
 
 

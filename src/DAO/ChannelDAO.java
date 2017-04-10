@@ -11,34 +11,45 @@ import java.util.List;
  */
 public class ChannelDAO {
 
-    EntityManager em = PersistenceManager.getInstance().getEntityManager();
+
 
     public List<Channel> getAll(){
-
+        EntityManager em = PersistenceManager.getInstance().getEntityManager();
         Query query = em.createQuery("SELECT e FROM models.Channel e");
-        return query.getResultList();
+        List<Channel> list =  query.getResultList();
+        em.close();
+        return list;
     }
 
     public Channel getChannelById(int id){
-        return em.find(Channel.class, id);
+        EntityManager em = PersistenceManager.getInstance().getEntityManager();
+        Channel channel = em.find(Channel.class, id);
+        em.close();
+        return channel;
     }
     public Channel getChannelByName(String name){
-
+        EntityManager em = PersistenceManager.getInstance().getEntityManager();
         Query query = em.createQuery("SELECT e FROM models.Channel e WHERE e.name = :name");
-        if(query.setParameter("name", name ).getResultList().size()==0)
+        List<Channel> list = query.setParameter("name", name ).getResultList();
+        if(list.size()==0)
         {
+            em.close();
             return null;
         }
         else{
-            return (Channel) query.setParameter("name", name ).getSingleResult();
+            Channel channel = (Channel) query.setParameter("name", name ).getSingleResult();
+            em.close();
+            return channel;
         }
+
+
     }
 
     public Channel addChannel(Channel channel){
 
 
         if( getChannelByName(channel.getName())==null) {
-
+            EntityManager em = PersistenceManager.getInstance().getEntityManager();
             Channel newChannel = new Channel();
             newChannel.setName(channel.getName().trim());
             em.getTransaction().begin();
@@ -50,9 +61,10 @@ public class ChannelDAO {
 
     }
     public void deleteChannel(int id){
+        EntityManager em = PersistenceManager.getInstance().getEntityManager();
         em.getTransaction().begin();
         em.remove(getChannelById(id));
         em.getTransaction().commit();
-
+        em.close();
     }
 }

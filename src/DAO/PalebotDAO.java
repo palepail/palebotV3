@@ -12,11 +12,13 @@ import java.util.List;
  */
 public class PalebotDAO {
 
-    EntityManager em = PersistenceManager.getInstance().getEntityManager();
+
 
     public boolean isPalebotAdmin(String userName){
+        EntityManager em = PersistenceManager.getInstance().getEntityManager();
         Query query = em.createQuery("SELECT e FROM models.PalebotAdmin e Where e.name = :userName");
           List<PalebotAdmin> admins = query.setParameter("userName", userName).getResultList();
+        em.close();
         if (admins.size()==0)
         {
             return false;

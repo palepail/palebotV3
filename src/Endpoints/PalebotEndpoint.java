@@ -25,7 +25,7 @@ public class PalebotEndpoint {
     PalebotManager palebotManager = PalebotManager.getInstance();
     QuoteManager quoteManager = QuoteManager.getInstance();
     ListenerManager listenerManager = ListenerManager.getInstance();
-
+    TwitchManager twitchManager = TwitchManager.getInstance();
 
 
     @GET
@@ -66,6 +66,13 @@ public class PalebotEndpoint {
     @Produces("application/json")
     public boolean isPalebotAdmin(@QueryParam("userName") String userName){
         return palebotManager.isPalebotAdmin(userName);
+    }
+
+    @GET
+    @Path("/isChannelAdmin")
+    @Produces("application/json")
+    public boolean isChannelAdmin(@QueryParam("userName") String userName, @QueryParam("channelName") String channelName){
+        return twitchManager.isMod(userName, channelName);
     }
 
     @GET

@@ -19,7 +19,7 @@ public class WaifuDAO {
 
 
 
-    public void updateWaifuThirst(WaifuThirst thirst) {
+    public void updateWaifuThirst(WaifuThirst thirst, int amount) {
         EntityManager em = PersistenceManager.getInstance().getEntityManager();
         em.getTransaction().begin();
         Query query = em.createQuery("SELECT e FROM models.WaifuThirst e WHERE  e.channelId = :channelId and e.user = :user");
@@ -32,12 +32,14 @@ public class WaifuDAO {
             em.persist(newThirst);
         } else {
             WaifuThirst existingThirst = waifuThirst.get(0);
-            existingThirst.setCount(existingThirst.getCount() + 1);
+            existingThirst.setCount(existingThirst.getCount() + amount);
         }
 
         em.getTransaction().commit();
         em.close();
     }
+
+
 
     public WaifuThirst getThirst(String userName, int channelId)
     {
@@ -133,8 +135,15 @@ public class WaifuDAO {
     public List<Waifu> getWaifuByNameFromChannel(String name, int channelId) {
         EntityManager em = PersistenceManager.getInstance().getEntityManager();
         em.getTransaction().begin();
+
+        String parameter = "%" + name.trim() + "%";
+        if (name.length()<5)
+        {
+            parameter = name.trim() + "%";
+        }
+
         Query query = em.createQuery("SELECT e FROM models.Waifu e WHERE UPPER(e.name) like UPPER(:name) AND e.channelId = :channelId ");
-        List<Waifu> list = query.setParameter("channelId", channelId).setParameter("name", "%" + name.trim() + "%").getResultList();
+        List<Waifu> list = query.setParameter("channelId", channelId).setParameter("name", parameter).getResultList();
         em.close();
         return list;
     }
@@ -222,7 +231,7 @@ public class WaifuDAO {
 
         int pos = random.nextInt(list.size());
 
-        if (pos > list.size() * .75) {
+        if (pos > list.size() * .9) {
             pos = random.nextInt(list.size());
         }
 

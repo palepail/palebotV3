@@ -17,6 +17,7 @@ public class QuoteActor {
 
 
     private static MessageManager messageManager;
+    private static TwitchManager twitchManager = TwitchManager.getInstance();
     private static QuoteManager quoteManager = QuoteManager.getInstance();
     private static ChannelManager channelManager = new ChannelManager();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -42,7 +43,7 @@ public class QuoteActor {
 
     public boolean tooManyQuotes(MessageEvent event) {
         if (messageManager.overLimit() || !messageManager.lock(QUOTE_ID, 10000)) {
-            messageManager.sendMessage(event, userName + ", hold your horses.");
+            messageManager.sendMessage(event, "/w " + event.getUser().getNick() + " Remaining cooldown is "+ messageManager.getRemainingTime(QUOTE_ID).toString("mm:ss")+ ". Please wait" );
             return true;
         } else {
             return false;
@@ -171,13 +172,18 @@ public class QuoteActor {
     }
 
     public void quoteAdd(MessageEvent event) {
-
+        String regex = "\\!quote add ?\\((.+)\\) ?(.{0,240})";
+        String dateRegex = ".* (\\d{4}).*";
+        if(!event.getMessage().matches(regex))
+        {
+            messageManager.sendMessage(event, userName + ", correct quote syntax is !" + command + " add (NAME) quote");
+            return;
+        }
 
         if (message.contains("!quote add ")) {
             message = message.replace("!quote add ", "");
             command = "quote";
         }
-
 
         if (message.indexOf("(") == -1 || message.indexOf(")") == -1 || message.substring(message.indexOf(")") + 1).isEmpty()) {
             messageManager.sendMessage(event, userName + ", correct quote syntax is !" + command + " add (NAME) quote");
@@ -190,6 +196,13 @@ public class QuoteActor {
 
         String name = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
         String quote = message.substring(message.indexOf(")") + 2);
+        String date = message.substring(message.lastIndexOf("-")+1);
+        if (name.matches(dateRegex) || quote.matches(dateRegex)|| date.matches(dateRegex))
+        {
+            messageManager.sendMessage(event, userName + ", palebot will handle the date");
+            return;
+        }
+
         Quote quoteObject = new Quote();
         quoteObject.setAuthor(userName);
         quoteObject.setChannelId(channelEntity.getId());
@@ -203,7 +216,7 @@ public class QuoteActor {
 
 
     public void deleteQuote(MessageEvent event) {
-        if (messageManager.isMod(channelName, userName)) {
+        if (twitchManager.isMod(channelName, userName)) {
 
             if (message.contains("!quote delete ")) {
                 message = message.replace("!quote delete ", "");

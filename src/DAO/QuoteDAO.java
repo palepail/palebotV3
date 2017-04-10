@@ -48,10 +48,13 @@ public class QuoteDAO {
     public Quote getQuoteByIdFromChannel(int quoteId, int channelId) {
         EntityManager em = PersistenceManager.getInstance().getEntityManager();
 
-        Query query = em.createQuery("SELECT e FROM models.Quote e WHERE e.id = :quoteId AND e.channelId = :channelId");
+        Query query = em.createQuery("SELECT e FROM models.Quote e WHERE e.id = :quoteId AND e.channelId = :channelId AND e.active = true");
         List<Quote> list = query.setParameter("quoteId", quoteId).setParameter("channelId", channelId).getResultList();
         em.close();
-        return list.get(0);
+        if(list.size()>0) {
+            return list.get(0);
+        }
+        return null;
     }
 
     public List<Quote> getQuotesFromChannel(int channelId) {

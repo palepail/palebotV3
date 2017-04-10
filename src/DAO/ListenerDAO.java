@@ -37,8 +37,9 @@ public class ListenerDAO {
     public List<Listener> getAll() {
         EntityManager em = PersistenceManager.getInstance().getEntityManager();
         Query query = em.createQuery(" FROM models.Listener Group By (name)");
+        List<Listener> list = query.getResultList();
         em.close();
-        return query.getResultList();
+        return list;
     }
 
     public boolean addListenerToChannel(int channelId, String listenerName) {

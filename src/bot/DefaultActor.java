@@ -18,6 +18,7 @@ public class DefaultActor {
     MessageManager messageManager;
     ChannelManager channelManager = new ChannelManager();
     CustomMessageManager customMessageManager = new CustomMessageManager();
+    private static TwitchManager twitchManager = TwitchManager.getInstance();
     String commandsLink = "palepail.com/#/palebot/commands/";
     Channel channelEntity;
     String channelName;
@@ -46,7 +47,7 @@ public class DefaultActor {
 
     public void palebotBan(MessageEvent event) {
         messageManager.reduceMessages(1);
-        if (isPalebotAdmin() || messageManager.isMod(channelName, username)) {
+        if (isPalebotAdmin() || twitchManager.isMod(channelName, username)) {
             String offender = message.replace("!ban ", "");
             event.getBot().sendIRC().message(event.getChannel().getName(), ".ban " + offender);
         } else {
@@ -56,7 +57,7 @@ public class DefaultActor {
 
     public void palebotUnban(MessageEvent event) {
         messageManager.reduceMessages(1);
-        if (isPalebotAdmin() || messageManager.isMod(channelName, username)) {
+        if (isPalebotAdmin() || twitchManager.isMod(channelName, username)) {
             String offender = message.replace("!unban ", "");
             event.getBot().sendIRC().message(event.getChannel().getName(), ".unban " + offender);
         } else {
@@ -66,7 +67,7 @@ public class DefaultActor {
 
     public void palebotTimeout(MessageEvent event) {
         messageManager.reduceMessages(1);
-        if (isPalebotAdmin() || messageManager.isMod(channelName, username)) {
+        if (isPalebotAdmin() || twitchManager.isMod(channelName, username)) {
             String[] list = message.split(" ");
             event.getBot().sendIRC().message(event.getChannel().getName(), ".timeout " + list[1] + " " + list[2]);
         } else {
@@ -109,12 +110,12 @@ public class DefaultActor {
             messageManager.sendMessage(event, event.getUser().getNick() + ", correct new custom message syntax is !custom (!TRIGGER) MESSAGE - Max message length is 240");
             return;
         }
-        String trigger = message.substring(message.indexOf("(") + 1, message.indexOf(")"));
-        String customMessage = message.substring(message.indexOf(")") + 2);
+        String trigger = message.substring(message.indexOf("(") + 1, message.indexOf(")")).trim();
+        String customMessage = message.substring(message.indexOf(")") + 2).trim();
 
 
         CustomMessage custom = new CustomMessage();
-        if (customMessage.indexOf("-mod") != -1) {
+        if (customMessage.indexOf("-mod") > 0) {
             customMessage = customMessage.replace("-mod", "");
             custom.setRestriction(1);
         }
@@ -142,7 +143,7 @@ public class DefaultActor {
     public void rollDice(MessageEvent event) {
 
         Random rand = new Random();
-        int number = rand.nextInt(5);
+        int number = rand.nextInt(6);
         number += 1;
         String flair = "";
         switch (number) {
@@ -178,7 +179,7 @@ public class DefaultActor {
     public void customTrigger(MessageEvent event) {
         List<CustomMessage> customMessages = customMessageManager.getCustomMessagesByChannel(channelEntity.getId());
         for (CustomMessage customMessage : customMessages) {
-            if (event.getMessage().startsWith(customMessage.getCustomTrigger())) {
+            if (event.getMessage().toUpperCase().startsWith(customMessage.getCustomTrigger().toUpperCase())) {
                 messageManager.reduceMessages(1);
                 event.getBot().sendIRC().message(channelName, customMessage.getMessage());
             }
@@ -199,10 +200,11 @@ public class DefaultActor {
         replies.add("http://i.imgur.com/TvnprUt.jpg");
         replies.add("http://i.imgur.com/NEfwlxV.jpg");
 
+
         Random ran = new Random();
 
 
-        event.getBot().sendIRC().message(channelName, "Hey " + event.getUser().getNick() + ", I got something for you. " + replies.get(ran.nextInt(replies.size() - 1)));
+        event.getBot().sendIRC().message(channelName, "Hey " + event.getUser().getNick() + ", I got something for you. " + replies.get(ran.nextInt(replies.size())));
 
 
     }

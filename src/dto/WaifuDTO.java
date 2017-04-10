@@ -8,9 +8,14 @@ public class WaifuDTO {
     String name;
     String uploader;
     String claimed;
+    int points;
 
     public String getUploader() {
         return uploader;
+    }
+
+    public int getPoints() {
+        return points;
     }
 
     public void setUploader(String uploader) {
@@ -32,6 +37,10 @@ public class WaifuDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public String getClaimed() {

@@ -47,5 +47,9 @@
     <orderEntry type="library" name="com.mchange:c3p0:0.9.5.2" level="project" />
     <orderEntry type="library" name="mchange-commons-java-0.2.11" level="project" />
     <orderEntry type="library" name="c3p0-0.9.5.2" level="project" />
+    <orderEntry type="library" name="httpclient-4.5.2" level="project" />
+    <orderEntry type="library" name="httpcore-4.4.5" level="project" />
+    <orderEntry type="library" name="br.com.caelum.vraptor:vraptor-jodatime:4.0.0.Final" level="project" />
+    <orderEntry type="library" name="joda-time-2.3" level="project" />
   </component>
 </module>

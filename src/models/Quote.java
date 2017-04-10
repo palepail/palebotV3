@@ -14,6 +14,7 @@ public class Quote {
     private String quotee;
     private String author;
     private Integer channelId;
+    private Boolean active;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,13 +28,23 @@ public class Quote {
     }
 
     @Basic
-    @Column(name = "QUOTE")
-    public String getQuote() {
+      @Column(name = "QUOTE")
+      public String getQuote() {
         return quote;
     }
 
     public void setQuote(String quote) {
         this.quote = quote;
+       }
+
+    @Basic
+    @Column(name = "ACTIVE", nullable = false, columnDefinition = "BIT default 1")
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @Basic

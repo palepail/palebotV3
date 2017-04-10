@@ -16,6 +16,7 @@ public class SpamBotActor {
 
 
     private static MessageManager messageManager ;
+    private static TwitchManager twitchManager = TwitchManager.getInstance();
     private static SpamManager spamManager = SpamManager.getInstance();
     private static ChannelManager channelManager = new ChannelManager();
 
@@ -37,7 +38,7 @@ public class SpamBotActor {
 
     public void addSpam(MessageEvent event){
 
-        if (messageManager.isMod(channelName,userName)) {
+        if (twitchManager.isMod(channelName, userName)) {
             String regex = "!spam add \\(.+\\)";
 
 

@@ -16,6 +16,7 @@ import java.util.Random;
 public class DefaultListener extends ListenerAdapter {
     MessageManager messageManager;
     DefaultActor actor = new DefaultActor();
+    private static TwitchManager twitchManager = TwitchManager.getInstance();
     public static final String NAME = "DEFAULT";
 
     @Override
@@ -48,7 +49,7 @@ public class DefaultListener extends ListenerAdapter {
 
 
             if (event.getMessage().equals("!commands") && !messageManager.overLimit()) {
-                //  actor.palebotCommands(event);
+                  actor.palebotCommands(event);
                 return;
             }
 
@@ -58,7 +59,7 @@ public class DefaultListener extends ListenerAdapter {
             }
 
             if (event.getMessage().startsWith("!custom delete") && !messageManager.overLimit()) {
-                if (messageManager.isMod(event.getChannel().getName(), event.getUser().getNick())) {
+                if (twitchManager.isMod(event.getChannel().getName(), event.getUser().getNick())) {
                     actor.deleteCustomMessage(event);
                 }
                 return;
@@ -72,7 +73,7 @@ public class DefaultListener extends ListenerAdapter {
             }
 
             if (event.getMessage().startsWith("!custom") && !messageManager.overLimit()) {
-                if (messageManager.isMod(event.getChannel().getName(), event.getUser().getNick())) {
+                if (twitchManager.isMod(event.getChannel().getName(), event.getUser().getNick())) {
                     actor.saveCustomMessage(event);
                 }
                 return;

@@ -14,6 +14,7 @@ public class WaifuListener extends ListenerAdapter {
 
     WaifuActor actor = new WaifuActor();
     private MessageManager messageManager;
+    private static TwitchManager twitchManager = TwitchManager.getInstance();
     private static WaifuManager waifuManager = new WaifuManager();
     private static ChannelManager channelManager = new ChannelManager();
     private static ListenerManager listenerManager = new ListenerManager();
@@ -21,6 +22,7 @@ public class WaifuListener extends ListenerAdapter {
 
     public static final String NAME = "ANIME";
     public static final String WAIFU_SLEEP_KEY = "WAIFU_SLEEP";
+
 
     @Override
     public void onMessage(MessageEvent event) {
@@ -34,8 +36,12 @@ public class WaifuListener extends ListenerAdapter {
             String message = event.getMessage();
 
 
+
             actor.setValues(event);
-            if (messageManager.isMod(channelName, userName)) {
+
+
+
+            if (twitchManager.isMod(channelName, userName)) {
                 if (event.getMessage().equals("!waifu on") && !messageManager.overLimit()) {
                     listenerManager.setActive(channelEntity.getId(), WaifuListener.NAME, true);
                     messageManager.sendMessage(event, "The waifu woke up");
@@ -50,32 +56,58 @@ public class WaifuListener extends ListenerAdapter {
 
 
 
-            if (!listenerManager.getActive(channelEntity.getId(), WaifuListener.NAME) && (event.getMessage().startsWith("!waifu") || message.startsWith("!yourwaifu") || message.startsWith("!mywaifu"))) {
+            if (!listenerManager.getActive(channelEntity.getId(), WaifuListener.NAME) && (event.getMessage().startsWith("!waifu") || message.startsWith("!yourwaifu") || message.startsWith("!mywaifu") || message.startsWith("!booru") )) {
                 if (!actor.tooManyWaifu(event, WAIFU_SLEEP_KEY, 600 * 1000)) {
                     messageManager.sendMessage(event, "Shhhh. The waifu are sleeping.");
                 }
                 return;
             }
 
+            if(waifuManager.isLocked())
+            {
+                return;
+            }
             if (event.getMessage().equals("!waifu") && !messageManager.overLimit()) {
-
+                waifuManager.setLocked(true);
                 actor.postRandomWaifu(event);
+                waifuManager.setLocked(false);
                 return;
             }
             if (message.equals("!mywaifu") && !messageManager.overLimit()) {
+                waifuManager.setLocked(true);
                 actor.myWaifu(event);
+                waifuManager.setLocked(false);
             }
 
             if (message.startsWith("!yourwaifu") && !messageManager.overLimit()) {
-
+                waifuManager.setLocked(true);
                 actor.yourWaifu(event);
+                waifuManager.setLocked(false);
                 return;
             }
 
-            if (message.startsWith("!waifu search ") && !messageManager.overLimit()) {
+            if (message.startsWith("!waifu lure") && !messageManager.overLimit()) {
+                waifuManager.setLocked(true);
+                actor.lureWaifu(event);
+                waifuManager.setLocked(false);
+                return;
+            }
 
+            if(event.getMessage().equals("!waifu booru"))
+            {
+                waifuManager.setLocked(true);
+                actor.postBooru(event);
+                waifuManager.setLocked(false);
+                return;
+            }
+
+
+
+            if (message.startsWith("!waifu search ") && !messageManager.overLimit()) {
+                waifuManager.setLocked(true);
                 String searchCriteria = message.substring(14);
                 actor.waifuSearch(event, searchCriteria);
+                waifuManager.setLocked(false);
                 return;
             }
             if (message.startsWith("!waifu tier add ") && !messageManager.overLimit()) {
@@ -87,8 +119,9 @@ public class WaifuListener extends ListenerAdapter {
 
 
             if (message.startsWith("!waifu add ") && !messageManager.overLimit()) {
-
+                waifuManager.setLocked(true);
                 actor.waifuAdd(event);
+                waifuManager.setLocked(false);
                 return;
             }
 
@@ -121,13 +154,13 @@ public class WaifuListener extends ListenerAdapter {
 
 
             if (event.getMessage().equals("!waifu fight reset")) {
-                if (messageManager.isMod(channelName, userName)) {
+                if (twitchManager.isMod(channelName, userName)) {
                     waifuManager.resetFight(channelEntity.getId());
                 }
             }
 
             if (event.getMessage().equals("!waifu fight") && !messageManager.overLimit()) {
-                if (messageManager.isMod(channelName, userName)) {
+                if (twitchManager.isMod(channelName, userName)) {
 
                     actor.waifuFight(event);
                 } else {
@@ -137,6 +170,7 @@ public class WaifuListener extends ListenerAdapter {
                 }
 
             }
+
 
 
         }
